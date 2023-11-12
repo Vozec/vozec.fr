@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hacking on Vozec&#39;s Blog</title>
+    <link>https://vozec.fr/tags/hacking/</link>
+    <description>Recent content in hacking on Vozec&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Nov 2021 12:00:00 +0000</lastBuildDate><atom:link href="https://vozec.fr/tags/hacking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Comment contourner le SSL Pinning sur android</title>
+      <link>https://vozec.fr/articles/contourner-le-ssl-pinning-sur-android/</link>
+      <pubDate>Thu, 04 Nov 2021 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/articles/contourner-le-ssl-pinning-sur-android/</guid>
+      <description>Introduction Pour un projet personnel, j&amp;rsquo;ai dû récupérer une requête provenant d&amp;rsquo;une application de mon téléphone. Après de nombreuses recherches j&amp;rsquo;ai trouvé comment faire et j&amp;rsquo;ai compris toutes les méthodes pour y parvenir. La principale difficulté pour récupérer le traffic réseau de votre téléphone est de déchiffré les requêtes https.
+HttpS , c&amp;rsquo;est quoi ? &amp;ldquo;HyperText Transfer Protocol Secure&amp;rdquo; est un Protocol qui succède à l&amp;rsquo;http . En effet il reprend l&amp;rsquo;http en y rajoutant une couche de chiffrement comme SSL ou TLS .</description>
+    </item>
+    
+    <item>
+      <title>Pourquoi votre wifi est-il vulnérable</title>
+      <link>https://vozec.fr/articles/pourquoi-votre-wifi-est-vuln%C3%A9rable/</link>
+      <pubDate>Tue, 26 Oct 2021 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/articles/pourquoi-votre-wifi-est-vuln%C3%A9rable/</guid>
+      <description>Introduction Je rappelle que le piratage d&amp;rsquo;un réseau dont vous n&amp;rsquo;êtes pas le propriétaire ou dont vous n&amp;rsquo;avez pas d&amp;rsquo;accord est strictement illégal. Je ne serais pas responsable des actions que vous ferrez après la lecture des cet article
+La sécurité WPA2 (Wi-Fi Protected Access Version 2) est la sécurité la plus courante sur vos routeurs personnels. C&amp;rsquo;est à dire sur votre box internet personnelle. Il est pris en charge depuis 2005 sur Windows XP et il est encore utilisé de nos jours.</description>
+    </item>
+    
+  </channel>
+</rss>

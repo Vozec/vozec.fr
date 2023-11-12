@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.ico">
+
+  <title>
+    Oracle Tranquille 1&amp;2 | hackademint CTF 2022 | Catégorie Crypto | [Vozec/FR] - Vozec&#39;s Blog
+  </title>
+
+  <meta name="description" content="Oracle Tranquille | Hackademint 2022" />
+  <meta name="keywords" content="tuto,cryptography,howto,ctf,factor master,ctftime,tjctf,crypto,master,factor,vozec,electro" />
+  <meta name="generator" content="Hugo 0.105.0">
+
+  <link rel="stylesheet" href="https://vozec.fr/css/main.css" />
+
+  
+  
+
+  <meta property="og:title" content="Oracle Tranquille 1&amp;2 | hackademint CTF 2022 | Catégorie Crypto | [Vozec/FR]" />
+<meta property="og:description" content="Oracle Tranquille | Hackademint 2022" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vozec.fr/writeups/oracle-rsa-hackademint/" /><meta property="og:image" content="https://vozec.fr/vozec.png"/><meta property="article:section" content="writeups" />
+<meta property="article:published_time" content="2022-09-19T12:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-19T12:00:00+00:00" />
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vozec.fr/vozec.png"/>
+
+<meta name="twitter:title" content="Oracle Tranquille 1&amp;2 | hackademint CTF 2022 | Catégorie Crypto | [Vozec/FR]"/>
+<meta name="twitter:description" content="Oracle Tranquille | Hackademint 2022"/>
+
+
+  <meta itemprop="name" content="Oracle Tranquille 1&amp;2 | hackademint CTF 2022 | Catégorie Crypto | [Vozec/FR]">
+<meta itemprop="description" content="Oracle Tranquille | Hackademint 2022"><meta itemprop="datePublished" content="2022-09-19T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-19T12:00:00+00:00" />
+<meta itemprop="wordCount" content="672"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="pwn,tuto,writeup," />
+
+  <meta itemprop="name" content="Oracle Tranquille 1&amp;2 | hackademint CTF 2022 | Catégorie Crypto | [Vozec/FR]">
+<meta itemprop="description" content="Oracle Tranquille | Hackademint 2022"><meta itemprop="datePublished" content="2022-09-19T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-19T12:00:00+00:00" />
+<meta itemprop="wordCount" content="672"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="pwn,tuto,writeup," />
+</head><body class="flex relative h-full min-h-screen"><aside
+  class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:w-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar">
+  <p class="font-bold mb-5 flex items-center gap-2">
+    <button aria-label="Close sidebar"
+      class="md:hidden menu-trigger-close p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg></button>
+    <a href="https://vozec.fr/" class="px-2">
+      <span>Vozec&#39;s Blog</span>
+    </a>
+    <button aria-label="Toggle dark mode"
+      class="dark-mode-toggle p-2 rounded border dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <circle cx="12" cy="12" r="4" />
+  <path d="M3 12h1M12 3v1M20 12h1M12 20v1M5.6 5.6l.7 .7M18.4 5.6l-.7 .7M17.7 17.7l.7 .7M6.3 17.7l-.7 .7" />
+</svg></button>
+  </p>
+
+  
+  <ul class="list-none flex flex-col gap-1">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/" >
+        <span>Home</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>C͟o͟n͟t͟e͟n͟t͟ ✒️</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles" >
+        <span> 〰️ Articles</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/writeups" >
+        <span> 〰️ Writeups</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>F͟r͟o͟m͟ 0 T͟o͟ C͟r͟y͟p͟t͟o͟ 🔐</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-rsa" >
+        <span> 〰️ Rsa Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-aes" >
+        <span> 〰️ Aes Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-other" >
+        <span> 〰️ Other Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>A͟b͟o͟u͟t͟ M͟e͟👀</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/contact" >
+        <span> 〰️ Contact Me</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://flag-poisoning.fr"  target="_blank"
+        rel="noopener" >
+        <span> 〰️ My Ctf Team </span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+
+  <div class="flex-1"></div>
+
+  
+
+  <ul class="list-none flex flex-wrap justify-center gap-1 pt-2 border-t border-slate-200 dark:border-slate-600">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://twitter.com/Vozec1" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Twitter</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://github.com/Vozec" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">GitHub</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.linkedin.com/in/arthur-deloffre-844b7a221/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">LinkedIn</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect x="2" y="9" width="4" height="12" />
+  <circle cx="4" cy="4" r="2" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="mailto:arthursd444@gmail.com" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Email</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.instagram.com/arthur_dlfr/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Instagram</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+</aside>
+
+<div
+  class="fixed bg-slate-700 bg-opacity-5 transition duration-200 ease-in-out inset-0 z-10 pointer-events-auto md:hidden left-0 top-0 w-full h-full hidden menu-overlay">
+</div>
+
+<button aria-label="Toggle Sidebar"
+  class="md:hidden absolute top-3 left-3 z-10 menu-trigger p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-100"><svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="4" y1="6" x2="20" y2="6" />
+  <line x1="4" y1="12" x2="20" y2="12" />
+  <line x1="4" y1="18" x2="16" y2="18" />
+</svg></button>
+<div class="flex-1">
+
+
+
+
+<div class="flex max-h-screen relative overflow-y-auto h-full">
+  
+  <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg dark:prose-invert h-fit prose-img:mx-auto">
+    
+    <a href="https://vozec.fr/writeups/" class="!no-underline !text-slate-500 !mb-2 !inline-block !font-normal !text-sm hover:!text-slate-700 dark:hover:!text-slate-400">← Back to list</a>
+
+    
+    <h1 class="!mb-2">Oracle Tranquille 1&amp;2 | hackademint CTF 2022 | Catégorie Crypto | [Vozec/FR]</h1>
+    
+    <p class="text-sm text-slate-500 !mb-8">September 19, 2022</p>
+    
+
+    
+
+    <h1 id="oracle-tranquille-12--hackademint-2022">Oracle Tranquille 1&amp;2 | Hackademint 2022</h1>
+<h2 id="nécessaires">Nécessaires</h2>
+<ul>
+<li>Python3 + Pwntools</li>
+</ul>
+<h2 id="descriptions-">Descriptions :</h2>
+<ul>
+<li>Challenge <em>1</em> :</li>
+</ul>
+<pre tabindex="0"><code>Nous avons trouvé un étrange service ouvert sur un de nos services hier. Complot des Illuminati? Prise de pouvoir des machines ? Opération marketing pour la sortie du prochain album de Justin Bieber ? Simple Oracle de déchiffrement RSA? Difficile de trancher. Pourriez-vous y jeter un coup d&#39;œil?
+</code></pre><ul>
+<li>Challenge <em>2</em> :</li>
+</ul>
+<pre tabindex="0"><code>Le serveur semble avoir évolué depuis votre dernière enquête ! Évolution spontanée des IAs? Rayons cosmiques ayant modifié le code? Mise à jour en prod faite par le stagiaire ? Début d&#39;une révolution marxiste ? Rien n&#39;est moins sûr. Pourriez-vous allez enquêter ?
+</code></pre><h2 id="flag">Flag</h2>
+<pre tabindex="0"><code>Star{L3s_0r4cl3s_RSA_s0n7_si_fr4g1l35_uWu}
+Star{L3_m0dul3_357_t0uj0ur5_7r0uv4bl3_oWo}
+</code></pre><h2 id="solution-détaillée">Solution détaillée</h2>
+<p>Ce challenge est un classique dans les challenges de CTF basé sur le chiffrement RSA .<br>
+C&rsquo;est un <code>Oracle de déchiffrement</code>.<br>
+L&rsquo;idée est simple, on nous donne le <code>Flag</code> chiffré avec <strong>plus ou moins</strong> d&rsquo;indications sur  les paramètres de clés et on doit se débrouiller pour le déchiffrer.</p>
+<h2 id="challenge-1">Challenge 1:</h2>
+<p>La première étape est évidemment de se connecter avec <code>netcat</code> :<br>
+<img src="./img/nc1.png" alt="Alt text"></p>
+<p>On nous donne ici:</p>
+<ul>
+<li><code>c</code></li>
+<li><code>e</code></li>
+<li><code>n</code></li>
+</ul>
+<p>Si on tente de déchiffrer le flag chiffré directement, on nous renvoie :
+<code>Je refuse de répondre à ceci</code></p>
+<p>On va devoir tricker !</p>
+<h4 id="idée-1">Idée 1:</h4>
+<p><em>On sait que</em> : <code>c = m**e % n</code><br>
+On peut donc utiliser le <code>%n</code> pour contourner la restriction :<br>
+Si on envoie : <code>(c+n)</code> , on retrouvera donc la valeur de <code>c</code> .<br>
+Malheureusement, cette idée est bloquée =&gt; <code>Je refuse de répondre à ceci</code></p>
+<h4 id="idée-2">Idée 2:</h4>
+<p><em>On sait que</em> le chiffrement RSA est <code>Homomorphique</code> .
+Ainsi, on peut déchiffrer :</p>
+<ul>
+<li><code>-c</code></li>
+<li><code>-1</code><br>
+<em>Multiplier</em> les résultats entre eux et ainsi obtenir le <strong>flag</strong> en appliquant <code>le modulo n</code>.</li>
+</ul>
+<p>On code rapidement :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> pwn <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> factordb.factordb <span style="color:#ff79c6">import</span> FactorDB
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> Crypto.Util.number <span style="color:#ff79c6">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#ff79c6">.</span>log_level <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;critical&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Get_proc</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> remote(<span style="color:#f1fa8c">&#39;challenges.hackademint.org&#39;</span>,<span style="color:#bd93f9">32480</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Get_infos</span>(proc):
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39; faire!</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>)
+</span></span><span style="display:flex;"><span>	c <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">int</span>(proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>strip())
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;N = &#39;</span>)
+</span></span><span style="display:flex;"><span>	n <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">int</span>(proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>strip())
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>	e <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">65537</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> n,c,e
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Send</span>(proc,p):
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>sendline(<span style="color:#8be9fd;font-style:italic">bytes</span>(<span style="color:#8be9fd;font-style:italic">str</span>(p),<span style="color:#f1fa8c">&#39;utf-8&#39;</span>))
+</span></span><span style="display:flex;"><span>	resp <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>strip()
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">if</span>(<span style="color:#f1fa8c">&#39;Voici ma réponse&#39;</span> <span style="color:#ff79c6">in</span> resp):
+</span></span><span style="display:flex;"><span>		resp <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>strip()
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> resp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proc  <span style="color:#ff79c6">=</span> Get_proc()
+</span></span><span style="display:flex;"><span>n,c,e <span style="color:#ff79c6">=</span> Get_infos(proc)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>resp1 <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">int</span>(Send(proc,<span style="color:#ff79c6">-</span>c))
+</span></span><span style="display:flex;"><span>resp2 <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">int</span>(Send(proc,<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mul <span style="color:#ff79c6">=</span> (resp2<span style="color:#ff79c6">*</span>resp1) <span style="color:#ff79c6">%</span> n
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(long_to_bytes(mul))
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Star{L3s_0r4cl3s_RSA_s0n7_si_fr4g1l35_uWu}</span>
+</span></span></code></pre></div><p>et on obtient le <code>flag</code></p>
+<h2 id="challenge-2">Challenge 2:</h2>
+<p>On se retrouve dans la configuration qu&rsquo;avant mais a une chose prêt !<br>
+<strong>Nous n&rsquo;avons pas N !</strong><br>
+On ne peut donc pas réutiliser la même méthode que précédemment. *(Pas encore) *</p>
+<h4 id="comment-retrouver-n-">Comment retrouver <code>N</code> ?</h4>
+<p>C&rsquo;est très simple ; on va déchiffrer :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#bd93f9">2</span>,<span style="color:#bd93f9">4</span>,<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">9</span>,<span style="color:#bd93f9">5</span>,<span style="color:#bd93f9">25</span>
+</span></span></code></pre></div><p>On obtiendra ainsi :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">-</span> c_2 <span style="color:#ff79c6">=</span> (<span style="color:#bd93f9">2</span> <span style="color:#ff79c6">^</span> e) <span style="color:#ff79c6">%</span> n
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-</span> c_4 <span style="color:#ff79c6">=</span> (<span style="color:#bd93f9">4</span> <span style="color:#ff79c6">^</span> e) <span style="color:#ff79c6">%</span> n
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-</span> c_3 <span style="color:#ff79c6">=</span> (<span style="color:#bd93f9">3</span> <span style="color:#ff79c6">^</span> e) <span style="color:#ff79c6">%</span> n
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-</span> c_9 <span style="color:#ff79c6">=</span> (<span style="color:#bd93f9">9</span> <span style="color:#ff79c6">^</span> e) <span style="color:#ff79c6">%</span> n
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-</span> c_5 <span style="color:#ff79c6">=</span> (<span style="color:#bd93f9">5</span> <span style="color:#ff79c6">^</span> e) <span style="color:#ff79c6">%</span> n
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-</span> c_25 <span style="color:#ff79c6">=</span> (<span style="color:#bd93f9">25</span> <span style="color:#ff79c6">^</span> e) <span style="color:#ff79c6">%</span> n
+</span></span></code></pre></div><p><code>D'où :</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">-</span> (c_2 <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">2</span>) <span style="color:#ff79c6">=</span> c_4 <span style="color:#ff79c6">%</span> n
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-</span> (c_3 <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">2</span>) <span style="color:#ff79c6">=</span> c_9 <span style="color:#ff79c6">%</span> n
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-</span> (c_2 <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">5</span>) <span style="color:#ff79c6">=</span> c_25 <span style="color:#ff79c6">%</span> n
+</span></span></code></pre></div><p><code>Enfin :</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">-</span> k_1 <span style="color:#ff79c6">=</span> (c_2 <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">2</span>) <span style="color:#ff79c6">-</span> c_4
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-</span> k_2 <span style="color:#ff79c6">=</span> (c_3 <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">2</span>) <span style="color:#ff79c6">-</span> c_9
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-</span> k_3 <span style="color:#ff79c6">=</span> (c_2 <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">5</span>) <span style="color:#ff79c6">-</span> c_25
+</span></span></code></pre></div><p><code>Et :</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>n <span style="color:#ff79c6">=</span> GCD(k_1,GCD(k_2,k_3))
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># PGCD des 3 entiers (k_1,k_2,k_3)</span>
+</span></span></code></pre></div><p><em>On re-code ainsi</em> :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>c_2,c_4  <span style="color:#ff79c6">=</span> Send(proc,<span style="color:#bd93f9">2</span>),Send(proc,<span style="color:#bd93f9">4</span>)
+</span></span><span style="display:flex;"><span>c_3,c_9  <span style="color:#ff79c6">=</span> Send(proc,<span style="color:#bd93f9">3</span>),Send(proc,<span style="color:#bd93f9">9</span>)
+</span></span><span style="display:flex;"><span>c_5,c_25 <span style="color:#ff79c6">=</span> Send(proc,<span style="color:#bd93f9">5</span>),Send(proc,<span style="color:#bd93f9">25</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>k1 <span style="color:#ff79c6">=</span> c_2<span style="color:#ff79c6">**</span><span style="color:#bd93f9">2</span> <span style="color:#ff79c6">-</span> c_4
+</span></span><span style="display:flex;"><span>k2 <span style="color:#ff79c6">=</span> c_3<span style="color:#ff79c6">**</span><span style="color:#bd93f9">2</span> <span style="color:#ff79c6">-</span> c_9
+</span></span><span style="display:flex;"><span>k3 <span style="color:#ff79c6">=</span> c_5<span style="color:#ff79c6">**</span><span style="color:#bd93f9">2</span> <span style="color:#ff79c6">-</span> c_25
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#ff79c6">=</span> GCD(k1,GCD(k2,k3))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">assert</span> n <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">0</span>
+</span></span></code></pre></div><p>Script Final complet :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> pwn <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> factordb.factordb <span style="color:#ff79c6">import</span> FactorDB
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> Crypto.Util.number <span style="color:#ff79c6">import</span> long_to_bytes,GCD
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#ff79c6">.</span>log_level <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;critical&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Get_proc</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> remote(<span style="color:#f1fa8c">&#39;challenges.hackademint.org&#39;</span>,<span style="color:#bd93f9">30894</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Get_infos</span>(proc):
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39; craintes:</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>)
+</span></span><span style="display:flex;"><span>	c <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">int</span>(proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>strip())
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>	e <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">65537</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> c,e
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Send</span>(proc,p):
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>sendline(<span style="color:#8be9fd;font-style:italic">bytes</span>(<span style="color:#8be9fd;font-style:italic">str</span>(p),<span style="color:#f1fa8c">&#39;utf-8&#39;</span>))
+</span></span><span style="display:flex;"><span>	resp <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>strip()
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">if</span>(<span style="color:#f1fa8c">&#39;Voici ma réponse&#39;</span> <span style="color:#ff79c6">in</span> resp):
+</span></span><span style="display:flex;"><span>		resp <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>strip()
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">int</span>(resp)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proc  <span style="color:#ff79c6">=</span> Get_proc()
+</span></span><span style="display:flex;"><span>c,e <span style="color:#ff79c6">=</span> Get_infos(proc)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c_2,c_4  <span style="color:#ff79c6">=</span> Send(proc,<span style="color:#bd93f9">2</span>),Send(proc,<span style="color:#bd93f9">4</span>)
+</span></span><span style="display:flex;"><span>c_3,c_9  <span style="color:#ff79c6">=</span> Send(proc,<span style="color:#bd93f9">3</span>),Send(proc,<span style="color:#bd93f9">9</span>)
+</span></span><span style="display:flex;"><span>c_5,c_25 <span style="color:#ff79c6">=</span> Send(proc,<span style="color:#bd93f9">5</span>),Send(proc,<span style="color:#bd93f9">25</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>k1 <span style="color:#ff79c6">=</span> c_2<span style="color:#ff79c6">**</span><span style="color:#bd93f9">2</span> <span style="color:#ff79c6">-</span> c_4
+</span></span><span style="display:flex;"><span>k2 <span style="color:#ff79c6">=</span> c_3<span style="color:#ff79c6">**</span><span style="color:#bd93f9">2</span> <span style="color:#ff79c6">-</span> c_9
+</span></span><span style="display:flex;"><span>k3 <span style="color:#ff79c6">=</span> c_5<span style="color:#ff79c6">**</span><span style="color:#bd93f9">2</span> <span style="color:#ff79c6">-</span> c_25
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#ff79c6">=</span> GCD(k1,GCD(k2,k3))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">assert</span> n <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>resp1 <span style="color:#ff79c6">=</span> Send(proc,<span style="color:#ff79c6">-</span>c)
+</span></span><span style="display:flex;"><span>resp2 <span style="color:#ff79c6">=</span> Send(proc,<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mul <span style="color:#ff79c6">=</span> (resp2<span style="color:#ff79c6">*</span>resp1) <span style="color:#ff79c6">%</span> n
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(long_to_bytes(mul))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># b&#39;Star{L3_m0dul3_357_t0uj0ur5_7r0uv4bl3_oWo}&#39;</span>
+</span></span></code></pre></div>
+  </article>
+
+</div>
+
+
+  </div>
+<script type="text/javascript" src="/main.js" defer></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3EGPCQCHEK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-3EGPCQCHEK', { 'anonymize_ip': false });
+}
+</script>
+
+</body>
+
+</html>

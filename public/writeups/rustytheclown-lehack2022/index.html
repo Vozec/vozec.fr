@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.ico">
+
+  <title>
+    Writeup RustyTheClown | leHack 2022 | Catégorie reverse - Vozec&#39;s Blog
+  </title>
+
+  <meta name="description" content="RustyTheClown , Rust Reverse | leHack 2022" />
+  <meta name="keywords" content="tuto,reverse,howto,ctf,TFC,ctftime,RustyTheClown" />
+  <meta name="generator" content="Hugo 0.105.0">
+
+  <link rel="stylesheet" href="https://vozec.fr/css/main.css" />
+
+  
+  
+
+  <meta property="og:title" content="Writeup RustyTheClown | leHack 2022 | Catégorie reverse" />
+<meta property="og:description" content="RustyTheClown , Rust Reverse | leHack 2022" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vozec.fr/writeups/rustytheclown-lehack2022/" /><meta property="og:image" content="https://vozec.fr/vozec.png"/><meta property="article:section" content="writeups" />
+<meta property="article:published_time" content="2022-06-26T12:00:00+00:00" />
+<meta property="article:modified_time" content="2022-06-26T12:00:00+00:00" />
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vozec.fr/vozec.png"/>
+
+<meta name="twitter:title" content="Writeup RustyTheClown | leHack 2022 | Catégorie reverse"/>
+<meta name="twitter:description" content="RustyTheClown , Rust Reverse | leHack 2022"/>
+
+
+  <meta itemprop="name" content="Writeup RustyTheClown | leHack 2022 | Catégorie reverse">
+<meta itemprop="description" content="RustyTheClown , Rust Reverse | leHack 2022"><meta itemprop="datePublished" content="2022-06-26T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-06-26T12:00:00+00:00" />
+<meta itemprop="wordCount" content="953"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="reverse,tuto," />
+
+  <meta itemprop="name" content="Writeup RustyTheClown | leHack 2022 | Catégorie reverse">
+<meta itemprop="description" content="RustyTheClown , Rust Reverse | leHack 2022"><meta itemprop="datePublished" content="2022-06-26T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-06-26T12:00:00+00:00" />
+<meta itemprop="wordCount" content="953"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="reverse,tuto," />
+</head><body class="flex relative h-full min-h-screen"><aside
+  class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:w-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar">
+  <p class="font-bold mb-5 flex items-center gap-2">
+    <button aria-label="Close sidebar"
+      class="md:hidden menu-trigger-close p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg></button>
+    <a href="https://vozec.fr/" class="px-2">
+      <span>Vozec&#39;s Blog</span>
+    </a>
+    <button aria-label="Toggle dark mode"
+      class="dark-mode-toggle p-2 rounded border dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <circle cx="12" cy="12" r="4" />
+  <path d="M3 12h1M12 3v1M20 12h1M12 20v1M5.6 5.6l.7 .7M18.4 5.6l-.7 .7M17.7 17.7l.7 .7M6.3 17.7l-.7 .7" />
+</svg></button>
+  </p>
+
+  
+  <ul class="list-none flex flex-col gap-1">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/" >
+        <span>Home</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>C͟o͟n͟t͟e͟n͟t͟ ✒️</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles" >
+        <span> 〰️ Articles</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/writeups" >
+        <span> 〰️ Writeups</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>F͟r͟o͟m͟ 0 T͟o͟ C͟r͟y͟p͟t͟o͟ 🔐</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-rsa" >
+        <span> 〰️ Rsa Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-aes" >
+        <span> 〰️ Aes Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-other" >
+        <span> 〰️ Other Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>A͟b͟o͟u͟t͟ M͟e͟👀</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/contact" >
+        <span> 〰️ Contact Me</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://flag-poisoning.fr"  target="_blank"
+        rel="noopener" >
+        <span> 〰️ My Ctf Team </span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+
+  <div class="flex-1"></div>
+
+  
+
+  <ul class="list-none flex flex-wrap justify-center gap-1 pt-2 border-t border-slate-200 dark:border-slate-600">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://twitter.com/Vozec1" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Twitter</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://github.com/Vozec" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">GitHub</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.linkedin.com/in/arthur-deloffre-844b7a221/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">LinkedIn</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect x="2" y="9" width="4" height="12" />
+  <circle cx="4" cy="4" r="2" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="mailto:arthursd444@gmail.com" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Email</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.instagram.com/arthur_dlfr/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Instagram</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+</aside>
+
+<div
+  class="fixed bg-slate-700 bg-opacity-5 transition duration-200 ease-in-out inset-0 z-10 pointer-events-auto md:hidden left-0 top-0 w-full h-full hidden menu-overlay">
+</div>
+
+<button aria-label="Toggle Sidebar"
+  class="md:hidden absolute top-3 left-3 z-10 menu-trigger p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-100"><svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="4" y1="6" x2="20" y2="6" />
+  <line x1="4" y1="12" x2="20" y2="12" />
+  <line x1="4" y1="18" x2="16" y2="18" />
+</svg></button>
+<div class="flex-1">
+
+
+
+
+<div class="flex max-h-screen relative overflow-y-auto h-full">
+  
+  <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg dark:prose-invert h-fit prose-img:mx-auto">
+    
+    <a href="https://vozec.fr/writeups/" class="!no-underline !text-slate-500 !mb-2 !inline-block !font-normal !text-sm hover:!text-slate-700 dark:hover:!text-slate-400">← Back to list</a>
+
+    
+    <h1 class="!mb-2">Writeup RustyTheClown | leHack 2022 | Catégorie reverse</h1>
+    
+    <p class="text-sm text-slate-500 !mb-8">June 26, 2022</p>
+    
+
+    
+
+    <h1 id="rustytheclown-2--lehack-ctf-2022">RustyTheClown 2 | leHack CTF 2022</h1>
+<h2 id="fichiers">Fichier(s)</h2>
+<ul>
+<li><a href="./files/rustyTheClown" >RustyTheClown</a></li>
+</ul>
+<h2 id="nécessaires">Nécessaires</h2>
+<ul>
+<li><a href="https://hex-rays.com/ida-free/"  target="_blank" rel="noopener" >IDA</a>/<a href="https://ghidra-sre.org/"  target="_blank" rel="noopener" >Ghidra</a></li>
+<li>Python3</li>
+</ul>
+<h2 id="flag">Flag</h2>
+<pre tabindex="0"><code>lh_68eca3c515dbefd71ec8fec3849ba0083af806447d9f9f7cdca2a5cc
+</code></pre><h2 id="solution-détaillée">Solution détaillée</h2>
+<h3 id="analyse-statique">Analyse Statique</h3>
+<p>Le challenge est un crackme . On nous demande un mot de passe et celui est modifié puis comparé avant de nous donner ou non le flag .</p>
+<p>Désassemblons le binaire dans IDA :</p>
+<p>Dans <code>void rustyTheClown::main::hecc4c87ee1b9aeab()</code> voici ce qu&rsquo;on trouve d&rsquo;important :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>std<span style="color:#ff79c6">::</span>io<span style="color:#ff79c6">::</span>stdio<span style="color:#ff79c6">::</span>Stdin<span style="color:#ff79c6">::</span>read_line<span style="color:#ff79c6">::</span>hd0723957e63cf850();
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">if</span> ( <span style="color:#ff79c6">&amp;</span>unk_52408 )
+</span></span><span style="display:flex;"><span>   core<span style="color:#ff79c6">::</span>ptr<span style="color:#ff79c6">::</span>drop_in_place$LT$std..io..error..Error$GT$<span style="color:#ff79c6">::</span>h815d6777c4f5f9e1(<span style="color:#ff79c6">*</span>((_QWORD <span style="color:#ff79c6">*</span>)<span style="color:#ff79c6">&amp;</span>dest <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>));
+</span></span><span style="display:flex;"><span> v4 <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0LL</span>;
+</span></span><span style="display:flex;"><span> v3 <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1uLL</span>;
+</span></span><span style="display:flex;"><span> _$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$<span style="color:#ff79c6">::</span>fold<span style="color:#ff79c6">::</span>h77524fc9083f58e3(
+</span></span><span style="display:flex;"><span>   <span style="color:#bd93f9">1LL</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#bd93f9">1LL</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">&amp;</span>v3);
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">if</span> ( v4 <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">17</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#ff79c6">!</span>(<span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)v3 <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">0x6F686F6F686F6F48LL</span> <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)(v3 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>) <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">0x216168616861686FLL</span> <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">*</span>(<span style="color:#8be9fd">unsigned</span> <span style="color:#ff79c6">__int8</span> <span style="color:#ff79c6">*</span>)(v3 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">16</span>) <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">0xALL</span>) )
+</span></span><span style="display:flex;"><span> {
+</span></span><span style="display:flex;"><span>   dest <span style="color:#ff79c6">=</span> v3;
+</span></span><span style="display:flex;"><span>   v10 <span style="color:#ff79c6">=</span> v4;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">20</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">21</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">18</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">19</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">16</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">17</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">14</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">15</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">12</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">13</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">10</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">11</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">8</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">9</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">6</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">7</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">4</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">5</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">3</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   src[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0u</span>;
+</span></span><span style="display:flex;"><span>   sha3<span style="color:#ff79c6">::</span>Keccak224<span style="color:#ff79c6">::</span>absorb<span style="color:#ff79c6">::</span>h29f13918aa92cc08(src, v3);
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">if</span> ( <span style="color:#ff79c6">*</span>((_QWORD <span style="color:#ff79c6">*</span>)<span style="color:#ff79c6">&amp;</span>dest <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>) )
+</span></span><span style="display:flex;"><span>     _rust_dealloc();
+</span></span><span style="display:flex;"><span>   v7[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0LL</span>;
+</span></span><span style="display:flex;"><span>   v7[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0LL</span>;
+</span></span><span style="display:flex;"><span>   v8 <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>   v7[<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0LL</span>;
+</span></span><span style="display:flex;"><span>   memcpy(<span style="color:#ff79c6">&amp;</span>dest, src, <span style="color:#bd93f9">0x160uLL</span>);
+</span></span><span style="display:flex;"><span>   _$LT$sha3..Sha3_224$u20$as$u20$digest..fixed..FixedOutputDirty$GT$<span style="color:#ff79c6">::</span>finalize_into_dirty<span style="color:#ff79c6">::</span>h6affdc907d7bd5a0(
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">&amp;</span>dest,
+</span></span><span style="display:flex;"><span>     v7);
+</span></span><span style="display:flex;"><span>   v10 <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0LL</span>;
+</span></span><span style="display:flex;"><span>   v11 <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0LL</span>;
+</span></span><span style="display:flex;"><span>   v6[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> (<span style="color:#ff79c6">__int64</span>)v7;
+</span></span><span style="display:flex;"><span>   v6[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> (<span style="color:#ff79c6">__int64</span>)generic_array<span style="color:#ff79c6">::</span>hex<span style="color:#ff79c6">::</span>_$LT$impl$u20$core..fmt..LowerHex$u20$<span style="color:#ff79c6">for</span>$u20$generic_array..GenericArray$LT$u8$C$T$GT$$GT$<span style="color:#ff79c6">::</span>fmt<span style="color:#ff79c6">::</span>h66b0e2e11014508f;
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)<span style="color:#ff79c6">&amp;</span>dest <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">&amp;</span>unk_52428;
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">*</span>((_QWORD <span style="color:#ff79c6">*</span>)<span style="color:#ff79c6">&amp;</span>dest <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2LL</span>;
+</span></span><span style="display:flex;"><span>   v12 <span style="color:#ff79c6">=</span> v6;
+</span></span><span style="display:flex;"><span>   v13 <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1LL</span>;
+</span></span><span style="display:flex;"><span>   std<span style="color:#ff79c6">::</span>io<span style="color:#ff79c6">::</span>stdio<span style="color:#ff79c6">::</span>_print<span style="color:#ff79c6">::</span>h99789c75449e1f7a();
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">else</span>
+</span></span><span style="display:flex;"><span> {
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><p>On peut simplifier le code en pseudo-python :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>v3 <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">input</span>(<span style="color:#f1fa8c">&#39;password : &#39;</span>)
+</span></span><span style="display:flex;"><span>v3 <span style="color:#ff79c6">=</span> weirdfunction(v3)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span>(<span style="color:#8be9fd;font-style:italic">len</span>(v3)<span style="color:#ff79c6">==</span><span style="color:#bd93f9">17</span> <span style="color:#ff79c6">and</span> xor(v3[:<span style="color:#bd93f9">8</span>],<span style="color:#bd93f9">0x6F686F6F686F6F48</span>) <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">8</span> <span style="color:#ff79c6">and</span> xor(v3[<span style="color:#bd93f9">8</span>:<span style="color:#bd93f9">16</span>],<span style="color:#bd93f9">0x216168616861686F</span>) <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">8</span>):
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;Flag is : </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">%</span>sha3(v3))
+</span></span></code></pre></div><p>La première chose à faire est d&rsquo;expliciter les valeurs :</p>
+<ul>
+<li><code>0x6F686F6F686F6F48</code></li>
+<li><code>0x216168616861686F</code></li>
+</ul>
+<p>Avec <a href="https://hex-rays.com/ida-free/"  target="_blank" rel="noopener" >IDA</a> ou <em>binascii.unhexlify</em>  , on obtient respéctivement :</p>
+<ul>
+<li><code>ohoohooH</code></li>
+<li><code>!ahahaho</code></li>
+</ul>
+<p>Pour conclure l&rsquo;analyse statique ; on sait que d&rsquo;après les <a href="https://fr.wikipedia.org/wiki/Fonction_OU_exclusif"  target="_blank" rel="noopener" >&lt;code&gt;propriétés du Xor&lt;/code&gt;</a>: <em>A ^ A = 0</em></p>
+<p>On veut donc que :</p>
+<ul>
+<li>v3[:8] == ohoohooH</li>
+<li>v3[8:16] == !ahahaho</li>
+</ul>
+<h3 id="analyse-dynamique">Analyse Dynamique:</h3>
+<p>Juste après notre entrée dans <code>stdin</code> , notre buffer stocké dans <code>v3</code> et appelé dans une fonction</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span> _$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$<span style="color:#ff79c6">::</span>fold<span style="color:#ff79c6">::</span>h77524fc9083f58e3(
+</span></span><span style="display:flex;"><span>   <span style="color:#bd93f9">1LL</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#bd93f9">1LL</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">&amp;</span>v3);
+</span></span></code></pre></div><p>Quand on décompile cette fonction. On voit tout de suite qu&rsquo;elle sort  des enfers ..</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>v6 <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">unsigned</span> <span style="color:#ff79c6">__int8</span>)<span style="color:#ff79c6">*</span>v5;
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">if</span> ( (<span style="color:#ff79c6">*</span>v5 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0x80000000</span>) <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">0</span> )
+</span></span><span style="display:flex;"><span>     {
+</span></span><span style="display:flex;"><span>       v9 <span style="color:#ff79c6">=</span> v5[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0x3F</span>;
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">if</span> ( v6 <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">0xDF</span> )
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>         v5 <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">2</span>;
+</span></span><span style="display:flex;"><span>         v7 <span style="color:#ff79c6">=</span> v9 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFFF83F</span> <span style="color:#ff79c6">|</span> ((v6 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0x1F</span>) <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#bd93f9">6</span>);
+</span></span><span style="display:flex;"><span>         v8 <span style="color:#ff79c6">=</span> v7 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFFFFDF</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">if</span> ( (v7 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFFFFDF</span>) <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">65</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0xC</span> )
+</span></span><span style="display:flex;"><span>           <span style="color:#ff79c6">goto</span> LABEL_15;
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">else</span>
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>         v10 <span style="color:#ff79c6">=</span> v5[<span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0x3F</span> <span style="color:#ff79c6">|</span> ((v5[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0x3F</span>) <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#bd93f9">6</span>);
+</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">if</span> ( v6 <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">0xF0</span> )
+</span></span><span style="display:flex;"><span>         {
+</span></span><span style="display:flex;"><span>           v5 <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">3</span>;
+</span></span><span style="display:flex;"><span>           v7 <span style="color:#ff79c6">=</span> v10 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFE0FFF</span> <span style="color:#ff79c6">|</span> ((v6 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0x1F</span>) <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#bd93f9">12</span>);
+</span></span><span style="display:flex;"><span>           v8 <span style="color:#ff79c6">=</span> v7 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFFFFDF</span>;
+</span></span><span style="display:flex;"><span>           <span style="color:#ff79c6">if</span> ( (v7 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFFFFDF</span>) <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">65</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0xC</span> )
+</span></span><span style="display:flex;"><span>             <span style="color:#ff79c6">goto</span> LABEL_15;
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">else</span>
+</span></span><span style="display:flex;"><span>         {
+</span></span><span style="display:flex;"><span>           v7 <span style="color:#ff79c6">=</span> (v5[<span style="color:#bd93f9">3</span>] <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0x3F</span> <span style="color:#ff79c6">|</span> ((v10 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFF</span>) <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#bd93f9">6</span>)) <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFE3FFFF</span> <span style="color:#ff79c6">|</span> ((v6 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">7</span>) <span style="color:#ff79c6">&lt;&lt;</span> <span style="color:#bd93f9">18</span>);
+</span></span><span style="display:flex;"><span>           <span style="color:#ff79c6">if</span> ( v7 <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1114112</span> )
+</span></span><span style="display:flex;"><span>             <span style="color:#ff79c6">return</span> result;
+</span></span><span style="display:flex;"><span>           v5 <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">4</span>;
+</span></span><span style="display:flex;"><span>           v8 <span style="color:#ff79c6">=</span> v7 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFFFFDF</span>;
+</span></span><span style="display:flex;"><span>           <span style="color:#ff79c6">if</span> ( (v7 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFFFFDF</span>) <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">65</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0xC</span> )
+</span></span><span style="display:flex;"><span>           {
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">LABEL_15</span>:
+</span></span><span style="display:flex;"><span>             <span style="color:#ff79c6">if</span> ( v8 <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">78</span> <span style="color:#ff79c6">&lt;=</span> <span style="color:#bd93f9">0xC</span> )
+</span></span><span style="display:flex;"><span>               v7 <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">unsigned</span> <span style="color:#ff79c6">__int8</span>)(v7 <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">13</span>);
+</span></span><span style="display:flex;"><span>             <span style="color:#ff79c6">goto</span> LABEL_17;
+</span></span><span style="display:flex;"><span>           }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">else</span>
+</span></span><span style="display:flex;"><span>     {
+</span></span><span style="display:flex;"><span>       v7 <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">unsigned</span> <span style="color:#ff79c6">__int8</span>)<span style="color:#ff79c6">*</span>v5<span style="color:#ff79c6">++</span>;
+</span></span><span style="display:flex;"><span>       v8 <span style="color:#ff79c6">=</span> v6 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFFFFDF</span>;
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">if</span> ( (v6 <span style="color:#ff79c6">&amp;</span> <span style="color:#bd93f9">0xFFFFFFDF</span>) <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">65</span> <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0xC</span> )
+</span></span><span style="display:flex;"><span>         <span style="color:#ff79c6">goto</span> LABEL_15;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     ....
+</span></span></code></pre></div><p>On va donc devoir utiliser un debugger pour comprendre le fonctionnement de cette fonction et ainsi passer le bon mot de passe qui vérifie les 3 conditions précédentes.</p>
+<h5 id="mise-en-place-dun-environnement-de-debug-">Mise en place d&rsquo;un environnement de debug .</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c
+</span></span><span style="display:flex;"><span>➜   file rustyTheClown
+</span></span><span style="display:flex;"><span>rustyTheClown: ELF 64-bit LSB pie executable, ARM aarch64, version <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">(</span>SYSV<span style="color:#ff79c6">)</span>, dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, <span style="color:#ff79c6">for</span> GNU/Linux 3.7.0, BuildID<span style="color:#ff79c6">[</span>sha1<span style="color:#ff79c6">]=</span>59299c846572d2809876d380f7710f0d1735429e, with debug_info, not stripped
+</span></span></code></pre></div><p>Le binaire est un binaire codé en <code>Rust</code> et compilé en <code>ARM aarch64</code> . Il n&rsquo;est donc pas exécutable facilement :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c
+</span></span><span style="display:flex;"><span>➜   ./rustyTheClown
+</span></span><span style="display:flex;"><span>zsh: <span style="color:#8be9fd;font-style:italic">exec</span> format error: ./rustyTheClown
+</span></span></code></pre></div><p>Pour résoudre ce soucis , on peut soit :</p>
+<ul>
+<li>Utiliser une machine avec un processeur adapté (Raspberry)</li>
+<li>Utiliser une machine Qemu.</li>
+</ul>
+<p>Nous allons ici utiliser la 2nd option même si elle reste la plus compliquée.</p>
+<h6 id="installation-">Installation :</h6>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install qemu-user qemu-user-static gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu binutils-aarch64-linux-gnu-dbg build-essential
+</span></span></code></pre></div><h6 id="lancement-">Lancement :</h6>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>qemu-aarch64 -L /usr/aarch64-linux-gnu ./rustyTheClown
+</span></span></code></pre></div><p>Résultat:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                                              <span style="color:#f1fa8c">`</span>.:<span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>                                            .:ooy.
+</span></span><span style="display:flex;"><span>                          ./+///..      <span style="color:#f1fa8c">`</span>..-/+osso
+</span></span><span style="display:flex;"><span>                          .-/ssooo:.   <span style="color:#f1fa8c">`</span>-<span style="color:#f1fa8c">`````</span>..-:-          <span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>                             -ssssso:.<span style="color:#f1fa8c">`</span>:<span style="color:#f1fa8c">``````````</span>.:    <span style="color:#f1fa8c">`</span>://+++:.
+</span></span><span style="display:flex;"><span>                              /ssssssso.......---<span style="color:#f1fa8c">`</span>./ <span style="color:#f1fa8c">``</span>:+osssss+/<span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>                              .sssssss:-<span style="color:#f1fa8c">`</span> .-<span style="color:#f1fa8c">`</span> <span style="color:#f1fa8c">`</span>.-.oo/ooossssy/.
+</span></span><span style="display:flex;"><span>                               ossssso:-/:+:<span style="color:#f1fa8c">`</span> :<span style="color:#f1fa8c">`</span>-osssssssssy-
+</span></span><span style="display:flex;"><span>                               <span style="color:#f1fa8c">`</span>ssss/---/+o+/:::<span style="color:#f1fa8c">`</span>++ssssssss/
+</span></span><span style="display:flex;"><span>                                .osy+:-.......::-/yssssssy<span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>                                  <span style="color:#f1fa8c">`</span>syy/ys/+::+///+yssssy:<span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>                                    <span style="color:#f1fa8c">`</span>o-NMMMNNs:/hysys/:.
+</span></span><span style="display:flex;"><span>                                     +:yshhd+/.:<span style="color:#f1fa8c">``</span>
+</span></span><span style="display:flex;"><span>                                   <span style="color:#f1fa8c">`</span>/+soo+++s//+<span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>               .--<span style="color:#f1fa8c">`</span>           <span style="color:#f1fa8c">`</span>....+/oossssoy/:+:
+</span></span><span style="display:flex;"><span>               --<span style="color:#f1fa8c">`</span>-..<span style="color:#f1fa8c">`</span>...----:/:::/+:///::/+++o++/++:.
+</span></span><span style="display:flex;"><span>           ....-<span style="color:#f1fa8c">`</span> -.+--------+:::/+::::::::::+/::o/::/:---..<span style="color:#f1fa8c">`</span>   <span style="color:#f1fa8c">`</span>-.-
+</span></span><span style="display:flex;"><span>          --.-  <span style="color:#f1fa8c">`</span>./<span style="color:#f1fa8c">`</span>+--------+:::+::::::::::/o::++:---------::::.<span style="color:#f1fa8c">`</span>.:
+</span></span><span style="display:flex;"><span>           -:.<span style="color:#f1fa8c">`</span>   ../::::::::/+///::::::::::/o+/o/::-------:-:.<span style="color:#f1fa8c">`</span>  ::<span style="color:#f1fa8c">``</span>
+</span></span><span style="display:flex;"><span>           :.--- <span style="color:#f1fa8c">``</span>:-:.<span style="color:#f1fa8c">```</span>   .//:::::::::::::/+ooso+/::::--::<span style="color:#f1fa8c">`</span> ..  <span style="color:#f1fa8c">`</span>..-.<span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f1fa8c">``</span> :<span style="color:#f1fa8c">`</span>.-<span style="color:#f1fa8c">``</span>        ::::::::::::::::::://+o:  <span style="color:#f1fa8c">`</span>..-/::      .-.<span style="color:#f1fa8c">`</span>-:
+</span></span><span style="display:flex;"><span>              ..<span style="color:#f1fa8c">`</span>          :::::::::::::::::::::///+:      <span style="color:#f1fa8c">`</span>--.  .<span style="color:#f1fa8c">``</span>--..<span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>                          ./:::::::::::::::::::::///+-        :. /--<span style="color:#f1fa8c">`</span>-.
+</span></span><span style="display:flex;"><span>                          /-:::::::::::::::::::::////+        <span style="color:#f1fa8c">`</span>:<span style="color:#f1fa8c">`</span>:<span style="color:#f1fa8c">``</span>..
+</span></span><span style="display:flex;"><span>                          :o+///////////+///+//://///o         <span style="color:#f1fa8c">`</span>.<span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>                           <span style="color:#f1fa8c">`</span>/--------------:::://+++o+
+</span></span><span style="display:flex;"><span>                           -/::-----------------::/+-<span style="color:#f1fa8c">`</span>
+</span></span><span style="display:flex;"><span>Hey hey, kids!
+</span></span><span style="display:flex;"><span>What&#39;s your answer? :
+</span></span><span style="display:flex;"><span>Vozec
+</span></span><span style="display:flex;"><span>Hoohoohoohahaha!
+</span></span></code></pre></div><p>On va utiliser <code>gdb-mutliarch</code>:</p>
+<ul>
+<li>Dans un premier shell :</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gdb-multiarch rustyTheClown
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">set</span> architecture aarch64
+</span></span></code></pre></div><ul>
+<li>Dans un deuxième shell :</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>qemu-aarch64 -g <span style="color:#bd93f9">1337</span> -L /usr/aarch64-linux-gnu ./rustyTheClown
+</span></span></code></pre></div><ul>
+<li>Dans le premier shell :</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>target remote :1337
+</span></span></code></pre></div><p>Maintenant que notre GDB est lié à notre binaire , nous pouvons placer un breakpoint à la sortie de la fonction mystère .
+On va essayer de trouver cette instruction :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ldr     x8, <span style="color:#ff79c6">[</span>sp, <span style="color:#6272a4">#40]</span>
+</span></span></code></pre></div><p><img src="./img/call.png" alt="Alt text"></p>
+<p>Elle se situe juste après le call de la fonction <code>_ZN13rustyTheClown4main17hecc4c87ee1b9aeabE</code></p>
+<ul>
+<li>Dans le deuxième shell :</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>disas _ZN13rustyTheClown4main17hecc4c87ee1b9aeabE
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Ici on va chercher l&#39;instruction</span>
+</span></span><span style="display:flex;"><span>b* 0x0000005500006ea8
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">continue</span>
+</span></span></code></pre></div><p><img src="./img/bp.png" alt="Alt text"></p>
+<p>On peut ainsi entrer un mot de passe de 16 charactères aléatoire, ici <code>HelloFromVozec!!</code>
+Une fois ceci fait, notre premier shell avec GDB à atteint le breakpoint: <strong>Affichons les registres</strong> !</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>X<span style="color:#ff79c6">(</span>gdb<span style="color:#ff79c6">)</span> x/s <span style="color:#8be9fd;font-style:italic">$x0</span>
+</span></span><span style="display:flex;"><span>0x5500058b10:   <span style="color:#f1fa8c">&#34;UryybSebzIbmrp!!\n&#34;</span>
+</span></span></code></pre></div><p><img src="./img/resume.png" alt="Alt text"></p>
+<p>Et oui, tout de suite cela devient évident &hellip; C&rsquo;est un <strong>Rot13</strong> Banal ! Toutes les lettres sont décalés de 13 dans l&rsquo;alphabet .</p>
+<p>On peut donc former le mot de passe :</p>
+<p><code>Ubbubbubbununun!</code> qui sortant de la fonction aura pour valeur : <code>Hoohoohoohahaha!</code> et validera le challenge :</p>
+<p><img src="./img/flag.png" alt="Alt text"></p>
+
+  </article>
+
+</div>
+
+
+  </div>
+<script type="text/javascript" src="/main.js" defer></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3EGPCQCHEK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-3EGPCQCHEK', { 'anonymize_ip': false });
+}
+</script>
+
+</body>
+
+</html>

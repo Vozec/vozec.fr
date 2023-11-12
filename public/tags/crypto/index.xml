@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>crypto on Vozec&#39;s Blog</title>
+    <link>https://vozec.fr/tags/crypto/</link>
+    <description>Recent content in crypto on Vozec&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 19 Sep 2022 12:00:00 +0000</lastBuildDate><atom:link href="https://vozec.fr/tags/crypto/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Présentation de l&#39;attaque &#39;Padding Oracle&#39; sur de l&#39;AES ECB</title>
+      <link>https://vozec.fr/articles/attaque-oracle-padding-aes_ecb/</link>
+      <pubDate>Mon, 19 Sep 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/articles/attaque-oracle-padding-aes_ecb/</guid>
+      <description>Introduction L&amp;rsquo;AES (&amp;ldquo;Advanced Encryption Standard&amp;rdquo;) est un chiffrement par blocs utilisé de nos jours dans la sécurité informatique. Il repose sur le chiffrement d&amp;rsquo;information découpé en plusieurs blocs et le chiffrement de ces blocs peuvent être fait de plusieurs manières selon la configuration du système. Ainsi il en existe plusieurs modes :
+ECB CBC CFB OFB CTR CTS &amp;hellip; Aujourd’hui, nous allons aborder une attaque présente sur l&amp;rsquo;AES en mode ECB .</description>
+    </item>
+    
+    <item>
+      <title>Présentation de l&#39;attaque &#39;Bit Flipping&#39; sur de l&#39;AES CBC</title>
+      <link>https://vozec.fr/articles/attaque-bit-flipping-aes_cbc/</link>
+      <pubDate>Wed, 25 May 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/articles/attaque-bit-flipping-aes_cbc/</guid>
+      <description>Introduction L&amp;rsquo;AES (&amp;ldquo;Advanced Encryption Standard&amp;rdquo;) est un chiffrement par blocs utilisé de nos jours dans la sécurité informatique. Il repose sur le chiffrement d&amp;rsquo;information découpé en plusieurs blocs et le chiffrement de ces blocs peuvent être fait de plusieurs manières selon la configuration du système . Ainsi il en existe plusieurs modes :
+ECB CBC CFB OFB CTR CTS &amp;hellip; Aujourd&amp;rsquo;hui , nous allons aborder une attaque présente sur l&amp;rsquo;AES en mode CBC .</description>
+    </item>
+    
+  </channel>
+</rss>

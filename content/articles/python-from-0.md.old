@@ -1,0 +1,861 @@
+---
+title: "Python from 0"
+date: 2022-03-16T12:00:00Z
+description: "Python from 0"
+categories: ["articles"]
+tags: ["python","tuto"]
+keywords: ["tuto", "learn", "python", ".net","programming"]
+---
+
+##### Les Variables :
+Il existe des centaines de type de variables mais les principales sont :
+
+- Les **String** ('chaine de caractère') :
+
+  ```python
+  msg = "Hello World"
+  ```
+
+- Les **Int** ('Integers') : Ce sont les nombres entiers
+
+  ```python
+  nbr = 2021 * 4
+  ```
+
+- Les **Float** : Les nombres décimaux
+
+  ```python
+  flt = 3.14159265359
+  ```
+
+- Les **List** : Les listes contiennent des 'object' de tous types:
+
+  ```python
+  lst = ["Hello World",5,3.14,['a','b','c'],9]
+  ```
+
+- Les **Dict** 'Dictionnaires' : Associent à un objet , une valeur :   
+
+  ```python
+  lst = {
+        'pi':3.14,
+        'maliste':[1,2,3,4,5],
+        'montexte':'Hello'
+        }
+  ```
+
+  **Erreurs Types**:
+
+  - ``'5'*5`` est différent de ``5*5``  | *555555 != 25*
+  - ``25/5`` est différent de ``25//5`` | *5.0 != 5*
+  - Ajouter un élément à une liste avec **+**
+
+  ```python
+  maliste = [1,2,3,4]
+  maliste += 5        # FAUX
+  maliste += [5]      # VRAI
+  maliste.append(5)   # VRAI
+  ```
+  - Ajouter un élément à une liste:
+
+  ```python
+  mondico = {"key":"value"}
+  mondico["new key"] = "new key value" # VRAI
+  ```
+
+##### Les Opérateurs logiques :
+  - ``+`` : L'addition
+  - ``-`` : La soustraction
+  - ``*`` : La multiplication
+  - ``//`` : La division (résultat entier)
+  - ``/`` : La division (résultat flottant)
+  - ``**`` : La puissance **Pas de "^"  !**
+  - ``%`` : Le Modulo
+  - ``> et <`` : Supérieur/Inférieur
+  - ``>= et <=`` : Supérieur/Inférieur ou égal
+  - *les opérations binaires : ^ >> << etc ...*
+
+##### Les Conditions :
+  On à 3 "mots" pour construire des algorithmes logiques à partir de conditions :
+
+    - **if** (='si') + **condition** + **:**
+    - **elif** (='sinon si') + **condition** + **:**
+    - **else** (='sinon')
+
+  Utilisation :
+
+  ```python
+  a = 2
+  if(a == 1):
+    print("La variable 'a' est égal a 1")
+  elif(a == 2):
+    print("La variable 'a' est égal a 2")
+  else:
+    print("Je n'arrive plus à compter ...")
+  ```
+
+
+##### Les Boucles :
+  Il en existe 2 habituelles: la boucle **for** et **while**
+
+  - **while** + **condition** + **:** ("Tant que")
+  - **for** + (variable initialisé , **jusqu'a** ou **dans quoi**)
+
+  Exemple:
+
+  ```python
+  cpt = 100
+  while cpt != 1:
+    print(cpt)
+    cpt -= 1
+  ```
+
+  ```python
+  for i in range(100)
+    print(100)    
+  ```
+
+##### Les Fonctions :
+  Elles permettent de séparer le code en plusieurs partie et éviter de coder plusieurs fois la même chose :
+
+  *Le 'return' est important, si vous ne voulais rien retourner , retournez 'None'*
+
+  ```python
+  def max(a,b):
+    if(a>b):
+      return "a est plus grand que b"
+    elif(a<b)::
+      return "a est plus petit que b"
+    else:
+      return "a et b sont égaux"
+
+  print(max(5,1))
+  print(max(9,8))
+  print(max(6546817,898671))
+  ```
+
+### Exemples :
+
+##### Listes :
+
+ - Trouver la position d'un élément dans une liste :
+
+  ```python
+  def position(N,L):
+      for i in range(len(L)):
+          if(N in L[i]):
+              return str(N)+" est a la position "+str(i)+" dans "+str(L)
+      return str(N)+" n'est pas dans "+str(L)
+
+  print(position('A',['A','B','C','D']))
+  ```
+
+- Trouver le maximum d'une liste :
+
+  ```python
+  def maximum(L):
+      maximum = 0
+      position_maximum = []
+      for i in range(len(L)):
+          if(L[i]>maximum):
+              maximum = L[i]
+              position_maximum = [i]
+          elif (L[i]==maximum):
+              maximum = L[i]
+              position_maximum.append(i)
+
+      return (maximum,position_maximum)
+
+  print(maximumimum([3,34,-4,18,23,-3,34,12,12]))
+  ```
+
+  - Somme et moyenne d'une liste :
+
+  ```python
+  def somme_elt(L):
+    somme = 0
+    for element in L:
+        somme += element
+    return int(somme)
+
+  def moyenne_elt(L):
+      return (somme_elt(L)/len(L))
+
+  print(somme_elt([1,2,3,4,5]))
+  print(moyenne_elt([0,1,2,3]))
+  ```
+
+##### Boucles :
+
+  - Suite récurrente d'ordre 1
+    - *u0 = 1*
+    - *u_n+1 = 2*un+6*
+
+  ```python
+  def suiteOrdre1(n):
+      u0 = 1
+      index = 0
+      result = u0
+      while(index!=n):
+        result = 2*result+6
+        index +=1
+      return result
+
+    print(suiteOrdre1(5))
+  ```
+
+  - Suite récurrente d'ordre 2
+    - *u0 = 5*
+    - *u1 = 3*
+    - *u_n+2 = u_n+1\*u_n*
+
+  ```python
+  def suiteOrdre2(n):
+      u0 = 5
+      u1 = 3
+      un = 0
+
+      un = 0
+      up1 = u0
+      up2 = u1
+
+      for i in range(n-1):
+          un = up1 * up2
+          up1 = un
+      return un
+
+    print(suiteOrdre2(3))
+  ```
+
+##### Algorithme de tri:
+
+- Tri à Bulles
+  ```python
+  def tri_bulles(L):
+      n=len(L)
+      for k in range(n):
+          for j in range(n-k-1):
+              if L[j]>L[j+1]:
+                  L[j],L[j+1]=L[j+1],L[j]
+      return L
+  ```
+
+- Tri par insertion
+  ```python
+  def tri_insertion(L):
+      n=len(L)
+      for k in range(n):
+          for j in range(k):
+              if L[j]>L[k]:
+                  L.insert(j,L.pop(k))
+      return L
+  ```
+
+- Tri par selection
+  ```python
+  def tri_selection(L):
+      n=len(L)
+      for k in range(n):
+          min,k_min = L[k],k
+          for j in range(k,n):
+              if L[j]<min:
+                  min,k_min = L[j],j
+          L[k],L[k_min]=L[k_min],L[k]
+  ```
+- Tri fusion
+  ```python
+  def tri_fusion(L):
+      n=len(L)
+      if n==1:
+          return(L)
+      else :
+          p=n//2
+          L1=tri_fusion(L[0:p])
+          L2=tri_fusion(L[p:])
+          i1,i2 = 0,0    
+          Lfusion = []
+          print(L1,L2,Lfusion,i1,i2)
+          while i1<p and i2<n-p:
+              if L1[i1] < L2[i2]:
+                  Lfusion.append(L1[i1])
+                  i1 += 1
+              else:
+                  Lfusion.append(L2[i2])
+                  i2 += 1
+              if i1==len(L1) :
+                  Lfusion=Lfusion+L2[i2:]
+              elif i2==len(L2) :
+                  Lfusion=Lfusion+L1[i1:]
+              print(Lfusion,i1,i2)
+          return Lfusion              
+  ```
+
+- Tri rapide
+  ```python
+  def tri_rapide(L):
+      n=len(L)
+      if n<=1:
+          return(L)
+      else :
+          pivot = L[n-1]
+          L1=[]
+          L2=[]
+          for k in range (n-1):
+              if L[k]<= pivot :
+                  L1.append(L[k])
+              else :
+                  L2.append(L[k])
+          print(L1,L2,n)
+          return tri_rapide(L1)+ [pivot]+ tri_rapide(L2)
+  ```
+
+##### Dictionnaires:
+
+ Il faut retenir 3 choses :
+
+ -  **list(MonDico.keys())** renvoie une liste de toutes les clés
+ -  **list(MonDico.values())** renvoie une liste de toutes les valeurs
+ -  **list(MonDico.items())** renvoie une liste de tuple (liste)
+
+ A partir de là, on retrouve des programmes similaire à ceux avec les listes.
+
+ - Trouver le nombre le plus présent:
+
+ ```python
+ def note_la_plus_presente(dico):
+     L = list(dico.items())
+     max = L[0][0]
+     for element in L:
+         if element[1]  > dico[max]:
+             max = element[0]
+     return max
+
+ notes = {1: 1, 4: 1, 5: 2, 6: 3, 18: 1, 15: 2, 16: 2, 0: 1, 3: 2, 7: 1, 8: 2, 20: 1, 10: 1, 17: 1}
+ print(note_la_plus_presente(notes))
+ ```
+
+- Trouver le nombre d'occurence d'une lettre:
+  ```python
+  def occurence(mot):
+      dico = {}
+      for letter in mot.lower():
+          if(letter not in dico.keys()):
+              dico[letter] = 1
+          else:
+              dico[letter] += 1
+      return dico
+  print(occurence('Hello'))
+  ```
+
+##### Optimisation de puissance:
+
+- Calcul de puissances de manière classique :
+
+  ```python
+  def puissance(x,n):
+      x_init = x
+      for i in range(1,n):
+          x = x * x_init
+      return x
+
+  print(puissance(3,38))
+  ```
+- Calcul de puissance grâce à l'exponentiation rapide :
+
+  ```python
+  def exp_rapide(x,n):
+      result=1
+      while n != 0:
+          if n%2==1:
+              result*=x
+          x = x*x
+          n = n//2
+      return result
+  print(exp_rapide(3, 38))
+  ```
+
+  Test : **2\*\*12**
+
+{{< rawhtml >}}
+<table style="caption-side:bottom">
+
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+
+<tr>
+<td><strong><center> r </center></strong></td>
+<td><strong><center> a </center></strong></td>
+<td><strong><center> n </center></strong></td>
+<td><strong><center> multiplication par lignes </center></strong></td>
+<td><strong><center> multiplication totales </center></strong></td>
+
+</tr>
+<tr>
+
+<td><center>1</center></td>
+<td><center>2</center></td>
+<td><center>12</center></td>
+<td><center>0</center></td>
+<td><center>0</center></td>
+</tr>
+
+<tr>
+<td><center>1</center></td>
+<td><center>2²</center></td>
+<td><center>6</center></td>
+<td><center>1</center></td>
+<td><center>1</center></td>
+</tr>
+<tr>
+<td><center>1</center></td>
+<td><center>2²*²</center></td>
+<td><center>3</center></td>
+<td><center>1</center></td>
+<td><center>2</center></td>
+</tr>
+<tr>
+<td><center>1*2²*²</center></td>
+<td><center>2²*²*²</center></td>
+<td><center>1</center></td>
+<td><center>2</center></td>
+<td><center>4</center></td>
+</tr>
+<tr>
+<td><center>1*2²*²*2²*²*²</center></td>
+<td><center>2²*²*²*²</center></td>
+<td><center>0</center></td>
+<td><center>2</center></td>
+<td><center>3</center></td>
+</tr>
+</tbody>
+</table>
+
+<!-- DivTable.com -->
+{{< /rawhtml >}}
+
+  _On a :_ 2^12 = 1\*2²\*²\*2²\*²\*²
+
+
+
+##### Récursivité :
+
+- Calcul de factoriel:
+
+  ```python
+  def fact(n):
+      if(n <= 1):
+          return 1
+      else:
+          return n*fact(n-1)
+
+  print(fact(5))
+  ```
+
+- Recherche dans une liste:
+
+  ```python
+  def rech_x_list(x,L):
+      if(len(L) == 0):
+          return False
+      elif(L[0]==x):
+          return True
+      else:
+          return rech_x_list(x,L[1:])
+
+  print(rech_x_list(3,[1,1,3,4]))
+  ```
+
+- Algorithme de Dichotomie :
+
+  - Classiquement:
+
+    ```python
+      e = 11
+      L = [0,1,2,3,4,5,6,7,8,9,10]
+
+      def recherche_dicho(n,L):
+      g=0
+      d=len(L)-1
+      while d-g+1>0 :
+          m = (g+d)//2
+          if n == L[m]:
+              return True
+          elif n < L[m] :
+              d = m-1
+          else :
+              g = m+1
+
+      return False    
+
+      print(recherche_dicho(e,L))
+    ```
+
+  - Récursivement:
+
+    ```python
+    e = 11
+    L = [0,1,2,3,4,5,6,7,8,9,10]
+
+    def dichotomie(g,d):
+      if(g>d):
+          return False
+      m = (g+d)//2
+      if(e<L[m]):
+          return dichotomie(g,m-1)
+      elif(e>L[m]):
+          return dichotomie(m+1,d)
+      else:
+          return True
+
+    print(dichotomie(0,len(L)-1))
+    ```
+
+
+###### Algorithme de type 'Glouton' :
+
+- Décomposition d'un nombre:
+
+  ```python
+  def Molva(s,pieces):
+      i = 0
+      res = []
+      while(s != 0):
+          while(s >= pieces[i]):
+              s -= pieces[i]
+              res += [pieces[i]]
+          i += 1
+      return res
+
+  print(Molva(27,[10,5,2,1]))
+  print(Molva(10,[7,5,1]))
+  ```
+
+- Choix du chemin le plus court grâce à la récursivité :
+
+  ```python
+  def recherche_v_plusproche(chemin,D):
+     ville_actuelle = chemin[len(chemin)-1]
+     distances = D[ville_actuelle]
+
+     dmini = 1000000000000
+     villeDmini = -1
+
+     for ville in range(len(D)):
+         if(distances[ville] < dmini):
+             if(ville not in chemin):
+                 dmini = distances[ville]
+                 villeDmini = ville
+
+     return villeDmini
+
+   def voyage(D):
+       chemin = [0]
+       for voyage in range(len(D)-1):
+           chemin.append(recherche_v_plusproche(chemin,D))
+       chemin.append(0)
+
+       return chemin
+
+   D = [
+        [0,50,100,10],
+        [50,0,40,10],
+        [100,40,0,20],
+        [10,10,20,0]
+       ]
+
+   print(voyage(D))
+  ```
+
+- Tri par insertion :
+
+  ```python
+  def tri_insertion(tab):
+      for i in range(1, len(tab)):
+          k = tab[i]
+          j = i-1
+          while j >= 0 and k < tab[j] :
+                  tab[j + 1] = tab[j]
+                  j -= 1
+          tab[j + 1] = k
+
+    tab = [98, 22, 15, 32, 2, 74, 63, 70]
+    print(tri_insertion(tab))
+  ```
+
+- Tri par selection :
+
+  ```python
+  def tri_selection(tab):
+     for i in range(len(tab)):
+         min = i
+         for j in range(i+1, len(tab)):
+             if tab[min] > tab[j]:
+                 min = j                                   
+         tab[i] , tab[min] = tab[min] , tab[i]
+     return tab
+
+  tab = [98, 22, 15, 32, 2, 74, 63, 70]
+  print(tri_selection(tab))
+  ```
+
+  ### Cours Théorique de programmation.
+
+  - ##### Analyse d'un programme.  
+       Face à un algorithme , on doit se poser 3 questions:  
+          - L'algorithme donne t-il un résultat ?
+          - Le résultat est-il bon ?
+          - Est-ce que le temps écoulé est raisonnable/optimisé ?
+
+      On parle de :      
+      - Terminaison > L'algo. ``s'arrète``  et ``donne une réponse``
+      - Correction  > L'algo  est ``fonctionnelle`` , il renvoie la valeure attendue.
+      - Complexité  > Cours suivant
+
+  	Si l'algorithme vérifie les 2 conditions , l'algorithme est **Valide**
+
+    ###### Exemple:
+  	```python
+  	def exemple1_corrigé(n,a):
+  		if n<0:
+  			a=-a
+  		while n!=0 and n!=1 and n!=2:
+  			n=n-a
+  		return a
+  	```
+  	Correction  : ☑
+
+  	Terminaison : ☑
+
+      - ##### Terminaison
+
+      	Pour démontrer la Terminaison , on cherche un **Variant de boucle** , c'est une suite d'entier décroissante minorée par une condition de sortie du programme.
+
+      	Sur l'exemple précédent , la condition de sortie de la boucle __while__ était ``( n==0 or n==1 or n==2:)``
+
+      	De plus , **n** est décroissant donc la boucle n'est pas infini , la suite de n est minoré décroissante donc l'algorithme	 	vérifie la terminaison.
+
+      	###### Cas particulier !
+      	Dans une boucle for , le nombre d'itération est défini au début de la boucle , ainsi :
+
+      	```python
+      	n=3
+      	for i in range(n):
+      		n = n+1
+      		print(n)
+      	```
+      	Fera **uniquement** 3 itérations malgré le fait que **n** soit incrémenter à chaque boucle .
+
+      	En revanche , ce calcul de taille s'effectue à chaque itérations sur des **listes** :
+      	```python
+      	L = [0]
+      	for terme in L:
+      		L.append(Terme)
+      	```
+      	Ici , l'algorithme est une boucle infinie : Attention donc à ce genre de boucle
+
+      - ##### Correction
+
+          Pour vérifier la correction , nous devons montrer que l'algorithme renvoie la valeur attendue .
+          Nous devons le faire grâce à des récurrences .
+
+          Exemple de la division euclidienne :
+
+          ```python
+          def div_euclidienne(a,b):
+              q = 0
+              r = a
+              while r >= b:
+                  r = r-b
+                  q = q+1
+              return q,r
+          ```
+            q = 0
+            r = a
+
+          - Si a < b :
+          ```
+          => On ne rentre pas dans la boucle
+          => On renvoie (q,r) = (0,a) | Correction ☑
+          ```
+          - Si a >= b :
+
+              => On rentre dans la boucle
+
+              ``Initialisation``:
+
+              Fin de la première itération :
+
+              ```
+              => r = r-b = a-b
+              => q += 1 donc q = 0+1 = 1
+              et b*q+r = b*1 + (a-b) = a
+              ```
+
+              ``Hérédité``:
+
+              On suppose un résulat valide au rang **i** .
+
+              ```
+              Pour la boucle **i+1** :              
+              => b*(q_(i+1) + r_(i+1)) = b *(q_i + 1 ) + (r_i - b)
+              => b*(q_(i+1) + r_(i+1)) = b*q_i + b + r_i - b
+              => b*(q_(i+1) + r_(i+1)) = b*q_i + r_i
+              => b*(q_(i+1) + r_(i+1)) = a
+              ```
+
+              Quand on sors de la boucle , la condition du **while** n'est plus vérifiée , on a **r<b**
+
+              Le programme envoie les dernières valeures de **q** et **r** pour lesquelles le programme boucle .
+
+  - #####  Complexité d'un programme.
+
+  On définit la complexité d'un programme par le nombre d'opérations qu'il réalise avant de terminer .
+
+  Les instructions :
+  - additions
+  - multiplications
+  - incrémentations
+  - affectations
+  - tests de comparaisons
+
+  ###### Compléxité :
+  Il est inutile d'obtenir la complExité exact d'un algorithme ; c'est pour cela qu'on utilise des notations pour approximer sa valeure.
+
+  Exemple:
+  - Compléxité en **n^3 + 3n** ~ **n^3**
+
+  Ici on parle de complexité en **O(n^3)**
+
+
+  ###### On définit 3 types de complexités :
+
+  - La compléxité dans le pire cas : c'est un majorant du temps d'exécution sur toutes les entrés possibles de même taille ; la complexité dans le pire cas apporte une notion  de sécurité sur le temps d'éxecution .
+
+  - La complexité en moyene : il s'agit d'une moyenne sur le tmps d'éxécution sur toutes les entrées possibles de même taille  en considérant une distribution équiprobable; elle représente le cmportement moyen d'un algorithme.
+
+  - La compléxité dans le meilleur cas : elle est peu utile , facile à calculer , mais n'appore qu'une borne inférieure dans les temps d'exécution;
+
+
+###### On peut trier les algorithmes en plusieurs familles :
+
+
+  - __Le temps Constant__ : O(1) -> Nombre d'opérations constant peu importe l'entrée de la sortie .
+  - Le temps sous-linéaire : O(log(n)) :  Nombre d'opération présente un dépendance logarithmique :``ex: dichotomie:``
+  - Le temps linéaire : O(n) : Le nombre d'oprations est proportionnel à la taille de l'argument : ``recheche d'un max d'une listes``
+  - Le temps quasi-linéaire : O(n*log(n)) : Le log apparait en base quelconque
+  - Le temps quadratique : O(n^2) : le nombre d'opérations dépend d'un polynome par rapport à la taille de l'argument : ex : ``multiplication matricielle``
+  - Le temps exponentiel : O(c^n): La dépendance de la talle de l'argument est exponentielle , Trés inutilisable .
+
+
+###### Binaire et Flottants
+
+- Code
+  ```python
+  def base10versbase2(a):
+      assert a <= (2**0 + 2**1 + 2**2 + 2**3 + 2**4 + 2**5 + 2**6 + 2**7) # 255
+      c=""
+      if a==0 :
+         return ("0")
+      while a>0 :
+          c=str(a%2)+c
+          a=a//2
+      return(c)
+
+  def base2versbase10(c):
+      e = 0
+      n = len(c)
+      for i in range(n):
+          e = e + int(c[n-1-i])*2**i
+      return e
+
+  def binaire_signe(e):
+      if (int(e) < 0 ):
+          return base10versbase2(e+256)
+      else:
+          return base10versbase2(e)
+
+  def binaire_cplt_a_2versbase10(c):
+      if(c[0] == '1' ):
+          return  base2versbase10(c) - 256
+      else:
+          return base2versbase10(c)
+
+  def signe(d):
+    #Renvoie le bit de signe du flottant
+    if(d<0):
+      return 1
+    return 0
+
+  def extraction(c):
+    return (c[0],c[1:9],c[9:])
+  #>>> extraction("01000011011100110100000000000000")
+  #('0', '10000110', '11100110100000000000000')
+  ```
+
+###### Résolution d'Equation différentielle : *Euler Solver*
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def euler(F, t0,tf,y0, n):
+    """Données:
+    F(y,t) une fonction
+    t0,t1 deux réels avec t0 < t1
+    y0 un réel
+    n un entier
+    Résultat: le tuple constitué de la liste des temps [t0,...,tn] et la liste des (n+1) réels [y_0, ...y_n]
+    qui constituent une approximation de la solution y sur [t0,tf]
+    de l’ED y’=F(y,t) avec la condition initiale y(t0) = y0
+    """
+    h = (tf-t0)/n
+    y = y0
+    t = t0
+    Y = [y0]
+    T = [t0]
+    for k in range(n): # n itérations donc n+1 points
+        y = y + h*F(y,t)
+        t = t + h
+        Y.append(y)
+        T.append(t)
+    return T,Y
+
+def F(Y,t):
+    """Données: t un flottant, Y un tableau de deux flottants"
+    Résulat: un tableau de deux flottants
+    """
+    u,up = Y
+    return np.array([up, -omega0/Q*up-omega0**2*u])
+
+Q=0.5
+omega0=2*np.pi
+y0 = np.array([5, 0])
+sol = euler(F,0, 6,y0,1000)
+temps, Y = sol[0], sol[1] # attention Y est une liste de array
+Y = np.array(Y)
+u, up = Y[:, 0], Y[ :, 1]
+plt.plot(temps, u)
+plt.show()
+
+for Q in [0.3,0.5,5,3]:
+    omega0=2*np.pi
+    y0 = np.array([5, 0])
+    sol = euler(F,0, 10,y0,1000)
+    temps, Y = sol[0], sol[1] # attention Y est une liste de array
+    Y = np.array(Y)
+    u, up = Y[:, 0], Y[ :, 1]
+    plt.plot(temps, u)
+plt.show()
+
+for Q in [0.3,0.5,5,3]:
+    omega0=2*np.pi
+    y0 = np.array([5, 0])
+    sol = euler(F,0, 10,y0,1000)
+    temps, Y = sol[0], sol[1] # attention Y est une liste de array
+    Y = np.array(Y)
+    u, up = Y[:, 0], Y[ :, 1]
+    plt.plot(u, up)
+```
+*Credit: M.Bailloeuil [ici](http://www.cpge-chatelet.fr)*

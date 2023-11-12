@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.ico">
+
+  <title>
+    Writeup Herald | Insomnihack 2022 | Catégorie reverse | [Vozec/FR]  - Vozec&#39;s Blog
+  </title>
+
+  <meta name="description" content="Herald | Insomnihack CTF 2022" />
+  <meta name="keywords" content="tuto,reverse,howto,ctf,GrabCon,ctftime,Unknown 2" />
+  <meta name="generator" content="Hugo 0.105.0">
+
+  <link rel="stylesheet" href="https://vozec.fr/css/main.css" />
+
+  
+  
+
+  <meta property="og:title" content="Writeup Herald | Insomnihack 2022 | Catégorie reverse | [Vozec/FR] " />
+<meta property="og:description" content="Herald | Insomnihack CTF 2022" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vozec.fr/writeups/herald-insomnihack-ctf-2022/" /><meta property="og:image" content="https://vozec.fr/vozec.png"/><meta property="article:section" content="writeups" />
+<meta property="article:published_time" content="2022-01-30T12:00:00+00:00" />
+<meta property="article:modified_time" content="2022-01-30T12:00:00+00:00" />
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vozec.fr/vozec.png"/>
+
+<meta name="twitter:title" content="Writeup Herald | Insomnihack 2022 | Catégorie reverse | [Vozec/FR] "/>
+<meta name="twitter:description" content="Herald | Insomnihack CTF 2022"/>
+
+
+  <meta itemprop="name" content="Writeup Herald | Insomnihack 2022 | Catégorie reverse | [Vozec/FR] ">
+<meta itemprop="description" content="Herald | Insomnihack CTF 2022"><meta itemprop="datePublished" content="2022-01-30T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-01-30T12:00:00+00:00" />
+<meta itemprop="wordCount" content="1131"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="reverse,tuto," />
+
+  <meta itemprop="name" content="Writeup Herald | Insomnihack 2022 | Catégorie reverse | [Vozec/FR] ">
+<meta itemprop="description" content="Herald | Insomnihack CTF 2022"><meta itemprop="datePublished" content="2022-01-30T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-01-30T12:00:00+00:00" />
+<meta itemprop="wordCount" content="1131"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="reverse,tuto," />
+</head><body class="flex relative h-full min-h-screen"><aside
+  class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:w-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar">
+  <p class="font-bold mb-5 flex items-center gap-2">
+    <button aria-label="Close sidebar"
+      class="md:hidden menu-trigger-close p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg></button>
+    <a href="https://vozec.fr/" class="px-2">
+      <span>Vozec&#39;s Blog</span>
+    </a>
+    <button aria-label="Toggle dark mode"
+      class="dark-mode-toggle p-2 rounded border dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <circle cx="12" cy="12" r="4" />
+  <path d="M3 12h1M12 3v1M20 12h1M12 20v1M5.6 5.6l.7 .7M18.4 5.6l-.7 .7M17.7 17.7l.7 .7M6.3 17.7l-.7 .7" />
+</svg></button>
+  </p>
+
+  
+  <ul class="list-none flex flex-col gap-1">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/" >
+        <span>Home</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>C͟o͟n͟t͟e͟n͟t͟ ✒️</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles" >
+        <span> 〰️ Articles</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/writeups" >
+        <span> 〰️ Writeups</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>F͟r͟o͟m͟ 0 T͟o͟ C͟r͟y͟p͟t͟o͟ 🔐</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-rsa" >
+        <span> 〰️ Rsa Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-aes" >
+        <span> 〰️ Aes Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-other" >
+        <span> 〰️ Other Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>A͟b͟o͟u͟t͟ M͟e͟👀</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/contact" >
+        <span> 〰️ Contact Me</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://flag-poisoning.fr"  target="_blank"
+        rel="noopener" >
+        <span> 〰️ My Ctf Team </span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+
+  <div class="flex-1"></div>
+
+  
+
+  <ul class="list-none flex flex-wrap justify-center gap-1 pt-2 border-t border-slate-200 dark:border-slate-600">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://twitter.com/Vozec1" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Twitter</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://github.com/Vozec" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">GitHub</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.linkedin.com/in/arthur-deloffre-844b7a221/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">LinkedIn</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect x="2" y="9" width="4" height="12" />
+  <circle cx="4" cy="4" r="2" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="mailto:arthursd444@gmail.com" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Email</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.instagram.com/arthur_dlfr/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Instagram</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+</aside>
+
+<div
+  class="fixed bg-slate-700 bg-opacity-5 transition duration-200 ease-in-out inset-0 z-10 pointer-events-auto md:hidden left-0 top-0 w-full h-full hidden menu-overlay">
+</div>
+
+<button aria-label="Toggle Sidebar"
+  class="md:hidden absolute top-3 left-3 z-10 menu-trigger p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-100"><svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="4" y1="6" x2="20" y2="6" />
+  <line x1="4" y1="12" x2="20" y2="12" />
+  <line x1="4" y1="18" x2="16" y2="18" />
+</svg></button>
+<div class="flex-1">
+
+
+
+
+<div class="flex max-h-screen relative overflow-y-auto h-full">
+  
+  <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg dark:prose-invert h-fit prose-img:mx-auto">
+    
+    <a href="https://vozec.fr/writeups/" class="!no-underline !text-slate-500 !mb-2 !inline-block !font-normal !text-sm hover:!text-slate-700 dark:hover:!text-slate-400">← Back to list</a>
+
+    
+    <h1 class="!mb-2">Writeup Herald | Insomnihack 2022 | Catégorie reverse | [Vozec/FR] </h1>
+    
+    <p class="text-sm text-slate-500 !mb-8">January 30, 2022</p>
+    
+
+    
+
+    <h2 id="fichiers">Fichier(s)</h2>
+<ul>
+<li><a href="./files/Original.apk" >Herald.apk</a></li>
+</ul>
+<h2 id="nécessaires">Nécessaires</h2>
+<ul>
+<li>Un téléphone Android</li>
+<li><a href="https://play.google.com/store/apps/details?id=com.haibison.apksigner"  target="_blank" rel="noopener" >Apk-signer</a></li>
+<li><a href="https://ibotpeaches.github.io/Apktool/"  target="_blank" rel="noopener" >Apktool</a></li>
+<li><a href="https://github.com/skylot/jadx"  target="_blank" rel="noopener" >Jdax</a></li>
+</ul>
+<h2 id="flag">Flag</h2>
+<pre tabindex="0"><code>INS{Y0u_Kn0W_aB0uT_Th3_Her4ld_0F_the_G0ds?}
+</code></pre><h2 id="description">Description</h2>
+<pre tabindex="0"><code>Our lab administrator has just passed out from a strange virus. Please help us find the password to his messaging app so we can identify what he was working on and save his life.
+</code></pre><h2 id="solution-détaillée">Solution détaillée</h2>
+<p>La première chose que j&rsquo;ai faite et de mettre mon fichier apk dans <em>Jdax</em> pour voir le code source est commencé à reverse :</p>
+<p><img src="./img/jdax.png" alt="Alt text" title="jdax"></p>
+<p>Je n’en vais pas détailler plus sur cette partie car je n&rsquo;ai rien trouvé d&rsquo;intéressant dans le code en lui-même.</p>
+<p>J&rsquo;ai ensuite installé l&rsquo;application sur mon téléphone et j&rsquo;ai constaté qu&rsquo;il y avait un login .
+Le challenge consiste donc à retrouver le mot de passe du nom d&rsquo;utilisateur pour accéder au flag !</p>
+<p>J&rsquo;ai donc dans jdax fais une recherche avec les mots clés : <strong>&lsquo;password&rsquo;</strong> <strong>&rsquo;email&rsquo;</strong> <strong>&lsquo;username&rsquo;</strong> &hellip;</p>
+<p>Toujours rien !
+Je n&rsquo;ai absolument rien trouvé donc j&rsquo;en ai déduis que le code devais être ailleur.</p>
+<h4 id="apktool-">Apktool :</h4>
+<p>Grâce à Apktool , j&rsquo;ai décompilé le .apk pour en extraire les ressources .</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apktool d original.apk
+</span></span></code></pre></div><p>Enfin , à coup de <strong>strings</strong> et <strong>grep</strong> , j&rsquo;ai finis par trouver ce fichier du nom de : &lsquo;<em>index.android.bundle</em>&rsquo;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c/Herald
+</span></span><span style="display:flex;"><span>➜   strings index.android.bundle | grep <span style="color:#f1fa8c">&#39;login&#39;</span>
+</span></span></code></pre></div><p><img src="./img/strings.png" alt="Alt text" title="strings"></p>
+<p>Je cherche donc et je trouve que les fichiers bundle sont des fichiers packé d&rsquo;application crées avec ReactJs .</p>
+<p>J&rsquo;ai passé beaucoup de temps à essayer de reverse ce fichier bundle comme un bundle react classique.
+Beaucoup de solution proposée de lié le fichier a une page html (script js) puis de le debugger à partir de la console développer du mon navigateur.
+Malheuresement , cela n&rsquo;a pas marché &hellip;.</p>
+<p>Même si j&rsquo;y ai pensé tard, j&rsquo;ai fait un <em>file</em> sur le fichier et voici l&rsquo;output :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c/Herald
+</span></span><span style="display:flex;"><span>➜   file index.android.bundle
+</span></span><span style="display:flex;"><span>index.android.bundle: Hermes JavaScript bytecode, version <span style="color:#bd93f9">84</span>
+</span></span></code></pre></div><p>C&rsquo;est un fichier Hermes JS (en version 84)</p>
+<p>Une recherche rapide nous permet de trouver : <a href="https://github.com/bongtrop/hbctool"  target="_blank" rel="noopener" >HbcTool</a></p>
+<p>Problème, il ne supporte pas la version de notre fichier ByteCode !</p>
+<p><img src="./img/support.png" alt="Alt text" title="support"></p>
+<p>J&rsquo;ai donc cherché partout, encore et encore pendant plusieurs heures pour enfin trouver ce commit sur GitHub d&rsquo;une version d&rsquo;essai qui permet la décompilation des bytes codes en version 84 .</p>
+<p><a href="https://github.com/bongtrop/hbctool/issues/12"  target="_blank" rel="noopener" >https://github.com/bongtrop/hbctool/issues/12</a></p>
+<p>Qui redirigé vers <a href="https://github.com/niosega/hbctool/tree/draft/hbc-v84"  target="_blank" rel="noopener" >cette release</a> qui m&rsquo;a permis de décompilé le fichier bundle !</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c/Herald
+</span></span><span style="display:flex;"><span>➜   hbctool disasm index.android.bundle original
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>*<span style="color:#ff79c6">]</span> Disassemble <span style="color:#f1fa8c">&#39;index.android.bundle&#39;</span> to <span style="color:#f1fa8c">&#39;original&#39;</span> path
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>*<span style="color:#ff79c6">]</span> Hermes Bytecode <span style="color:#ff79c6">[</span> Source Hash: fcea8fb1a251839a7811a5cdcfc8f975e0b3d67b, HBC Version: <span style="color:#bd93f9">84</span> <span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>*<span style="color:#ff79c6">]</span> Done
+</span></span></code></pre></div><h4 id="le-fun-et-les-bytes-codes-">Le Fun et les Bytes codes :</h4>
+<p>On a donc 3 nouveaux fichiers :</p>
+<ul>
+<li>instruction.hasm</li>
+<li>metadata.json</li>
+<li>string.json</li>
+</ul>
+<p>Dans <code>string.json</code> ; on a bien nos strings de l&rsquo;application ce qui confirme que nous sommes sur la bonne voie :</p>
+<p><img src="./img/file_string.png" alt="Alt text" title="file_string"></p>
+<h6 id="username-">Username :</h6>
+<p>Voici à quoi ressemble les bytes codes dans la fonction login que j&rsquo;ai retrouvé :</p>
+<p><img src="./img/bytecode.png" alt="Alt text" title="bytecode"></p>
+<p>On voit tout de suite que le nom d’utilisateur est <strong>admin</strong>
+Il nous reste le mot de passe !</p>
+<h6 id="password-">Password :</h6>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>GetById             	<span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">3</span>, <span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">0</span>, <span style="color:#8be9fd;font-style:italic">UInt8</span>:<span style="color:#bd93f9">3</span>, <span style="color:#8be9fd;font-style:italic">UInt16</span>:<span style="color:#bd93f9">4120</span>; Oper[<span style="color:#bd93f9">3</span>]<span style="color:#ff79c6">:</span> String(<span style="color:#bd93f9">4120</span>) &#39;password&#39;
+</span></span><span style="display:flex;"><span>GetById             	<span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">4</span>, <span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">2</span>, <span style="color:#8be9fd;font-style:italic">UInt8</span>:<span style="color:#bd93f9">4</span>, <span style="color:#8be9fd;font-style:italic">UInt16</span>:<span style="color:#bd93f9">3485</span>; Oper[<span style="color:#bd93f9">3</span>]<span style="color:#ff79c6">:</span> String(<span style="color:#bd93f9">3485</span>) &#39;decodedText&#39;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NewArrayWithBuffer  	<span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">0</span>, <span style="color:#8be9fd;font-style:italic">UInt16</span>:<span style="color:#bd93f9">28</span>, <span style="color:#8be9fd;font-style:italic">UInt16</span>:<span style="color:#bd93f9">28</span>, <span style="color:#8be9fd;font-style:italic">UInt16</span>:<span style="color:#bd93f9">9398</span>
+</span></span><span style="display:flex;"><span>Call2               	<span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">0</span>, <span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">4</span>, <span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">2</span>, <span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>JStrictEqual        	<span style="color:#8be9fd;font-style:italic">Addr8</span>:<span style="color:#bd93f9">105</span>, <span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">3</span>, <span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span>GetByIdShort        	<span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">0</span>, <span style="color:#8be9fd;font-style:italic">Reg8</span>:<span style="color:#bd93f9">2</span>, <span style="color:#8be9fd;font-style:italic">UInt8</span>:<span style="color:#bd93f9">1</span>, <span style="color:#8be9fd;font-style:italic">UInt8</span>:<span style="color:#bd93f9">121</span>; Oper[<span style="color:#bd93f9">3</span>]<span style="color:#ff79c6">:</span> String(<span style="color:#bd93f9">121</span>) &#39;state&#39;
+</span></span></code></pre></div><p>Voici le code qui appelle la fonction <strong>decodedText</strong> et voici son contenue :</p>
+<p><img src="./img/decode.png" alt="Alt text" title="decode"></p>
+<p>Les mots : <strong>&lsquo;ascii_array&rsquo; , &lsquo;fromCharCode&rsquo; , &rsquo;length&rsquo;</strong> nous indique que le code équivalent en python serait :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">decodedText</span>(array):
+</span></span><span style="display:flex;"><span>  final <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">for</span> ch <span style="color:#ff79c6">in</span> array:
+</span></span><span style="display:flex;"><span>    final <span style="color:#ff79c6">+=</span> <span style="color:#8be9fd;font-style:italic">chr</span>(ch)
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> final
+</span></span></code></pre></div><p>Malheureusement , je n&rsquo;ai pas trouvé d&rsquo;array qui me permette de trouver le flag . Même avec des grep de <code>73, 78, 83, 123</code> qui sont les chars de <strong>INS{</strong> , le début du flag connu .</p>
+<p>J&rsquo;ai donc changé de tactique !
+Au lieu de trouver le bon mot de passe. Modifions le code pour que le mot de passe que nous entrons soit valide :</p>
+<p>Si on reprend le code la fonction on comprend la logique du programme :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">username</span> <span style="color:#ff79c6">=</span> input<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#39;User&#39;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">password</span> <span style="color:#ff79c6">=</span> input<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#39;Password&#39;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span><span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">username</span> <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#39;admin&#39;</span><span style="color:#ff79c6">)</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">if</span><span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">password</span> <span style="color:#ff79c6">==</span> decodedText<span style="color:#ff79c6">(</span>not_founded_array<span style="color:#ff79c6">))</span>:
+</span></span><span style="display:flex;"><span>    print<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#39;Flag&#39;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>    print<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#39;You are not the admin, Liar!&#39;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>  print<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#39;Wrong Username/Password combination&#39;</span><span style="color:#ff79c6">)</span>
+</span></span></code></pre></div><p>Nous avons déjà le nom d&rsquo;utilisateur donc nous devons changer le <code>password == decodedText</code> en <code>password != decodedText</code></p>
+<p>Pour cela il faut comprendre ou la variable est appelé.</p>
+<p>En comparant les autres fonctions donc les actions étaient connues, j&rsquo;ai compris comment les variables étaient définis. J&rsquo;ai donc identifié le mot de passe valide comme : <strong>Reg8:0</strong> au niveau de la ligne 210357</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>NewArrayWithBuffer  	Reg8:0, UInt16:28, UInt16:28, UInt16:9398
+</span></span><span style="display:flex;"><span>Call2               	Reg8:0, Reg8:4, Reg8:2, Reg8:0
+</span></span><span style="display:flex;"><span>JStrictEqual        	Addr8:105, Reg8:3, Reg8:0
+</span></span><span style="display:flex;"><span>GetByIdShort        	Reg8:0, Reg8:2, UInt8:1, UInt8:121
+</span></span></code></pre></div><p>JStrictEqual stock la différence de <strong>Reg8:3</strong> et <strong>Reg8:0</strong> dans un booléen <strong>Addr8:105</strong>.
+De plus ; On sait que <strong>Reg8:0</strong> est notre entrée car nous avons au-dessus :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GetById             	Reg8:3, Reg8:0, UInt8:3, UInt16:4120
+</span></span><span style="display:flex;"><span>; Oper<span style="color:#ff79c6">[</span>3<span style="color:#ff79c6">]</span>: String<span style="color:#ff79c6">(</span>4120<span style="color:#ff79c6">)</span> <span style="color:#f1fa8c">&#39;password&#39;</span>
+</span></span></code></pre></div><p>J&rsquo;ai donc essayé de faire afficher <strong>Reg8:0</strong> via la code des popup définis plus tard
+Mais cela ne fonctionnais pas et quand je changé la variable de la string original par <strong>Reg8:0</strong> , soit dans les premiers tests , l&rsquo;application crashé instantanément , soit elle affiché une popup vide &hellip;</p>
+<p>Code de la popup :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GetById             	Reg8:0, Reg8:3, UInt8:6, UInt16:5067	; Oper<span style="color:#ff79c6">[</span>3<span style="color:#ff79c6">]</span>: String<span style="color:#ff79c6">(</span>5067<span style="color:#ff79c6">)</span> <span style="color:#f1fa8c">&#39;alert&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LoadConstString     	Reg8:1, UInt16:1772	; Oper<span style="color:#ff79c6">[</span>1<span style="color:#ff79c6">]</span>: String<span style="color:#ff79c6">(</span>1772<span style="color:#ff79c6">)</span> <span style="color:#f1fa8c">&#39;Wrong Username/Password combination&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Call2               	Reg8:0, Reg8:0, Reg8:3, Reg8:1
+</span></span><span style="display:flex;"><span>GetById             	Reg8:0, Reg8:2, UInt8:7, UInt16:3904	; Oper<span style="color:#ff79c6">[</span>3<span style="color:#ff79c6">]</span>: String<span style="color:#ff79c6">(</span>3904<span style="color:#ff79c6">)</span> <span style="color:#f1fa8c">&#39;setPrint&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Call2               	Reg8:0, Reg8:0, Reg8:2, Reg8:1
+</span></span><span style="display:flex;"><span>Jmp                 	Addr8:66
+</span></span><span style="display:flex;"><span>GetEnvironment      	Reg8:0, UInt8:1
+</span></span><span style="display:flex;"><span>LoadFromEnvironment 	Reg8:0, Reg8:0, UInt8:6
+</span></span><span style="display:flex;"><span>GetById             	Reg8:3, Reg8:0, UInt8:5, UInt16:4460	; Oper<span style="color:#ff79c6">[</span>3<span style="color:#ff79c6">]</span>: String<span style="color:#ff79c6">(</span>4460<span style="color:#ff79c6">)</span> <span style="color:#f1fa8c">&#39;Alert&#39;</span>
+</span></span></code></pre></div><p>Finalement, j&rsquo;ai modifié la fonction <strong>JStrictEqual</strong> en <strong>JStrictNotEqual</strong></p>
+<h4 id="recompilation">Recompilation</h4>
+<p>Maintenant, nous devons réinstallé notre app modifié sur le téléphone pour tester et espérer avoir le flag .</p>
+<h6 id="première-étape--recompilation-du-bundle">Première étape : Recompilation du bundle</h6>
+<p>Grâce au même outils que pour décompiler le bundle, j’ai recréé un fichier à partir des BytesCodes :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c/Herald
+</span></span><span style="display:flex;"><span>➜   hbctool asm original index.android.bundle
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>*<span style="color:#ff79c6">]</span> Assemble <span style="color:#f1fa8c">&#39;original&#39;</span> to <span style="color:#f1fa8c">&#39;index.android.bundle&#39;</span> path
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>*<span style="color:#ff79c6">]</span> Hermes Bytecode <span style="color:#ff79c6">[</span> Source Hash: fcea8fb1a251839a7811a5cdcfc8f975e0b3d67b, HBC Version: <span style="color:#bd93f9">84</span> <span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>*<span style="color:#ff79c6">]</span> Done
+</span></span></code></pre></div><p>Voici le bundle valide : <a href="./files/index.android.bundle" >index.android.bundle</a></p>
+<h6 id="seconde-étape--modification-avec-apktool">Seconde étape : Modification avec Apktool</h6>
+<p>Je replace mon bundle au bon endroit dans les fichiers décompilés avec apktool , dans &lsquo;/assets&rsquo;
+Enfin je rebuild mon apk avec la commande suivante :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PS D:<span style="color:#f1fa8c">\A</span>PKTOOL&gt; ./apktool b .<span style="color:#f1fa8c">\o</span>riginal<span style="color:#f1fa8c">\ </span>-o tampered.apk
+</span></span><span style="display:flex;"><span>I: Using Apktool 2.4.0
+</span></span><span style="display:flex;"><span>I: Checking whether sources has changed...
+</span></span><span style="display:flex;"><span>I: Smaling smali folder into classes.dex...
+</span></span><span style="display:flex;"><span>I: Checking whether resources has changed...
+</span></span><span style="display:flex;"><span>I: Building resources...
+</span></span><span style="display:flex;"><span>I: Copying libs... <span style="color:#ff79c6">(</span>/lib<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>I: Copying libs... <span style="color:#ff79c6">(</span>/kotlin<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>I: Building apk file...
+</span></span><span style="display:flex;"><span>I: Copying unknown files/dir...
+</span></span><span style="display:flex;"><span>I: Built apk...
+</span></span><span style="display:flex;"><span>Appuyez sur une touche pour continuer...
+</span></span></code></pre></div><p>Je dois donc signer mon apk pout pouvoir l&rsquo;installer sur mon téléphone.
+J&rsquo;ai déjà expliqué dans <a href="https://vozec.fr/articles/contourner-le-ssl-pinning-sur-android/"  target="_blank" rel="noopener" >cet</a> article comment faire.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>zipalign -c <span style="color:#bd93f9">4</span> tampered.apk
+</span></span></code></pre></div><p>Ici pour ne pas m’embêter, j&rsquo;ai utilisé l&rsquo;application <em>apk-signer</em> qui à directement signé le fichier sur mon téléphone .</p>
+<h4 id="verdict">Verdict</h4>
+<p>Ça a marché !
+Un mot de passe incorrect à était validé et nous avons le flag :</p>
+<p><img src="./img/final.jpg" alt="Alt text" title="final"></p>
+
+  </article>
+
+</div>
+
+
+  </div>
+<script type="text/javascript" src="/main.js" defer></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3EGPCQCHEK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-3EGPCQCHEK', { 'anonymize_ip': false });
+}
+</script>
+
+</body>
+
+</html>

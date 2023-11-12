@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.ico">
+
+  <title>
+    Comment Isoler un Recaptcha - Vozec&#39;s Blog
+  </title>
+
+  <meta name="description" content="Voici comment j&#39;ai isolé et stocké des Tokens Google-Recaptcha " />
+  <meta name="keywords" content="bypass,recaptcha,google,ocr,request,harvester,captcha" />
+  <meta name="generator" content="Hugo 0.105.0">
+
+  <link rel="stylesheet" href="https://vozec.fr/css/main.css" />
+
+  
+  
+
+  <meta property="og:title" content="Comment Isoler un Recaptcha" />
+<meta property="og:description" content="Voici comment j&#39;ai isolé et stocké des Tokens Google-Recaptcha " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vozec.fr/articles/les-captchas-sont-inutiles-part2/" /><meta property="og:image" content="https://vozec.fr/vozec.png"/><meta property="article:section" content="articles" />
+<meta property="article:published_time" content="2021-10-28T12:00:00+00:00" />
+<meta property="article:modified_time" content="2021-10-28T12:00:00+00:00" />
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vozec.fr/vozec.png"/>
+
+<meta name="twitter:title" content="Comment Isoler un Recaptcha"/>
+<meta name="twitter:description" content="Voici comment j&#39;ai isolé et stocké des Tokens Google-Recaptcha "/>
+
+
+  <meta itemprop="name" content="Comment Isoler un Recaptcha">
+<meta itemprop="description" content="Voici comment j&#39;ai isolé et stocké des Tokens Google-Recaptcha "><meta itemprop="datePublished" content="2021-10-28T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-10-28T12:00:00+00:00" />
+<meta itemprop="wordCount" content="691"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="bypass,tuto," />
+
+  <meta itemprop="name" content="Comment Isoler un Recaptcha">
+<meta itemprop="description" content="Voici comment j&#39;ai isolé et stocké des Tokens Google-Recaptcha "><meta itemprop="datePublished" content="2021-10-28T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-10-28T12:00:00+00:00" />
+<meta itemprop="wordCount" content="691"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="bypass,tuto," />
+</head><body class="flex relative h-full min-h-screen"><aside
+  class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:w-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar">
+  <p class="font-bold mb-5 flex items-center gap-2">
+    <button aria-label="Close sidebar"
+      class="md:hidden menu-trigger-close p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg></button>
+    <a href="https://vozec.fr/" class="px-2">
+      <span>Vozec&#39;s Blog</span>
+    </a>
+    <button aria-label="Toggle dark mode"
+      class="dark-mode-toggle p-2 rounded border dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <circle cx="12" cy="12" r="4" />
+  <path d="M3 12h1M12 3v1M20 12h1M12 20v1M5.6 5.6l.7 .7M18.4 5.6l-.7 .7M17.7 17.7l.7 .7M6.3 17.7l-.7 .7" />
+</svg></button>
+  </p>
+
+  
+  <ul class="list-none flex flex-col gap-1">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/" >
+        <span>Home</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>C͟o͟n͟t͟e͟n͟t͟ ✒️</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles" >
+        <span> 〰️ Articles</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/writeups" >
+        <span> 〰️ Writeups</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>F͟r͟o͟m͟ 0 T͟o͟ C͟r͟y͟p͟t͟o͟ 🔐</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-rsa" >
+        <span> 〰️ Rsa Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-aes" >
+        <span> 〰️ Aes Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-other" >
+        <span> 〰️ Other Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>A͟b͟o͟u͟t͟ M͟e͟👀</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/contact" >
+        <span> 〰️ Contact Me</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://flag-poisoning.fr"  target="_blank"
+        rel="noopener" >
+        <span> 〰️ My Ctf Team </span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+
+  <div class="flex-1"></div>
+
+  
+
+  <ul class="list-none flex flex-wrap justify-center gap-1 pt-2 border-t border-slate-200 dark:border-slate-600">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://twitter.com/Vozec1" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Twitter</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://github.com/Vozec" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">GitHub</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.linkedin.com/in/arthur-deloffre-844b7a221/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">LinkedIn</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect x="2" y="9" width="4" height="12" />
+  <circle cx="4" cy="4" r="2" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="mailto:arthursd444@gmail.com" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Email</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.instagram.com/arthur_dlfr/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Instagram</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+</aside>
+
+<div
+  class="fixed bg-slate-700 bg-opacity-5 transition duration-200 ease-in-out inset-0 z-10 pointer-events-auto md:hidden left-0 top-0 w-full h-full hidden menu-overlay">
+</div>
+
+<button aria-label="Toggle Sidebar"
+  class="md:hidden absolute top-3 left-3 z-10 menu-trigger p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-100"><svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="4" y1="6" x2="20" y2="6" />
+  <line x1="4" y1="12" x2="20" y2="12" />
+  <line x1="4" y1="18" x2="16" y2="18" />
+</svg></button>
+<div class="flex-1">
+
+
+
+
+
+<div class="flex h-screen relative">
+
+  <section
+    class="will-change-transform transform transition-transform -translate-x-[200%] absolute top-0 left-0 lg:relative
+  lg:translate-x-0 lg:min-w-[400px] lg:w-1/4 h-full bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 lg:flex flex-col py-3 overflow-y-auto scroll-area">
+    
+    
+    <a href="https://vozec.fr/articles/">
+      <h2 class="font-bold mb-5 py-1 pl-12 pr-3 md:px-3">Articles</h2>
+    </a>
+<label class="mb-2 block px-2">
+  <span></span>
+  <input type="text" placeholder="Search articles" class="searchInput bg-white rounded px-2 py-1 w-full border" />
+</label>
+<script>
+  const searchElt = document.querySelector('.searchInput')
+  if (searchElt) {
+    searchElt.addEventListener('input', evt => {
+      const value = evt.target.value || '';
+
+      const articles = document.querySelectorAll('.article')
+      if (!value) {
+        articles.forEach(article => article.classList.remove('hidden'))
+      } else {
+        articles.forEach(article => article.classList.add('hidden'))
+        Array.from(articles).filter(article => {
+          const title = article.querySelector('h3')
+          if (!title) return false;
+
+          return title.textContent.toLowerCase().includes(value.toLowerCase())
+        }).forEach(article => article.classList.remove('hidden'))
+      }
+    })
+  }
+</script>
+<div class="space-y-2.5">
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/attaque-oracle-padding-aes_ecb/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Présentation de l&#39;attaque &#39;Padding Oracle&#39; sur de l&#39;AES ECB</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction L&rsquo;AES (&ldquo;Advanced Encryption Standard&rdquo;) est un chiffrement par blocs utilisé de nos jours dans la sécurité informatique. Il repose sur le chiffrement d&rsquo;information découpé en plusieurs blocs et le chiffrement de ces blocs peuvent être fait de plusieurs manières selon la configuration du système. Ainsi il en existe plusieurs modes :
+ECB CBC CFB OFB CTR CTS &hellip; Aujourd’hui, nous allons aborder une attaque présente sur l&rsquo;AES en mode ECB .
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/anti-cheat-ctf/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Lutter contre la triche en CTF ?</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction Dans cet article , je vais présenter les différentes possibilités pour empêcher la triche en compétition et notamment sur des ctf basés sur CTFd . Je précise que ces techniques permettent de mettre en avant les comptes suspects. Il y a plusieurs façons de cocher les cases d&rsquo;un tricheurs si on suis ces critères bêtement et inversement , il y a malheureusement plusieurs façon de contourner ces protections.
+Tous ce que je vais expliquer ici sert donc à mettre en avant un compte ou une équipe afin que des admins procède à une vérification manuelle et agissent en conséquence.
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/attaque-bit-flipping-aes_cbc/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Présentation de l&#39;attaque &#39;Bit Flipping&#39; sur de l&#39;AES CBC</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction L&rsquo;AES (&ldquo;Advanced Encryption Standard&rdquo;) est un chiffrement par blocs utilisé de nos jours dans la sécurité informatique. Il repose sur le chiffrement d&rsquo;information découpé en plusieurs blocs et le chiffrement de ces blocs peuvent être fait de plusieurs manières selon la configuration du système . Ainsi il en existe plusieurs modes :
+ECB CBC CFB OFB CTR CTS &hellip; Aujourd&rsquo;hui , nous allons aborder une attaque présente sur l&rsquo;AES en mode CBC .
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/python-from-0/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Python from 0</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Les Variables : Il existe des centaines de type de variables mais les principales sont :
+Les String (&lsquo;chaine de caractère&rsquo;) :
+msg = &#34;Hello World&#34; Les Int (&lsquo;Integers&rsquo;) : Ce sont les nombres entiers
+nbr = 2021 * 4 Les Float : Les nombres décimaux
+flt = 3.14159265359 Les List : Les listes contiennent des &lsquo;object&rsquo; de tous types:
+lst = [&#34;Hello World&#34;,5,3.14,[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;],9] Les Dict &lsquo;Dictionnaires&rsquo; : Associent à un objet , une valeur :
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/analyse-telegram-stealer/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Malware Analysis d&#39;une Virus Télégram</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction Je suis tombé sur ce .exe et j&rsquo;ai décidé de l&rsquo;analyser. Voici le fichier : ici Attention à ne pas l&rsquo;executer !
+Commencement Comme le dernier analyse de malware , j&rsquo;ai regardé sur Dnspy si le code était caché . A notre plus grande surprise il ne l&rsquo;était pas ! Regardons de quoi est composé notre payload :
+La Première chose qui saute aux yeux et que c&rsquo;est un virus.
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/pourquoi-vous-devez-s%C3%A9curiser-vos-dll-2/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Execution de ShellCode grâce au Dll Hidjacking</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction Nous avons déjà parlé du DLL Hidjacking dans un article précédent. Aujourd’hui, nous allons aller plus loin. Nous avions détourné la Bibliothèque LeafXnet.dll qui est des plus utilisée pour faire des requêtes web. Nous aurions pu utiliser une autre, comme Newtonsoft.Json.dll ou encore Colorful.Console.dll . Voici le résultat que nous avions la dernière fois :
+Nous récupérions juste les requêtes pour les écrire dans un fichier texte.
+Petit Rappel Le Dll Hidjacking consiste à modifier une bibliothèque appelée par un programme et ainsi ajouter du code exécuter.
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/analyse-fake-cheat-valorant/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Malware Analysis d&#39;un Fake Cheat</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction Je suis tombé sur ce soi-disant Cheat Valorant et j&rsquo;ai décidé de l&rsquo;analyser. Voici le fichier : ici Attention à ne pas l&rsquo;executer !
+Commencement Après avoir télécharger le .exe , je lui supprime tous de suite son extension .exe pour éviter de le lancer par erreur en cliquant dessus .
+Je lance DetectItEasy et je me rends compte qu&rsquo;il est compilé en .Net
+Je vais donc utiliser Dnspy pour explorer le code .
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/contourner-le-ssl-pinning-sur-android/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Comment contourner le SSL Pinning sur android</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction Pour un projet personnel, j&rsquo;ai dû récupérer une requête provenant d&rsquo;une application de mon téléphone. Après de nombreuses recherches j&rsquo;ai trouvé comment faire et j&rsquo;ai compris toutes les méthodes pour y parvenir. La principale difficulté pour récupérer le traffic réseau de votre téléphone est de déchiffré les requêtes https.
+HttpS , c&rsquo;est quoi ? &ldquo;HyperText Transfer Protocol Secure&rdquo; est un Protocol qui succède à l&rsquo;http . En effet il reprend l&rsquo;http en y rajoutant une couche de chiffrement comme SSL ou TLS .
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/les-captchas-sont-inutiles-part3/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Comment utiliser l&#39;OCR pour résoudre des captchas</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction Dans des articles précédent, nous avons vu comment bypass 2 types de catpcha . Mais peut-on tous les bypass ? La réponse est oui à quelques exceptions près et nous allons voir comment.
+Cet article complète les deux précédents et présente donc toutes les techniques que je connais pour contourner ces sécurité anti-bot
+HCaptha Hcaptcha est un concurrent à google de plus en plus connu :
+Il existe deux manières de le contourner :
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  bg-slate-900 dark:bg-slate-700 text-slate-50 "
+        href="/articles/les-captchas-sont-inutiles-part2/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Comment Isoler un Recaptcha</h3>
+        <div
+          class="text-sm  text-slate-400  line-clamp-2">
+          Introduction Nous avons vu dans un précédent comment bypass les reCAPTCHA Silencieux ; ceux en arrière-plan . Mais comment faire quand ces captchas nécessitent une interaction Humaine à tout prix ? C&rsquo;est ce que nous allons découvrir.
+Le problème Dans un captcha Silencieux, il n&rsquo;y pas d&rsquo;interactions entre l&rsquo;utilisateur et le captcha. On peut donc le contourner en simulant des actions identiques au script natif. Par contre, dans un captcha visible.
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/les-captchas-sont-inutiles-part1/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Comment Bypass un Silent Recaptcha V3</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction Les Captchas sont partout, ce sont des petits programmes web qui servent à déterminer si leur interlocuteur est un Homme ou un Robot. Ce n&rsquo;est pas très dérangeant pour les gens normaux mais cela devient ennuyeux pour les développeur qui souhaitent faire du scraping web ou juste se connecter à un service depuis le site-Web. Dans cet article nous nous concentrerons sur les Recaptcha de google et particulièrement ceux en mode Silent en version 2
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/pourquoi-votre-wifi-est-vuln%C3%A9rable/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Pourquoi votre wifi est-il vulnérable</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction Je rappelle que le piratage d&rsquo;un réseau dont vous n&rsquo;êtes pas le propriétaire ou dont vous n&rsquo;avez pas d&rsquo;accord est strictement illégal. Je ne serais pas responsable des actions que vous ferrez après la lecture des cet article
+La sécurité WPA2 (Wi-Fi Protected Access Version 2) est la sécurité la plus courante sur vos routeurs personnels. C&rsquo;est à dire sur votre box internet personnelle. Il est pris en charge depuis 2005 sur Windows XP et il est encore utilisé de nos jours.
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/pourquoi-vous-devez-s%C3%A9curiser-vos-dll/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Pourquoi il faut sécuriser vos DLL P1</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          Introduction Une DLL (Dynamic Link Library) est une bibliothèque logicielle qui permet le partage, par des programmes, de codes. Pour résumer, c&rsquo;est une bibliothèque avec plusieurs fonctions à l&rsquo;intérieur. C&rsquo;est très utile pour ne pas toujours coder la même chose. On code une fois la DLL et on a plus qu&rsquo;a appelé ses fonctions dans tous ses projets. L&rsquo;avantage du C# est qu&rsquo;il existe un grand nombre de bibliothèques, et la plupart sont Open-Source, sur GitHub principalement
+        </div>
+      </a>
+      
+      <a class="article block px-3 py-4  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles/comment-reverse-du-.net-facilement/">
+        
+        
+        <h3 class="text-lg font-semibold mb-0.5">Comment Reverse du .Net facilement</h3>
+        <div
+          class="text-sm  text-slate-500 dark:text-slate-400  line-clamp-2">
+          [//]: &lt;&gt; (Created By Vozec 23/10/2021) Nécessaires Ce pack complet pour l&amp;rsquo;obfuscation C# Introduction .Net est un langage assez facile à reverse en général . Grâce à de simples outils comme JetBrain Dotpeek , DnSpy ou Ilspy , on peut facilement débugger , éditer , patcher un assembly sans soucis . La principale difficulté et la multitude de protection qui existe autour du Framework de Microsoft (.Net Framework/Core). Nous allons donc voir quelles sont les principales sécurités et comment les détourner .
+        </div>
+      </a>
+      </div>
+    </section>
+
+  <div class="overflow-y-auto h-screen w-full">
+    <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg h-fit dark:prose-invert prose-img:mx-auto">
+
+      
+      <h1 class="!mb-2">Comment Isoler un Recaptcha</h1>
+
+	  
+      <p class="text-sm text-slate-500 !mb-8"> Planted October 28, 2021
+		
+	  </p>
+      
+
+      
+
+      <h2 id="introduction">Introduction</h2>
+<p>Nous avons vu dans un précédent comment bypass les reCAPTCHA Silencieux ; ceux en arrière-plan .
+Mais comment faire quand ces captchas nécessitent une interaction Humaine à tout prix ? C&rsquo;est ce que nous allons découvrir.</p>
+<p><img src="./img/robot.png" alt="Alt text"></p>
+<h2 id="le-problème">Le problème</h2>
+<p>Dans un captcha Silencieux, il n&rsquo;y pas d&rsquo;interactions entre l&rsquo;utilisateur et le captcha. On peut donc le contourner en simulant des actions identiques au script natif.
+Par contre, dans un captcha visible. Tous changent &hellip; Le payload généré et envoyé dépend des images cliquées.
+On ne peut donc pas générer une Template de post-data comme précédemment. (Voir <a href="http://vozec.fr/articles/les-captchas-sont-inutiles-part1"  target="_blank" rel="noopener" >ici</a>)</p>
+<p>On va donc essayer d&rsquo;isoler cette technologie pour faciliter la génération de tokens et les stocker sur un serveur Local.</p>
+<p>Le but est de créer une page relié au captcha victime et de stocker les tokens générés sur un serveur afin d&rsquo;y accéder via une api .
+On va faire un <em>Harvester</em> !</p>
+<h2 id="harvester">Harvester</h2>
+<p>On créer une Template basique en <em>html</em> :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#ff79c6">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#ff79c6">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#ff79c6">title</span>&gt;CAPTCHA SOLVER&lt;/<span style="color:#ff79c6">title</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#ff79c6">style</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/css&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">body</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">margin</span>: <span style="color:#ff79c6">auto</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">font-family</span>: <span style="color:#ff79c6">sans-serif</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">background-color</span>: <span style="color:#bd93f9">#000000</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    .<span style="color:#50fa7b">title</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">margin</span>: <span style="color:#ff79c6">auto</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">text-align</span>: <span style="color:#ff79c6">center</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">color</span>: <span style="color:#bd93f9">#ffffff</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    .<span style="color:#50fa7b">g-recaptcha</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">height</span>: <span style="color:#bd93f9">200</span><span style="color:#8be9fd">px</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">justify-content</span>: <span style="color:#ff79c6">center</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#ff79c6">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#ff79c6">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#ff79c6">body</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;g-recaptcha&#34;</span> <span style="color:#50fa7b">data-sitekey</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;{{ sitekey }}&#34;</span> <span style="color:#50fa7b">data-callback</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;submitToken&#34;</span>&gt;&lt;/<span style="color:#ff79c6">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">function</span> submitToken() {
+</span></span><span style="display:flex;"><span>      $(<span style="color:#8be9fd;font-style:italic">function</span>() {
+</span></span><span style="display:flex;"><span>        jQuery.ajax({
+</span></span><span style="display:flex;"><span>          url<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#39;/api/submit&#39;</span>,
+</span></span><span style="display:flex;"><span>          method<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#39;POST&#39;</span>,
+</span></span><span style="display:flex;"><span>          data<span style="color:#ff79c6">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f1fa8c">&#39;g-recaptcha-response&#39;</span><span style="color:#ff79c6">:</span> grecaptcha.getResponse()
+</span></span><span style="display:flex;"><span>          },
+</span></span><span style="display:flex;"><span>          dataType<span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#39;html&#39;</span>
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>        grecaptcha.reset()
+</span></span><span style="display:flex;"><span>      })
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">static/scripts/jquery-3.2.1.min.js</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">static/scripts/captcha.js</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text/javascript&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;https://www.google.com/recaptcha/api.js&#34;</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#ff79c6">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#ff79c6">html</span>&gt;
+</span></span></code></pre></div><p>Et on importe les scripts : <strong>captcha.js</strong> et <strong>jquery-3.2.1.min.js</strong> dans <code>./static/script</code></p>
+<p>Chaque recaptcha est géré par le même script ; l&rsquo;unique changement entre est une clé appelé <strong>sitekey</strong> .
+Pour la récupérer , on peut aller la chercher dans les requêtes ou dans le code html de la page directement:
+La SiteKey se trouve dans l&rsquo;url , c&rsquo;est le paramètre <code>k</code> présent dans les requêtes <em>anchor</em> ;<em>bframe</em> ;<em>reload</em> et <em>userverify</em>:</p>
+<ul>
+<li><a href="https://www.google.com/recaptcha/enterprise/anchor?ar=1&amp;"  target="_blank" rel="noopener" >https://www.google.com/recaptcha/enterprise/anchor?ar=1&amp;</a> <strong>k=6Ld2sf4SAAAAAKSgzs0Q13IZhY02Pyo31S2jgOB5</strong> &amp;co=aHR0cHM6Ly9hY2NvdW50cy5zbmFwY2hhdC5jb206NDQz&amp;hl=fr&amp;v=UrRmT3mBwY326qQxUfVlHu1P&amp;size=normal&amp;badge=inline&amp;cb=1clo211ohuq7</li>
+<li><a href="https://www.google.com/recaptcha/enterprise/bframe?hl=fr&amp;v=UrRmT3mBwY326qQxUfVlHu1&amp;"  target="_blank" rel="noopener" >https://www.google.com/recaptcha/enterprise/bframe?hl=fr&amp;v=UrRmT3mBwY326qQxUfVlHu1&amp;</a> <strong>k=6Ld2sf4SAAAAAKSgzs0Q13IZhY02Pyo31S2jgOB5</strong></li>
+<li><a href="https://www.google.com/recaptcha/enterprise/reload"  target="_blank" rel="noopener" >https://www.google.com/recaptcha/enterprise/reload</a>? <strong>k=6Ld2sf4SAAAAAKSgzs0Q13IZhY02Pyo31S2jgOB5</strong></li>
+<li><a href="https://www.google.com/recaptcha/enterprise/userverify"  target="_blank" rel="noopener" >https://www.google.com/recaptcha/enterprise/userverify</a>? <strong>k=6Ld2sf4SAAAAAKSgzs0Q13IZhY02Pyo31S2jgOB5</strong></li>
+</ul>
+<p><img src="./img/html.png" alt="Alt text"></p>
+<p>Le souci est que quand on rentre uniquement la sitekey dans la Template ; voici ce qu&rsquo;on obtient :</p>
+<p><img src="./img/fail1.png" alt="Alt text"></p>
+<p><code>Domaine non valide pour la clé de site</code></p>
+<p>Nous devons donc émuler le domaine du site visé.
+On va utiliser le fichier host de Windows pour faire une redirection vers notre serveur local tout en ayant le domaine valide .
+<em>exemple sur <a href="http://patrickhlauke.github.io/recaptcha/"  target="_blank" rel="noopener" >http://patrickhlauke.github.io/recaptcha/</a></em></p>
+<p><img src="./img/success.png" alt="Alt text"></p>
+<p><strong>Les tokens sont valides 3mins</strong></p>
+<p>Maintenant, il reste à stocker les tokens valide et faire l&rsquo;api :</p>
+<p><em>ouvrir en administrateur (gestion du fichier Host)</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># Run this script as Administrator</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> utils <span style="color:#ff79c6">import</span> Logger
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> flask <span style="color:#ff79c6">import</span> Flask, request, jsonify, render_template, redirect
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> logging
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> threading
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> datetime <span style="color:#ff79c6">import</span> datetime
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> time <span style="color:#ff79c6">import</span> sleep
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> webbrowser
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> re
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> platform
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tokens <span style="color:#ff79c6">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>logger <span style="color:#ff79c6">=</span> Logger()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">manageTokens</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">while</span> <span style="color:#ff79c6">True</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">for</span> token <span style="color:#ff79c6">in</span> tokens:
+</span></span><span style="display:flex;"><span>			<span style="color:#ff79c6">if</span> token[<span style="color:#f1fa8c">&#39;expiry&#39;</span>] <span style="color:#ff79c6">&lt;</span> datetime<span style="color:#ff79c6">.</span>now()<span style="color:#ff79c6">.</span>timestamp():
+</span></span><span style="display:flex;"><span>				tokens<span style="color:#ff79c6">.</span>remove(token)
+</span></span><span style="display:flex;"><span>				logger<span style="color:#ff79c6">.</span>error(<span style="color:#f1fa8c">&#34;Token expired and deleted&#34;</span>)
+</span></span><span style="display:flex;"><span>		sleep(<span style="color:#bd93f9">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">sendToken</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">while</span> <span style="color:#ff79c6">not</span> tokens:
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>	token <span style="color:#ff79c6">=</span> tokens<span style="color:#ff79c6">.</span>pop(<span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> token[<span style="color:#f1fa8c">&#39;token&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>app <span style="color:#ff79c6">=</span> Flask(__name__)
+</span></span><span style="display:flex;"><span>log <span style="color:#ff79c6">=</span> logging<span style="color:#ff79c6">.</span>getLogger(<span style="color:#f1fa8c">&#39;werkzeug&#39;</span>)
+</span></span><span style="display:flex;"><span>log<span style="color:#ff79c6">.</span>setLevel(logging<span style="color:#ff79c6">.</span>ERROR)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@app<span style="color:#ff79c6">.</span>route(<span style="color:#f1fa8c">&#39;/&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">index</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> render_template(<span style="color:#f1fa8c">&#39;index.html&#39;</span>, sitekey<span style="color:#ff79c6">=</span>sitekey, domain<span style="color:#ff79c6">=</span>domain)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@app<span style="color:#ff79c6">.</span>route(<span style="color:#f1fa8c">&#39;/api/submit&#39;</span>, methods<span style="color:#ff79c6">=</span>[<span style="color:#f1fa8c">&#39;POST&#39;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">submit</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">try</span>:
+</span></span><span style="display:flex;"><span>		token <span style="color:#ff79c6">=</span> request<span style="color:#ff79c6">.</span>form[<span style="color:#f1fa8c">&#39;g-recaptcha-response&#39;</span>]
+</span></span><span style="display:flex;"><span>		expiry <span style="color:#ff79c6">=</span> datetime<span style="color:#ff79c6">.</span>now()<span style="color:#ff79c6">.</span>timestamp() <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">115</span>
+</span></span><span style="display:flex;"><span>		tokenDict <span style="color:#ff79c6">=</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;token&#39;</span>: token,
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;expiry&#39;</span>: expiry
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		tokens<span style="color:#ff79c6">.</span>append(tokenDict)
+</span></span><span style="display:flex;"><span>		logger<span style="color:#ff79c6">.</span>success(<span style="color:#f1fa8c">&#34;Token harvested and stored&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">return</span> jsonify({
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;success&#39;</span>: <span style="color:#ff79c6">True</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;error&#39;</span>: <span style="color:#ff79c6">None</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;result&#39;</span>: <span style="color:#f1fa8c">&#39;Token harvested and stored&#39;</span>
+</span></span><span style="display:flex;"><span>		})
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">except</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">return</span> jsonify({
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;success&#39;</span>: <span style="color:#ff79c6">False</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;error&#39;</span>: <span style="color:#f1fa8c">&#39;Undocumented error&#39;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;result&#39;</span>: <span style="color:#ff79c6">None</span>
+</span></span><span style="display:flex;"><span>		})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@app<span style="color:#ff79c6">.</span>route(<span style="color:#f1fa8c">&#39;/api/count&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">api_count</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> jsonify({
+</span></span><span style="display:flex;"><span>		<span style="color:#f1fa8c">&#39;success&#39;</span>: <span style="color:#ff79c6">True</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#f1fa8c">&#39;error&#39;</span>: <span style="color:#ff79c6">None</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#f1fa8c">&#39;result&#39;</span>: <span style="color:#8be9fd;font-style:italic">len</span>(tokens)
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@app<span style="color:#ff79c6">.</span>route(<span style="color:#f1fa8c">&#39;/api/token&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">api_fetch_token</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">try</span>:
+</span></span><span style="display:flex;"><span>		token <span style="color:#ff79c6">=</span> tokens<span style="color:#ff79c6">.</span>pop(<span style="color:#bd93f9">0</span>)
+</span></span><span style="display:flex;"><span>		logger<span style="color:#ff79c6">.</span>status(<span style="color:#f1fa8c">&#34;Token requested and returned to user&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">return</span> jsonify({
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;success&#39;</span>: <span style="color:#ff79c6">True</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;error&#39;</span>: <span style="color:#ff79c6">None</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;results&#39;</span>: token[<span style="color:#f1fa8c">&#39;token&#39;</span>]
+</span></span><span style="display:flex;"><span>		})
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">except</span>:
+</span></span><span style="display:flex;"><span>		logger<span style="color:#ff79c6">.</span>warn(<span style="color:#f1fa8c">&#34;Token requested but none available&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">return</span> jsonify({
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;success&#39;</span>: <span style="color:#ff79c6">False</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;error&#39;</span>: <span style="color:#f1fa8c">&#39;Token requested but none available&#39;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#f1fa8c">&#39;result&#39;</span>: <span style="color:#ff79c6">None</span>
+</span></span><span style="display:flex;"><span>		})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">setup</span>(domain):
+</span></span><span style="display:flex;"><span>	hostsFilePath <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;C:/Windows/System32/drivers/etc/&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#6272a4">#hostsFilePath = &#34;/mnt/c/Windows/System32/drivers/etc/&#34;</span>
+</span></span><span style="display:flex;"><span>	content <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;127.0.0.1 harvester.&#34;</span><span style="color:#ff79c6">+</span><span style="color:#8be9fd;font-style:italic">str</span>(domain)
+</span></span><span style="display:flex;"><span>	hostfile <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">open</span>(hostsFilePath<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#39;hosts&#39;</span>,<span style="color:#f1fa8c">&#39;r&#39;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">if</span> os<span style="color:#ff79c6">.</span>path<span style="color:#ff79c6">.</span>exists(hostsFilePath<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#39;hosts2&#39;</span>):
+</span></span><span style="display:flex;"><span>	    os<span style="color:#ff79c6">.</span>remove(hostsFilePath<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#39;hosts2&#39;</span>)
+</span></span><span style="display:flex;"><span>	newhostfile <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">open</span>(hostsFilePath<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#39;hosts2&#39;</span>,<span style="color:#f1fa8c">&#39;w&#39;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">for</span> line <span style="color:#ff79c6">in</span> hostfile<span style="color:#ff79c6">.</span>readlines():
+</span></span><span style="display:flex;"><span>		x <span style="color:#ff79c6">=</span> re<span style="color:#ff79c6">.</span>findall(<span style="color:#f1fa8c">&#34;^127.0.0.1 harvester.&#34;</span>,line)
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">if</span> <span style="color:#ff79c6">not</span> x:
+</span></span><span style="display:flex;"><span>			newhostfile<span style="color:#ff79c6">.</span>write(line)
+</span></span><span style="display:flex;"><span>	newhostfile<span style="color:#ff79c6">.</span>write(content<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>	os<span style="color:#ff79c6">.</span>remove(hostsFilePath<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#39;hosts&#39;</span>)
+</span></span><span style="display:flex;"><span>	os<span style="color:#ff79c6">.</span>rename(hostsFilePath<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#39;hosts2&#39;</span>,hostsFilePath<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#39;hosts&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> __name__ <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>	threading<span style="color:#ff79c6">.</span>Thread(target<span style="color:#ff79c6">=</span>manageTokens)<span style="color:#ff79c6">.</span>start()
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;x          	GOOGLE CAPTCHA HARVESTER            x&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">print</span>()
+</span></span><span style="display:flex;"><span>	domain <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">input</span>(<span style="color:#f1fa8c">&#34;Domain: &#34;</span>)
+</span></span><span style="display:flex;"><span>	sitekey <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">input</span>(<span style="color:#f1fa8c">&#34;SiteKey: &#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">print</span>()
+</span></span><span style="display:flex;"><span>	setup(domain)
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Server running at harvester.</span><span style="color:#f1fa8c">{}</span><span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">.</span>format(domain))
+</span></span><span style="display:flex;"><span>	app<span style="color:#ff79c6">.</span>run(port<span style="color:#ff79c6">=</span><span style="color:#bd93f9">80</span>)
+</span></span></code></pre></div><p>Voila ! On peut accéder à notre server en : <a href="http://harvester.mondomain.com"  target="_blank" rel="noopener" >http://harvester.mondomain.com</a>
+Et on peut récupérer les tokens en <a href="http://harvester.mondomain.com/api/token"  target="_blank" rel="noopener" >http://harvester.mondomain.com/api/token</a></p>
+<p><em>ouvrir en administrateur (gestion du fichier Host)</em></p>
+<p>Voici le projet en entier : <a href="./files/HarvesterByVozec.rar" >ici</a></p>
+<p>Démo :</p>
+
+
+<video controls width="100%">
+  <source src="./img/démo.mp4" type="video/mp4">
+</video>
+
+
+<p><img src="./img/meme.png" alt="Alt text"></p>
+
+    </article>
+  </div>
+
+</div>
+
+
+  </div>
+<script type="text/javascript" src="/main.js" defer></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3EGPCQCHEK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-3EGPCQCHEK', { 'anonymize_ip': false });
+}
+</script>
+
+</body>
+
+</html>

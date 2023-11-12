@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.ico">
+
+  <title>
+    Writeup All Reverse Challenges CTF 2022 | PwnMe 2022 Edition - Vozec&#39;s Blog
+  </title>
+
+  <meta name="description" content="Writeup complet de tous les challenges de Reverse du CTF PwnMe 2022" />
+  <meta name="keywords" content="network,pivoting,ssh,ctf,pwnme,ctftime,unbreakable" />
+  <meta name="generator" content="Hugo 0.105.0">
+
+  <link rel="stylesheet" href="https://vozec.fr/css/main.css" />
+
+  
+  
+
+  <meta property="og:title" content="Writeup All Reverse Challenges CTF 2022 | PwnMe 2022 Edition" />
+<meta property="og:description" content="Writeup complet de tous les challenges de Reverse du CTF PwnMe 2022" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vozec.fr/writeups/reverse-challenge-ctf-pwnme2022/" /><meta property="og:image" content="https://vozec.fr/vozec.png"/><meta property="article:section" content="writeups" />
+<meta property="article:published_time" content="2022-07-04T12:00:00+00:00" />
+<meta property="article:modified_time" content="2022-07-04T12:00:00+00:00" />
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vozec.fr/vozec.png"/>
+
+<meta name="twitter:title" content="Writeup All Reverse Challenges CTF 2022 | PwnMe 2022 Edition"/>
+<meta name="twitter:description" content="Writeup complet de tous les challenges de Reverse du CTF PwnMe 2022"/>
+
+
+  <meta itemprop="name" content="Writeup All Reverse Challenges CTF 2022 | PwnMe 2022 Edition">
+<meta itemprop="description" content="Writeup complet de tous les challenges de Reverse du CTF PwnMe 2022"><meta itemprop="datePublished" content="2022-07-04T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-07-04T12:00:00+00:00" />
+<meta itemprop="wordCount" content="1758"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="network,tuto," />
+
+  <meta itemprop="name" content="Writeup All Reverse Challenges CTF 2022 | PwnMe 2022 Edition">
+<meta itemprop="description" content="Writeup complet de tous les challenges de Reverse du CTF PwnMe 2022"><meta itemprop="datePublished" content="2022-07-04T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-07-04T12:00:00+00:00" />
+<meta itemprop="wordCount" content="1758"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="network,tuto," />
+</head><body class="flex relative h-full min-h-screen"><aside
+  class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:w-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar">
+  <p class="font-bold mb-5 flex items-center gap-2">
+    <button aria-label="Close sidebar"
+      class="md:hidden menu-trigger-close p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg></button>
+    <a href="https://vozec.fr/" class="px-2">
+      <span>Vozec&#39;s Blog</span>
+    </a>
+    <button aria-label="Toggle dark mode"
+      class="dark-mode-toggle p-2 rounded border dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <circle cx="12" cy="12" r="4" />
+  <path d="M3 12h1M12 3v1M20 12h1M12 20v1M5.6 5.6l.7 .7M18.4 5.6l-.7 .7M17.7 17.7l.7 .7M6.3 17.7l-.7 .7" />
+</svg></button>
+  </p>
+
+  
+  <ul class="list-none flex flex-col gap-1">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/" >
+        <span>Home</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>C͟o͟n͟t͟e͟n͟t͟ ✒️</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles" >
+        <span> 〰️ Articles</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/writeups" >
+        <span> 〰️ Writeups</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>F͟r͟o͟m͟ 0 T͟o͟ C͟r͟y͟p͟t͟o͟ 🔐</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-rsa" >
+        <span> 〰️ Rsa Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-aes" >
+        <span> 〰️ Aes Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-other" >
+        <span> 〰️ Other Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>A͟b͟o͟u͟t͟ M͟e͟👀</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/contact" >
+        <span> 〰️ Contact Me</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://flag-poisoning.fr"  target="_blank"
+        rel="noopener" >
+        <span> 〰️ My Ctf Team </span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+
+  <div class="flex-1"></div>
+
+  
+
+  <ul class="list-none flex flex-wrap justify-center gap-1 pt-2 border-t border-slate-200 dark:border-slate-600">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://twitter.com/Vozec1" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Twitter</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://github.com/Vozec" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">GitHub</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.linkedin.com/in/arthur-deloffre-844b7a221/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">LinkedIn</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect x="2" y="9" width="4" height="12" />
+  <circle cx="4" cy="4" r="2" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="mailto:arthursd444@gmail.com" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Email</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.instagram.com/arthur_dlfr/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Instagram</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+</aside>
+
+<div
+  class="fixed bg-slate-700 bg-opacity-5 transition duration-200 ease-in-out inset-0 z-10 pointer-events-auto md:hidden left-0 top-0 w-full h-full hidden menu-overlay">
+</div>
+
+<button aria-label="Toggle Sidebar"
+  class="md:hidden absolute top-3 left-3 z-10 menu-trigger p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-100"><svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="4" y1="6" x2="20" y2="6" />
+  <line x1="4" y1="12" x2="20" y2="12" />
+  <line x1="4" y1="18" x2="16" y2="18" />
+</svg></button>
+<div class="flex-1">
+
+<main class="h-screen overflow-y-auto">
+  <div class="px-6 py-20 w-full lg:w-[580px] mx-auto prose dark:prose-invert h-fit prose-img:mx-auto">
+
+    <h1>Writeup All Reverse Challenges CTF 2022 | PwnMe 2022 Edition</h1>
+    
+    <p class="text-sm text-slate-500 !mb-8">July 4, 2022</p>
+    
+
+    <p><img src="https://img.shields.io/badge/date-29.06.2022-brightgreen.svg" alt="date"><br>
+<img src="https://img.shields.io/badge/solved-in%20time%20of%20CTF-brightgreen.svg" alt="solved in time of CTF"></p>
+<h1 id="description">Description</h1>
+<p>Le CTF propose <strong>5 Challenges</strong> de reverse :</p>
+<ul>
+<li>2 de  <strong>Bryton#2690</strong></li>
+<li>1 de  <strong>express#7904</strong></li>
+<li>1 de <strong>kostadin#0792</strong></li>
+</ul>
+<h1 id="prérequis">Prérequis</h1>
+<ul>
+<li>IDA</li>
+<li>Connaissances basiques de CTF</li>
+</ul>
+<h2 id="its-easy">It&rsquo;s easy</h2>
+<ul>
+<li><strong>Nom</strong>  : It&rsquo;s easy</li>
+<li><strong>Point</strong> : 50</li>
+<li><strong>Description</strong> : Can you find the secret in this binary ?</li>
+<li><strong>File</strong> : <a href="./file/ez" >ez</a></li>
+</ul>
+<h6 id="solution-">Solution :</h6>
+<p>On peut regarder les <strong>strings</strong> présentes dans le binaire :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ff79c6">[</span>writeup/file<span style="color:#ff79c6">]</span>$ rabin2 -z ez
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>Strings<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>nth paddr      vaddr      len size section <span style="color:#8be9fd;font-style:italic">type</span>  string
+</span></span><span style="display:flex;"><span>―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">0</span>   0x00002008 0x00002008 <span style="color:#bd93f9">37</span>  <span style="color:#bd93f9">38</span>   .rodata ascii Type in the password to get the flag
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">1</span>   0x00002038 0x00002038 <span style="color:#bd93f9">36</span>  <span style="color:#bd93f9">37</span>   .rodata ascii You got it right but no flag <span style="color:#ff79c6">for</span> u !
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">2</span>   0x00002060 0x00002060 <span style="color:#bd93f9">32</span>  <span style="color:#bd93f9">33</span>   .rodata ascii UFdOTUV7MXRzX2p1c3RfYV9zdHIxbmd9
+</span></span></code></pre></div><p>On reconnait une chaine en Base64  , on la décode :</p>
+<pre tabindex="0"><code>echo UFdOTUV7MXRzX2p1c3RfYV9zdHIxbmd9 | base64 -d
+</code></pre><p>et on obtient le flag : <code>PWNME{1ts_just_a_str1ng}</code></p>
+<hr>
+<h2 id="depycted">Depycted</h2>
+<ul>
+<li><strong>Nom</strong>  : Depycted</li>
+<li><strong>Point</strong> : 150</li>
+<li><strong>Description</strong> : Find the input of this program with this output.</li>
+<li><strong>File</strong> :
+<ul>
+<li><a href="./file/chall.pyc" >chall.pyc</a></li>
+<li><a href="./file/output.txt" >output.txt</a></li>
+</ul>
+</li>
+</ul>
+<h6 id="solution--1">Solution :</h6>
+<p>Contenue de <strong>output.txt</strong> :</p>
+<pre tabindex="0"><code>2195160159893668717327286059367551976012130689570892075754234400430874403925069147738764347075321
+</code></pre><p>On décompile le .pyc :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uncompyle6 chall.pyc &gt; cleaned.py
+</span></span></code></pre></div><p>On a maintenant le code complet du challenge :</p>
+<p><strong>cleaned.py</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># uncompyle6 version 3.8.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Python bytecode 3.8.0 (3413)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Decompiled from: Python 3.10.4 (main, Mar 24 2022, 13:07:27) [GCC 11.2.0]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Embedded file name: C:\Users\Express\Documents\Toronto\challrev.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Compiled at: 2021-07-06 17:52:29</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Size of source mod 2**32: 555 bytes</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> Crypto.Util.number <span style="color:#ff79c6">import</span> long_to_bytes, bytes_to_long
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> pwn <span style="color:#ff79c6">import</span> xor
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">a</span>(cipher):
+</span></span><span style="display:flex;"><span>    first <span style="color:#ff79c6">=</span> bytes_to_long(cipher[:<span style="color:#bd93f9">16</span>]<span style="color:#ff79c6">.</span>encode()) <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">13</span>
+</span></span><span style="display:flex;"><span>    second <span style="color:#ff79c6">=</span> bytes_to_long(cipher[<span style="color:#bd93f9">16</span>:]<span style="color:#ff79c6">.</span>encode()) <span style="color:#ff79c6">^</span> <span style="color:#bd93f9">37</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> (first, second)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">b</span>(value1):
+</span></span><span style="display:flex;"><span>    first <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">str</span>(value1)
+</span></span><span style="display:flex;"><span>    reverse_first <span style="color:#ff79c6">=</span> first[::<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> reverse_first
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">encrypt</span>(flag):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">global</span> a
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">global</span> b
+</span></span><span style="display:flex;"><span>    first, second <span style="color:#ff79c6">=</span> a(flag)
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(b(first) <span style="color:#ff79c6">+</span> b(second))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">input</span>(<span style="color:#f1fa8c">&#34;[+] Entre ton flag, que je l&#39;encrypt avec mon chiffrement infaillible : &#34;</span>)
+</span></span><span style="display:flex;"><span>encrypt(flag)
+</span></span></code></pre></div><p>Une rapide analyse nous indique que la fonction <code>b()</code> renvoie la chaine rentrée en paramètre à l&rsquo;envers .</p>
+<p>La fonction <code>a()</code> xor les <em>16</em> premiers bytes avec <strong>13</strong> et le reste avec <strong>37</strong></p>
+<p>On peut donc déchiffrer le message en bruteforcant le décalage et les différentes combinaisons de <code>first</code> et <code>second</code></p>
+<p>solve.py:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> Crypto.Util.number <span style="color:#ff79c6">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">decoder</span>(data):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#bd93f9">1</span>,<span style="color:#8be9fd;font-style:italic">len</span>(data)):
+</span></span><span style="display:flex;"><span>        first , second <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">int</span>(data[:i][::<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>])<span style="color:#ff79c6">^</span><span style="color:#bd93f9">13</span>,<span style="color:#8be9fd;font-style:italic">int</span>(data[i:][::<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>])<span style="color:#ff79c6">^</span><span style="color:#bd93f9">17</span>
+</span></span><span style="display:flex;"><span>        part1 , part2 <span style="color:#ff79c6">=</span> long_to_bytes(first),long_to_bytes(second)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span>(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;PWNME&#39;</span> <span style="color:#ff79c6">in</span> part1):
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">print</span>(part1<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">+</span>part2<span style="color:#ff79c6">.</span>decode())        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>decoder(<span style="color:#f1fa8c">&#34;2195160159893668717327286059367551976012130689570892075754234400430874403925069147738764347075321&#34;</span>)
+</span></span></code></pre></div><p>Flag : <code>PWNME{84ec5fec3e2ec91291bb74648d35dcbc4I}</code></p>
+<hr>
+<h2 id="crackme">Crackme</h2>
+<ul>
+<li><strong>Nom</strong>  : Crackme</li>
+<li><strong>Point</strong> : 345</li>
+<li><strong>Description</strong> : Find the password</li>
+<li><strong>File</strong> : <a href="./file/main.exe" >main.exe</a></li>
+</ul>
+<h6 id="solution--2">Solution :</h6>
+<p>On peut regarder le code avec IDA :</p>
+<p><img src="./img/shema.png" alt="AltText"></p>
+<p>On retrouve un schéma de crackme simple  :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>password <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">input</span>(<span style="color:#f1fa8c">&#39;Entrez le flag&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span>(<span style="color:#8be9fd;font-style:italic">len</span>(password) <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">20</span>):
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">False</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">if</span>(isFlag(password,v6)):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">True</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">False</span>
+</span></span></code></pre></div><p>Récupérons le buffer <code>v6</code><br>
+On voit qu&rsquo;il est initialisé à la ligne 9:
+<code>v6 = initFlag()</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#ff79c6">__int64</span> <span style="color:#50fa7b">initFlag</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">__int64</span> v1; <span style="color:#6272a4">// [rsp+28h] [rbp-8h]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>  v1 <span style="color:#ff79c6">=</span> node_init(<span style="color:#bd93f9">76</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">17</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">78</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">75</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">19</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">68</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">63</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">76</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">17</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">83</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">84</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">63</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">17</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">78</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">63</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">77</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">19</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">77</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">16</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">82</span>i64);
+</span></span><span style="display:flex;"><span>  node_insert(v1, <span style="color:#bd93f9">89</span>i64);
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> v1;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>On peut donc avoir V6 rapidement. <code>node_insert</code> est une fonction qui a était faite pas Bryton pour le challenge :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ff79c6">__int64</span> <span style="color:#ff79c6">__fastcall</span> <span style="color:#50fa7b">node_insert</span>(<span style="color:#ff79c6">__int64</span> a1, <span style="color:#8be9fd">char</span> a2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">__int64</span> result; <span style="color:#6272a4">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">while</span> ( <span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)(a1 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>) )
+</span></span><span style="display:flex;"><span>    a1 <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)(a1 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)(a1 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>) <span style="color:#ff79c6">=</span> malloc(<span style="color:#bd93f9">0x18u</span>i64);
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)(<span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)(a1 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>) <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">16</span>i64) <span style="color:#ff79c6">=</span> a1;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">**</span>(_BYTE <span style="color:#ff79c6">**</span>)(a1 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>) <span style="color:#ff79c6">=</span> a2 <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">32</span>;
+</span></span><span style="display:flex;"><span>  result <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)(a1 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)(result <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>) <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>i64;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>On voit quelque chose d&rsquo;intéressant :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#ff79c6">**</span>(_BYTE <span style="color:#ff79c6">**</span>)(a1 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">8</span>) <span style="color:#ff79c6">=</span> a2 <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">32</span>;
+</span></span></code></pre></div><p>On retire <code>32</code> à tous les chars qu&rsquo;on ajoute .</p>
+<p>On a donc v6 :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>v6 <span style="color:#ff79c6">=</span> [x<span style="color:#ff79c6">-</span><span style="color:#bd93f9">32</span> <span style="color:#ff79c6">for</span> x <span style="color:#ff79c6">in</span> [<span style="color:#bd93f9">76</span>,<span style="color:#bd93f9">17</span>,<span style="color:#bd93f9">78</span>,<span style="color:#bd93f9">75</span>,<span style="color:#bd93f9">19</span>,<span style="color:#bd93f9">68</span>,<span style="color:#bd93f9">63</span>,<span style="color:#bd93f9">76</span>,<span style="color:#bd93f9">17</span>,<span style="color:#bd93f9">83</span>,<span style="color:#bd93f9">84</span>,<span style="color:#bd93f9">63</span>,<span style="color:#bd93f9">17</span>,<span style="color:#bd93f9">78</span>,<span style="color:#bd93f9">63</span>,<span style="color:#bd93f9">77</span>,<span style="color:#bd93f9">19</span>,<span style="color:#bd93f9">77</span>,<span style="color:#bd93f9">16</span>,<span style="color:#bd93f9">82</span>,<span style="color:#bd93f9">89</span>]]
+</span></span></code></pre></div><p>On a :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span> v6 <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">44</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">15</span>, <span style="color:#bd93f9">46</span>, <span style="color:#bd93f9">43</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">13</span>, <span style="color:#bd93f9">36</span>, <span style="color:#bd93f9">31</span>, <span style="color:#bd93f9">44</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">15</span>, <span style="color:#bd93f9">51</span>, <span style="color:#bd93f9">52</span>, <span style="color:#bd93f9">31</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">15</span>, <span style="color:#bd93f9">46</span>, <span style="color:#bd93f9">31</span>, <span style="color:#bd93f9">45</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">13</span>, <span style="color:#bd93f9">45</span>, <span style="color:#ff79c6">-</span><span style="color:#bd93f9">16</span>, <span style="color:#bd93f9">50</span>, <span style="color:#bd93f9">57</span>]
+</span></span></code></pre></div><p>On peut maintenant regarder la fonction <code>isFlag</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ff79c6">__int64</span> <span style="color:#ff79c6">__fastcall</span> <span style="color:#50fa7b">isFlag</span>(<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>a1, <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>a2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>v2; <span style="color:#6272a4">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">while</span> ( <span style="color:#ff79c6">*</span>a1 <span style="color:#ff79c6">&amp;&amp;</span> a2 )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    v2 <span style="color:#ff79c6">=</span> a1<span style="color:#ff79c6">++</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> ( <span style="color:#ff79c6">*</span>a2 <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">*</span>v2 <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">64</span> )
+</span></span><span style="display:flex;"><span>      <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">0</span>i64;
+</span></span><span style="display:flex;"><span>    a2 <span style="color:#ff79c6">=</span> (<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>)<span style="color:#ff79c6">*</span>((_QWORD <span style="color:#ff79c6">*</span>)a2 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">1</span>i64;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>On voit rapidement que chaque lettre est comparée une par une avec le nombre de la liste correspondante avec un décalage de 64.</p>
+<p>On écrit le programme de résolution suivant :<br>
+<em>solver.py</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span>v6 <span style="color:#ff79c6">=</span> [x<span style="color:#ff79c6">-</span><span style="color:#bd93f9">32</span> <span style="color:#ff79c6">for</span> x <span style="color:#ff79c6">in</span> [<span style="color:#bd93f9">76</span>,<span style="color:#bd93f9">17</span>,<span style="color:#bd93f9">78</span>,<span style="color:#bd93f9">75</span>,<span style="color:#bd93f9">19</span>,<span style="color:#bd93f9">68</span>,<span style="color:#bd93f9">63</span>,<span style="color:#bd93f9">76</span>,<span style="color:#bd93f9">17</span>,<span style="color:#bd93f9">83</span>,<span style="color:#bd93f9">84</span>,<span style="color:#bd93f9">63</span>,<span style="color:#bd93f9">17</span>,<span style="color:#bd93f9">78</span>,<span style="color:#bd93f9">63</span>,<span style="color:#bd93f9">77</span>,<span style="color:#bd93f9">19</span>,<span style="color:#bd93f9">77</span>,<span style="color:#bd93f9">16</span>,<span style="color:#bd93f9">82</span>,<span style="color:#bd93f9">89</span>]]
+</span></span><span style="display:flex;"><span>final <span style="color:#ff79c6">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> element <span style="color:#ff79c6">in</span> v6:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">try</span>:
+</span></span><span style="display:flex;"><span>        final<span style="color:#ff79c6">.</span>append(<span style="color:#8be9fd;font-style:italic">bytes</span>(<span style="color:#8be9fd;font-style:italic">chr</span>(element<span style="color:#ff79c6">+</span><span style="color:#bd93f9">64</span>),<span style="color:#f1fa8c">&#39;utf-8&#39;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">except</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;PWNME{&#39;</span><span style="color:#ff79c6">+</span><span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;&#39;</span><span style="color:#ff79c6">.</span>join(final)<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#39;}&#39;</span>)
+</span></span></code></pre></div><p>Flag : <code>PWNME{l1nk3d_l1st_1n_m3m0ry}</code></p>
+<hr>
+<h2 id="reverser-dont-like-rustacer">Reverser don&rsquo;t like Rustacer</h2>
+<ul>
+<li><strong>Nom</strong>  : Reverser don&rsquo;t like Rustacer</li>
+<li><strong>Point</strong> : 487</li>
+<li><strong>Description</strong> : Simpler than it seems</li>
+<li><strong>File</strong> : <a href="./file/Reverser.exe" >Reverser.exe</a></li>
+</ul>
+<h6 id="solution--3">Solution :</h6>
+<p>La première difficulté est que ce programme est codé en <code>rust</code> et que nous n&rsquo;avons pas les symbols . Ainsi , IDA a du mal a reconnaitre des fonctions basiques comme <code>strlen</code> par exemple .</p>
+<p>Voici le main :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#ff79c6">__cdecl</span> <span style="color:#50fa7b">main</span>(<span style="color:#8be9fd">int</span> argc, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>argv, <span style="color:#ff79c6">const</span> <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">**</span>envp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> sub_140002300(sub_140003AE0, argc, argv);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>On peut placer un breakpoint sur les fonctions appelées et de même sur les appels des 2 fonctions précédentes :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#6272a4">// positive sp value has been detected, the output may be wrong!
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">sub_140003AE0</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">__int64</span> v0; <span style="color:#6272a4">// [rsp-110h] [rbp-190h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">__int64</span> <span style="color:#ff79c6">*</span>v1; <span style="color:#6272a4">// [rsp+78h] [rbp-8h]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>v2; <span style="color:#6272a4">// [rsp+80h] [rbp+0h]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">char</span> v3[<span style="color:#bd93f9">14</span>]; <span style="color:#6272a4">// [rsp+90h] [rbp+10h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">__int64</span> v4; <span style="color:#6272a4">// [rsp+1A8h] [rbp+128h]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>  v4 <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">2</span>i64;
+</span></span><span style="display:flex;"><span>  v1 <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">&amp;</span>v0;
+</span></span><span style="display:flex;"><span>  sub_14000BC60();
+</span></span><span style="display:flex;"><span>  v2 <span style="color:#ff79c6">=</span> v3;
+</span></span><span style="display:flex;"><span>  ((<span style="color:#8be9fd">void</span> (<span style="color:#ff79c6">__fastcall</span> <span style="color:#ff79c6">*</span>)(<span style="color:#8be9fd">char</span> <span style="color:#ff79c6">*</span>, <span style="color:#ff79c6">__int64</span> <span style="color:#ff79c6">*</span>))sub_1400019B0)(v3, v1);
+</span></span><span style="display:flex;"><span>  JUMPOUT(<span style="color:#bd93f9">0x140003B1D</span>i64);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>On peut lancer un debugger avec IDA et regarder ou le code nous mène :</p>
+<p><img src="./img/shema2.png" alt="AltText"></p>
+<p>Super ! On a trouvé le main :)
+On le renomme tout de suite pour ne pas le perdre ..</p>
+<p>Quand on regarde de plus prêt , on retrouve un schéma de crackme :</p>
+<p><img src="./img/shema3.png" alt="AltText"></p>
+<p>Il semblerai que le mot de passe fasse <code>12</code> caractères .
+Puis le mot de passe est vérifié et enfin , on a une fonction commune qui renvoie si le mot de passe est valid ou non .</p>
+<p><img src="./img/shema4.png" alt="AltText"></p>
+<p>On remarque quelque chose trés intéréssant dans le fonctionnement du binaire :</p>
+<p><img src="./img/shema5.png" alt="AltText"></p>
+<p>D&rsquo;abord , il appelle la fonction checkflag qui lui renvoie <code>0</code> ou <code>1</code> et il stocke le résultat dans <code>al</code> , puis si <code>al==1</code> , il va dans la branche de droite qui correspond à un flag valide . Sinon il Jump dans la partie <code>Incorrect Flag !!</code></p>
+<p>On peut le vérifier en cliquant sur : <code>lea     rdx, off_7FF63B7B68A8</code></p>
+<p><img src="./img/shema6.png" alt="AltText"></p>
+<p>Dans la partie ou on gagne , un appel est trés intéressant :</p>
+<p><img src="./img/shema7.png" alt="AltText"></p>
+<p>On suppose que c&rsquo;est une fonction <code>printFlag()</code>
+Pour résoudre le challenge, on peut donc patcher le binaire pour call cette fonction !</p>
+<p>On va modifier le call de la fonction de check par cette fonction :
+<img src="./img/patched.png" alt="AltText"></p>
+<p>On peut maintenant tester notre patch avec 12 lettres aléatoires comme mot de passe et nous avons le flag !</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>C:<span style="color:#f1fa8c">\U</span>sers<span style="color:#f1fa8c">\m</span>e<span style="color:#f1fa8c">\D</span>esktop&gt;Reverser.exe aaaaaaaaaaaa
+</span></span><span style="display:flex;"><span>Congratulation valid this flag: rust_1s_c00l
+</span></span></code></pre></div><p>Flag : <code>PWNME{rust_1s_c00l}</code></p>
+<hr>
+<h2 id="attack-equation-solving">Attack Equation Solving</h2>
+<ul>
+<li><strong>Nom</strong>  : Reverser don&rsquo;t like Rustacer</li>
+<li><strong>Point</strong> : 487</li>
+<li><strong>Description</strong> :
+<pre tabindex="0"><code>I love virGIN tonic
+Vous avez accès au code compilé du site web
+Le flag est sous le format suivant: PWNME{flag}
+ps: afin de valider le code sur le formulaire web il ne faut pas mettre PWNME{}.
+</code></pre></li>
+<li><strong>Lien</strong> : <a href="https://attack-equation-solving.pwnme.fr/"  target="_blank" rel="noopener" >https://attack-equation-solving.pwnme.fr/</a></li>
+<li><strong>File</strong> : <a href="./file/attack_solving.rar" >attack_solving.rar</a></li>
+</ul>
+<h6 id="solution--4">Solution :</h6>
+<p>Dans le <strong>.rar</strong> on a :</p>
+<ul>
+<li>Le code source du site</li>
+<li>Le binaire qui vérifie les mots de passes</li>
+</ul>
+<p>On peut rapidement regarder le site ; on a 2 endpoints:</p>
+<ul>
+<li><strong>/</strong> qui retourne la page de base</li>
+<li><strong>/verify</strong> , en POST qui check si le mot de passe est valide .</li>
+</ul>
+<p>Le binaire est codé en <strong>GO</strong> et on retrouve ces endpoints dans le programme .</p>
+<p><img src="./img/functions.png" alt="AltText"></p>
+<p>Le main est juste le setup du serveur WEB .<br>
+La fonction intéressante est donc : <code>main_IsValidCode</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>.text:000000000087AE60                 public main_IsValidCode
+</span></span><span style="display:flex;"><span>.text:000000000087AE60 main_IsValidCode proc near              ; CODE XREF: main_VerifyCode:loc_87B275↓p
+</span></span><span style="display:flex;"><span>.text:000000000087AE60                 lea     r12, <span style="color:#ff79c6">[</span>rsp-20h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AE65                 cmp     r12, <span style="color:#ff79c6">[</span>r14+10h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AE69                 jbe     loc_87AFD9
+</span></span><span style="display:flex;"><span>.text:000000000087AE6F                 sub     rsp, 0A0h
+</span></span><span style="display:flex;"><span>.text:000000000087AE76                 mov     <span style="color:#ff79c6">[</span>rsp+98h<span style="color:#ff79c6">]</span>, rbp
+</span></span><span style="display:flex;"><span>.text:000000000087AE7E                 lea     rbp, <span style="color:#ff79c6">[</span>rsp+98h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AE86                 mov     <span style="color:#ff79c6">[</span>rsp+0A8h<span style="color:#ff79c6">]</span>, rax
+</span></span><span style="display:flex;"><span>.text:000000000087AE8E                 mov     <span style="color:#ff79c6">[</span>rsp+0B0h<span style="color:#ff79c6">]</span>, rbx
+</span></span><span style="display:flex;"><span>.text:000000000087AE96                 call    main_GetAESKey
+</span></span><span style="display:flex;"><span>.text:000000000087AE9B                 mov     <span style="color:#ff79c6">[</span>rsp+80h<span style="color:#ff79c6">]</span>, rax
+</span></span><span style="display:flex;"><span>.text:000000000087AEA3                 mov     <span style="color:#ff79c6">[</span>rsp+50h<span style="color:#ff79c6">]</span>, rbx
+</span></span><span style="display:flex;"><span>.text:000000000087AEA8                 nop
+</span></span><span style="display:flex;"><span>.text:000000000087AEA9                 mov     ecx, 40h ; <span style="color:#f1fa8c">&#39;@&#39;</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AEAE                 xor     eax, eax
+</span></span><span style="display:flex;"><span>.text:000000000087AEB0                 lea     rbx, aGoPointerStore+0B5E8h ; <span style="color:#f1fa8c">&#34;59E2267F61917A7832D3608F6DDB2C6146E68AB&#34;</span>...
+</span></span><span style="display:flex;"><span>.text:000000000087AEB7                 call    runtime_stringtoslicebyte
+</span></span><span style="display:flex;"><span>.text:000000000087AEBC                 mov     <span style="color:#ff79c6">[</span>rsp+78h<span style="color:#ff79c6">]</span>, rax
+</span></span><span style="display:flex;"><span>.text:000000000087AEC1                 mov     <span style="color:#ff79c6">[</span>rsp+40h<span style="color:#ff79c6">]</span>, rcx
+</span></span><span style="display:flex;"><span>.text:000000000087AEC6                 mov     rdi, rax
+</span></span><span style="display:flex;"><span>.text:000000000087AEC9                 mov     rsi, rbx
+</span></span><span style="display:flex;"><span>.text:000000000087AECC                 mov     r8, rcx
+</span></span><span style="display:flex;"><span>.text:000000000087AECF                 call    encoding_hex_Decode
+</span></span><span style="display:flex;"><span>.text:000000000087AED4                 mov     rdx, <span style="color:#ff79c6">[</span>rsp+40h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AED9                 nop     dword ptr <span style="color:#ff79c6">[</span>rax+00000000h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AEE0                 cmp     rax, rdx
+</span></span><span style="display:flex;"><span>.text:000000000087AEE3                 ja      loc_87AFD0
+</span></span><span style="display:flex;"><span>.text:000000000087AEE9                 mov     <span style="color:#ff79c6">[</span>rsp+48h<span style="color:#ff79c6">]</span>, rax
+</span></span><span style="display:flex;"><span>.text:000000000087AEEE                 lea     rax, <span style="color:#ff79c6">[</span>rsp+58h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AEF3                 mov     rbx, <span style="color:#ff79c6">[</span>rsp+80h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AEFB                 mov     rcx, <span style="color:#ff79c6">[</span>rsp+50h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AF00                 call    runtime_stringtoslicebyte
+</span></span><span style="display:flex;"><span>.text:000000000087AF05                 mov     rdi, rax
+</span></span><span style="display:flex;"><span>.text:000000000087AF08                 mov     rsi, rbx
+</span></span><span style="display:flex;"><span>.text:000000000087AF0B                 mov     r8, rcx
+</span></span><span style="display:flex;"><span>.text:000000000087AF0E                 lea     r9, unk_94E92B
+</span></span><span style="display:flex;"><span>.text:000000000087AF15                 mov     r10d, <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AF1B                 mov     rax, <span style="color:#ff79c6">[</span>rsp+78h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AF20                 mov     rbx, <span style="color:#ff79c6">[</span>rsp+48h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AF25                 mov     rcx, <span style="color:#ff79c6">[</span>rsp+40h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AF2A                 call    github_com_forgoer_openssl_AesECBDecrypt
+</span></span><span style="display:flex;"><span>.text:000000000087AF2F                 <span style="color:#8be9fd;font-style:italic">test</span>    rdi, rdi
+</span></span><span style="display:flex;"><span>.text:000000000087AF32                 jz      short loc_87AF88
+</span></span><span style="display:flex;"><span>.text:000000000087AF34                 movups  xmmword ptr <span style="color:#ff79c6">[</span>rsp+88h<span style="color:#ff79c6">]</span>, xmm15
+</span></span><span style="display:flex;"><span>.text:000000000087AF3D                 jz      short loc_87AF43
+</span></span><span style="display:flex;"><span>.text:000000000087AF3F                 mov     rdi, <span style="color:#ff79c6">[</span>rdi+8<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AF43
+</span></span><span style="display:flex;"><span>.text:000000000087AF43 loc_87AF43:                             ; CODE XREF: main_IsValidCode+DD↑j
+</span></span><span style="display:flex;"><span>.text:000000000087AF43                 mov     <span style="color:#ff79c6">[</span>rsp+88h<span style="color:#ff79c6">]</span>, rdi
+</span></span><span style="display:flex;"><span>.text:000000000087AF4B                 mov     <span style="color:#ff79c6">[</span>rsp+90h<span style="color:#ff79c6">]</span>, rsi
+</span></span><span style="display:flex;"><span>.text:000000000087AF53                 mov     rbx, cs:os_Stdout
+</span></span><span style="display:flex;"><span>.text:000000000087AF5A                 lea     rax, go_itab__os_File_io_Writer
+</span></span><span style="display:flex;"><span>.text:000000000087AF61                 lea     rcx, <span style="color:#ff79c6">[</span>rsp+88h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AF69                 mov     edi, <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AF6E                 mov     rsi, rdi
+</span></span><span style="display:flex;"><span>.text:000000000087AF71                 call    fmt_Fprintln
+</span></span><span style="display:flex;"><span>.text:000000000087AF76                 xor     eax, eax
+</span></span><span style="display:flex;"><span>.text:000000000087AF78                 mov     rbp, <span style="color:#ff79c6">[</span>rsp+98h<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>.text:000000000087AF80                 add     rsp, 0A0h
+</span></span><span style="display:flex;"><span>.text:000000000087AF87                 retn
+</span></span></code></pre></div><p>On voit ici que la fonction récupère une clé de la fonction : <code>main_GetAESKey</code></p>
+<p>Puis , on récupère de la donnée avec :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>.<span style="color:#8be9fd;font-style:italic">text</span>:<span style="color:#bd93f9">0000000000</span><span style="color:#bd93f9">87</span>AECF                 call    encoding_hex_Decode
+</span></span></code></pre></div><p>avec <code>59E2267F61917A7832D3608F6DDB2C6146E68AB</code></p>
+<p>Finalement , la fonction <code>github_com_forgoer_openssl_AesECBDecrypt</code> est appélé .</p>
+<p>Mon idée ici est de placer un <strong>breakpoint</strong> après le déchiffrement pour obtenir la clé de comparaison valid .</p>
+<p>On décompile la fonction : <code>AesECBDecrypt</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ff79c6">__int64</span> <span style="color:#ff79c6">__fastcall</span> <span style="color:#50fa7b">github_com_forgoer_openssl_AesECBDecrypt</span>(<span style="color:#ff79c6">__int64</span> a1, <span style="color:#ff79c6">__int64</span> a2, <span style="color:#ff79c6">__int64</span> a3, <span style="color:#8be9fd">int</span> a4, <span style="color:#8be9fd">int</span> a5, <span style="color:#8be9fd">int</span> a6)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#8be9fd">int</span> v6; <span style="color:#6272a4">// eax
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">int</span> v7; <span style="color:#6272a4">// ebx
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">int</span> v8; <span style="color:#6272a4">// er10
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">__int64</span> v9; <span style="color:#6272a4">// r14
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">int</span> v10; <span style="color:#6272a4">// edx
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">__int64</span> v11; <span style="color:#6272a4">// rcx
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">__int64</span> result; <span style="color:#6272a4">// rax
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">__int64</span> v13; <span style="color:#6272a4">// [rsp-38h] [rbp-40h]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">__int64</span> v14; <span style="color:#6272a4">// [rsp-30h] [rbp-38h]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">__int64</span> v15; <span style="color:#6272a4">// [rsp-28h] [rbp-30h]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">void</span> <span style="color:#ff79c6">*</span>retaddr; <span style="color:#6272a4">// [rsp+8h] [rbp+0h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">int</span> v17; <span style="color:#6272a4">// [rsp+10h] [rbp+8h]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>  <span style="color:#8be9fd">int</span> v20; <span style="color:#6272a4">// [rsp+48h] [rbp+40h]
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">if</span> ( (<span style="color:#8be9fd">unsigned</span> <span style="color:#ff79c6">__int64</span>)<span style="color:#ff79c6">&amp;</span>retaddr <span style="color:#ff79c6">&lt;=</span> <span style="color:#ff79c6">*</span>(_QWORD <span style="color:#ff79c6">*</span>)(v9 <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">16</span>) )
+</span></span><span style="display:flex;"><span>    runtime_morestack_noctxt_abi0(a1, a2, a3);
+</span></span><span style="display:flex;"><span>  v17 <span style="color:#ff79c6">=</span> v6;
+</span></span><span style="display:flex;"><span>  v20 <span style="color:#ff79c6">=</span> v8;
+</span></span><span style="display:flex;"><span>  crypto_aes_NewCipher(a1, a2, a3, a5, a5, a6);
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">if</span> ( v11 )
+</span></span><span style="display:flex;"><span>    result <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0LL</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">else</span>
+</span></span><span style="display:flex;"><span>    result <span style="color:#ff79c6">=</span> github_com_forgoer_openssl_ECBDecrypt(v7, a4, v10, v17, a6, v20, v13, v14, v15);
+</span></span><span style="display:flex;"><span>  <span style="color:#ff79c6">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Avec <code>gdb</code>, on lancer le binaire et on place notre breakpoint juste avant le <code>retour de la fonction</code></p>
+<p><img src="./img/bp.png" alt="AltText">
+On lance le programme avec <code>run</code> . On se connecte sur le site en <code>localhost:8000</code> et on rentre un mot de passe au hasard .</p>
+<p>Notre programme se stop juste après le déchiffrement et on obtient le flag dans les registres :</p>
+<p><img src="./img/registres.png" alt="AltText"></p>
+<p>Flag : <code>PWNME{pr0_cr4ck3r_g000}</code></p>
+
+  </div>
+</main>
+
+
+  </div>
+<script type="text/javascript" src="/main.js" defer></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3EGPCQCHEK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-3EGPCQCHEK', { 'anonymize_ip': false });
+}
+</script>
+
+</body>
+
+</html>

