@@ -8,7 +8,7 @@ pluralizelisttitles = false
     brand = "Vozec's Blog"
     remote_brand_image = 'https://avatars.githubusercontent.com/u/61807609?v=4'
 
-    description = "Hi , I'm a student who is passionate about computer security."
+    description = "A student passionate about cybersecurity"
     dark_mode = true
     favicon = "/images/favicon.png"
 
@@ -18,8 +18,7 @@ pluralizelisttitles = false
         {Name = "About", URL = "/about/", HasChildren = false},
 
         {Name = "Writeups", URL = "/writeups/"},
-        {Name = "Articles", URL = "/articles/"},
-
+        {Name = "Posts", URL = "/posts/"},
         {Name = "1/ Crypto RSA", URL = "/rsa/"},
         {Name = "2/ Crypto AES", URL = "/aes/"},
         {Name = "3/ Crypto Other", URL = "/other/"},
