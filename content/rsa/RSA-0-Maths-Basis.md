@@ -106,7 +106,7 @@ y \equiv 1 \pmod{15}~et~z~\equiv 0  \pmod{15} \newline
 z \equiv 1 \pmod{11}~et~y~\equiv 0  \pmod{11}
 \end{cases}$
 
-$\exists~(k,l)~\in{\Bbb N} , x = 4\*11\*4 +7\*15*l$  et
+$\exists~(k,l)~\in{\Bbb N} , x = 4\*11\*k + 7\*15*l$  et
 
 $\begin{cases}
 11\*k \equiv 1 \pmod{15} \newline
