@@ -23,7 +23,7 @@ My name is *Arthur*, better known under the nickname ``Vozec`` and I am passiona
   - [Cryptolib](https://github.com/Vozec/Cryptolib): My own cryptography library
   - [DLP Solver](https://github.com/Vozec/DLP-Solver): A tool to solve the discrete logarithm problem with several algorithms
   - [Facto4CTF](https://github.com/Vozec/Facto4CTF): A tool to factor RSA public keys with multiple methods
-  - [Vigenere Plaintext Attack](https://github.com/Vozec/Vigenere-Plaintext-Attack): A simple tool to break the vigenère cipher with a Well knon plaintext
+  - [Vigenere Plaintext Attack](https://github.com/Vozec/Vigenere-Plaintext-Attack): A simple tool to break the vigenère cipher with a Well known plaintext
 
 - ### 🔨 Reverse Engineering 🔨
   - [BrainDbg](https://github.com/Vozec/BrainDbg): My Own Brainfuck debugger in python
