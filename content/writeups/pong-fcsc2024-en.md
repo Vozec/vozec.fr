@@ -567,8 +567,9 @@ The only solution is to switch to a less restrictive protocol: ``gopher`` or ``t
 This is the gopher protocol I've chosen. This protocol is often used for SSRF exploitation.  
 In fact, it allows any bytes to be sent in TCP, enabling different actions to be carried out using different protocols.  
 
-Une url avec gopher se présente comme ceci: ``gopher://<ip>:<port>/_<tcp data urlencoded>``  
-Il est important de laisser un charactère (ici ``_``) entre le le ``/`` et la donnée TCP.  
+A gopher url looks like this: ``gopher://<ip>:<port>/_<tcp data urlencoded>``
+It's important to leave a character (here ``_``) between the ``/`` and the TCP data.  
+
 
 Before presenting the working solution, it's important to note the various options available to us:  
 - The first would be to leave the CURL url protocol blank and change the default protocol: *(CURLOPT_DEFAULT_PROTOCOL)*.  
@@ -731,7 +732,7 @@ The one we have is more lax, allowing HTTP requests to start with ``GET `` and n
 This is a liberty worth noting for the future. 
 
 I started by looking for ``tornado.web._unicode`` since that's what the service modifies.   
-See the original code: [ici](https://github.com/tornadoweb/tornado/blob/master/tornado/escape.py#L245-L260)  
+See the original code: [here](https://github.com/tornadoweb/tornado/blob/master/tornado/escape.py#L245-L260)  
 
 ```python
 def to_unicode(value: Union[None, str, bytes]) -> Optional[str]:
