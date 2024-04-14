@@ -1,6 +1,6 @@
 ---
 title: "Twisty Python | FCSC 2024"
-date: 2023-04-13T12:00:00Z
+date: 2023-04-12T12:00:00Z
 description: "Here is a complete writeup of the 'Twisty Python' web challenge created by Mizu during FCSC 2024"
 tags: ["python","desync","werkzeug","smuggling","cve", "tornado"]
 keywords: ["nodejs", "RCE", "ejs-string"]
