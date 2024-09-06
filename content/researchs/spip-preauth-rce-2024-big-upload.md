@@ -1,7 +1,6 @@
 ---
 author: "Vozec & Laluka"
 title: "Spip Preauth RCE 2024, my First CVE !"
-slug: "spip_preauth_rce_2024_big_upload"
 date: 2024-09-04
 description: "Here's an article describing the discovery of my first CVE in collaboration with @TheLaluka! A PreAuthenticated RCE on Spip CMS version <= 3.4.1 ."
 ---
