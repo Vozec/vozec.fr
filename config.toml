@@ -18,6 +18,9 @@ pluralizelisttitles = false
         {Name = "About", URL = "/about/", HasChildren = false},
 
         {Name = "Writeups", URL = "/writeups/"},
+
+        {Name = "Researchs", URL = "/researchs/"},
+        
         {Name = "1/ Crypto RSA", URL = "/rsa/"},
         {Name = "2/ Crypto AES", URL = "/aes/"},
         {Name = "3/ Crypto Other", URL = "/other/"},
