@@ -620,11 +620,11 @@ Spip reacted in a timely manner, no timeline this time! Oh yeah, one last thing.
 
 > Nailed it! 😎
 
-[acknowledgement](./img/rce-rootme-acknowledgement.png)
+![acknowledgement](./img/rce-rootme-acknowledgement.png)
 
 ---
 
 As always, we hope you've had a nice time reading our adventures! 🧙\
 Feel free to follow both of us for future challenges & cool reads! 💝
 
-[us](./img/lalu-and-vozec.png)
+![us](./img/lalu-and-vozec.png)
