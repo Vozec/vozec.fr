@@ -7,28 +7,28 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ---
 [//]: <> (Created By Vozec 30/11/2021)
 ---
+
 # Introduction :  
 Don Coppersmith est un mathématicien et cryptologue américain né en 1950.
 Il a contribué dans de nombreux domaines de la ``Cryptographie`` et en particulier le chiffrement RSA.  
-
 Il s'intéresse particulièrement aux liens possibles entre des **notions d'algèbres** et les mathématiques arithmétiques du chiffrement RSA
 
 # Papier de recherche:  
 CopperSmith présente un papier de recherche mathématique nommé : [*Finding Small Solutions to Small Degree Polynomials*](https://cr.yp.to/bib/2001/coppersmith.pdf)  
 Il y explique comment trouver les racines de polynômes à ``1`` et ``2`` variables , modulo un entier **n**  grâce à la réduction de base via des matrices et l'algorithme ``Lenstra–Lenstra–Lovász`` *(LLL)*.
-C'est racines sont appelés *Small Roots* et la technique de Coppersmith a était optimisé par ``Howgrave-Graham``.
+C'est racines sont appelées *Small Roots* et la technique de Coppersmith a été optimisée par ``Howgrave-Graham``.
+
 
 # Application au RSA:
 
 ## Premier cas : *Clair connu*  
-
 On suppose qu'on soit en présence d'un message chiffré classiquement ainsi qu'une partie de texte déchiffré.
 
 - Exemple:
 	c = *Bonjours , voici votre clé privée : XXXXXX"*  
 Ici *"Bonjours , voici votre clé privée :"* est une clair connu et on peut l'exploiter pour retrouver le message d'origine , complet.
 
-#### Condition & Mise en équation :  
+### Condition & Mise en équation :  
 
 On a d'habitude :  
 -	$\begin{cases}
@@ -42,8 +42,8 @@ Ici , on peut écrire ``M`` la partie connu et ``m`` la fin du message :
 	c = (M+m)^e \pmod n
 	\end{cases}$
 
-###### Condition:
-*(Cas e=3)* CopperSmith à montré que cette attaque était efficace si :  
+### Condition:
+*(Cas e=3)* CopperSmith a montré que cette attaque était efficace si :  
  - $x < \dfrac{1}{2} N^{\dfrac{1}{δ}-e}$  
 	 $\implies x < 0.167$
 
@@ -94,22 +94,22 @@ def coppersmith(msg,c,n,e,eps=1/20):
 
 ## Deuxième cas : *ShortPad Attack*
 
-Dans cette nouvelle attaque, on possède *2* fois le même message chiffré mais paddé de deux manière différentes .  
+Dans cette nouvelle attaque, on possède *2* fois le même message chiffré mais paddé de deux manières différentes .  
 
 **CopperSmith** nous indique qu'il est possible , à condition que la padding ne soit pas trop grand , de trouver le contenu du message.
 
-Il utilise ses précédentes recherches sur la résolution polynomial dans **$Z/nZ$** ainsi que les recherches sur la récupération de messages par lien affines. *([voir franklin reiter ici](https://vozec.fr/crypto-rsa/rsa-7-hey-this-is-franklin/))*.
+Il utilise ses précédentes recherches sur la résolution polynomiale dans **$Z/nZ$** ainsi que les recherches sur la récupération de messages par lien affines. *([voir franklin reiter ici](https://vozec.fr/crypto-rsa/rsa-7-hey-this-is-franklin/))*.
 
 
-#### Démonstration
+### Démonstration
 
 -	$\begin{cases}
 	g_1(x,y) = x^e - C_1 \newline
 	g_2(x,y) = (x+y)^e - C_2 \pmod n
 	\end{cases}$
 
-Alors quand $y = r_2 - r_1$ , alors $g_1$ et $g_2$ on pour racine commune : $x=m_1$
-On pose *res* la [résultante](https://en.wikipedia.org/wiki/Resultant) de 2 polynomes
+Alors quand $y = r_2 - r_1$ , alors $g_1$ et $g_2$ ont pour racine commune : $x=m_1$
+On pose *res* la [résultante](https://en.wikipedia.org/wiki/Resultant) de 2 polynômes
 $\implies \begin{cases}
 \Delta = r_2-r_1 \newline
 h(y) = res_x(g1,g2) \in Z_n[y]\pmod n \newline
@@ -156,9 +156,9 @@ def franklin_reiter(c1,c2,e,n,delta):
         while b:
             a, b = b, a % b
         return a.monic()
-    P.<x> = PolynomialRing(Zmod(N))
-    g1 = x^e - C1
-    g2 = (x+delta)^e - C2
+    P.<x> = PolynomialRing(Zmod(n))
+    g1 = x^e - c1
+    g2 = (x+delta)^e - c2
     result = -gcd(g1, g2).coefficients()[0]
     return result
 ```

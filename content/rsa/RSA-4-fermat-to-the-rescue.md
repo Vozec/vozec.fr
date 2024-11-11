@@ -7,17 +7,18 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ---
 [//]: <> (Created By Vozec 29/11/2021)
 ---
+
 # Introduction
-Nous allons ici voir ``2`` vulnérabilités sur RSA liés à une mauvaise génération de clé publique.
+Nous allons ici voir une vulnérabilité sur RSA liée à une mauvaise génération de clé publique.
 
-## Vulnérabilité :
+# Vulnérabilité :
 
-On rappelle que $n$ et généré avec $p$ et $q$ très grand :  
+On rappelle que $n$ et généré avec $p$ et $q$ très grands:    
 - $n = p*q$ .  
 
 On se place dans un cas idéal ou $p$ et $q$ sont cryptographiques et que donc $n$ n'est pas cassable par force brute .
 
-La vulnérabilités réside dans le fait que $p$ et $q$ ``sont très proche``.
+La vulnérabilités réside dans le fait que $p$ et $q$ ``sont très proches``.
 
 On peut imaginer une génération de clé vulnérable comme celle-ci :
 ```python
@@ -32,7 +33,7 @@ def get_public(bits=1024):
 n = get_public()
 ```
 
-En effet, le faite que $p$ et $q$ soient proches implique que la racine de la clé publique $n$ soit une bonne approximation d'un des 2 facteurs $p$ ou $q$
+En effet, le fait que $p$ et $q$ soient proches implique que la racine de la clé publique $n$ soit une bonne approximation d'un des 2 facteurs $p$ ou $q$
 
 La condition pour que l'algorithme fonctionne est que $p-q < n^{1/4}$ .  
 Si elle est vérifiée ; alors la factorisation se fera sans problèmes.
@@ -42,19 +43,19 @@ Pierre de Fermat se base sur la représentation d'un nombre pair comme la diffé
 
 Il pose :  
 $n = p*q$  
-$\implies n = \dfrac{(q-p)}{2}\*\dfrac{(p+q)}{2}$  
+$\implies n = (\dfrac{(q-p)}{2})^{2} \* (\dfrac{(p+q)}{2})^{2} $  
 $\implies n = x^2 - y^2$  
 
 Avec :
 
 $\begin{cases}
 x =  \dfrac{(q-p)}{2} \newline
-y =  \dfrac{(q-p)}{2}
+y =  \dfrac{(q+p)}{2}
 \end{cases}$
 
 $\implies n = (x-y)(x+y)$  
 
-### Pseudo-Code
+## Pseudo-Code
 ```python
 fermat(n):
   a = Racine(n)
@@ -63,7 +64,8 @@ fermat(n):
       a = a + 1
       b = a*a -n
   p = a-Racine(b)
-  return (p,n/q)
+  q = a+Racine(b)
+  return (p,q)
 ```
 
 Ce qui donne en python :
@@ -110,7 +112,7 @@ L'efficacité de l'algorithme de Fermat peut être écrite :
 
 $\Theta (\dfrac{\Delta}{4*n^{1/2}})$ avec $\Delta = p-q$
 
-### Idée de CopperSmith *(1996)*:
+# Idée de CopperSmith *(1996)*:
 CopperSmith propose une méthode pour trouver les racines d'un 'polynôme modulaire invariant' *(univariate polynomial modular equation)* et une autre méthode pour trouver les racines d'une équation polynomiale bivariante *(bivariate polynomial integer equation)*
 
 Grâce à cela , CopperSmith est capable de factoriser $n$ si :

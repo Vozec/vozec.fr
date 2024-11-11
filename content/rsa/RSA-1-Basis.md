@@ -1,5 +1,5 @@
 ---
-title: "RSA n°1 | Principes Fondamentals"
+title: "RSA n°1 | Principes Fondamentaux"
 date: 2022-11-26T12:00:00Z
 description: "Fonctionnement du chiffrement RSA"
 tags: ["rsa","cryptographie","crypto"]
@@ -7,6 +7,7 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ---
 [//]: <> (Created By Vozec 26/11/2021)
 ---
+
 # Introduction
 Le chiffrement RSA est utilisé pour chiffrer des communications, il est aujourd'hui souvent utilisé pour les certificats SSL sur internet ou encore les clés de connections via le protocole **ssh**.
 Il est dit ``asymétrique`` car il fonctionne par paires de clés. Toute la sécurité de ce chiffrement repose sur le fait qu'il est aujourd'hui infiniment long de factoriser un nombre cryptographique rapidement .  
@@ -14,17 +15,16 @@ Il est dit ``asymétrique`` car il fonctionne par paires de clés. Toute la séc
 
 
 # Principe
-
 On va choisir :  
 - **2 nombres premiers** qu'on note $q$ et $p$
 - Un exposant de chiffrement, souvent ``3`` ou ``65537`` par convention  
 
-### Clé Publique :
+## Clé Publique :
 On définit la clé publique comme la paire :
   - **e**
   - **$n = p*q$**
 
-### Clé Privée
+## Clé Privée
 
 On note ``phi`` le produit des résultat de l'indice d'euler des 2 nombres premiers ``p`` et ``q``:
 
@@ -118,7 +118,7 @@ coefficient:
     31:75
 ```
 
-## Chiffrement & Déchiffrement:
+# Chiffrement & Déchiffrement:
 
 - Chiffrement:  
   Soit $m$ un message en clair .
@@ -146,7 +146,7 @@ Si on reprend les données du problèmes, on a :
 - $e$ une constante $(= 3~ou~65537)$
 - $n$ le produit de $p$ et $q$
 - $\phi = (p-1)(q-1)$ *([voir ici](https://vozec.fr/crypto-rsa/rsa-0-maths-basis/))*
-- $d = e^-1 \pmod \phi$
+- $d = e^{-1} \pmod \phi$
 
 
 Finalement :  
@@ -170,7 +170,7 @@ m^{ed} \equiv m \pmod q
 \end{cases}$
 
 
-## Implémentation en python :
+# Implémentation en python :
 *On utilise la bibliothèque [pycryptodome](https://pycryptodome.readthedocs.io/en/latest/index.html)*
 
 ```python

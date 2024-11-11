@@ -7,11 +7,12 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ---
 [//]: <> (Created By Vozec 30/11/2021)
 ---
+
 # Introduction
 Il est courant d'envoyer le même message à plusieurs personnes et cela pose un gros problème de sécurité pour l'intégrité du message si une personne arrive à intercepter plusieurs communications.  
 Nous allons ici parler de l'``attaque Hastads-Broadcast``.
 
-## Contextualisation
+# Contextualisation
 On sait qu'un message chiffré par **RSA** est de la forme :
 - $c = m^e \pmod n$
 
@@ -30,7 +31,7 @@ c_e = m^e \pmod {n_e} \newline
 
 ## Attaque Hastads-Broadcast
 
-Le théorème des [restes chinois](https://vozec.fr/crypto-rsa/rsa-0-maths-basis/) nous indique qu'il existe une solution a ce système modulo le produit des $n_i$:  
+Le théorème des [restes chinois](https://vozec.fr/crypto-rsa/rsa-0-maths-basis/) nous indique qu'il existe une solution à ce système modulo le produit des $n_i$:  
 
 $N = {\prod\limits_{k=1}^{e}{n_i}}$  
 $\exists~M~tel~que~M~\pmod N$ vérifie le système précédent.
@@ -45,10 +46,9 @@ puis :
 Finalement , on a :  
 - $\forall i \in [[1,..,e]]~;~x_i\*N_i \equiv 1 \pmod {n_i}$
 
-#### On peut donc déchiffrer le message d'origine :
+On peut donc déchiffrer le message d'origine :
 
 $\mathbf{m = {({\prod\limits_{k=1}^{e}{c_i\*x_i\*N_i}})}^{\dfrac{1}{e}}}$
-
 
 ## Implémentation en Python
 

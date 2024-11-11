@@ -7,6 +7,7 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ---
 [//]: <> (Created By Vozec 10/12/2021)
 ---
+
 # Introduction :  
 Généralement, dans un contexte de CTF , il est possible de tomber sur un oracle de déchiffrement RSA , on nous donne accès :
 - **à un oracle permettant de déchiffrer des messages sauf le flag chiffré**
@@ -14,8 +15,7 @@ Généralement, dans un contexte de CTF , il est possible de tomber sur un oracl
 
 Voici donc plusieurs méthodes pour trouver le flag en clair :
 
-
-### Méthode 1:
+## Méthode 1:
 
 La première méthode est de Factoriser le message $c$ .
 On peut ainsi demander de déchiffrer les facteurs du flag puis re-multiplier les clairs entre eux pour récupérer le message original:
@@ -24,7 +24,7 @@ $c_{original} =c_1 * c_2 * c_3$
 $\implies m_{original} = [f^{-1}(c_1)* f^{-1}(c_2)* f^{-1}(c_3)] \pmod n$  
 *(Avec $f^{-1}$  la fonction de déchiffrement)*
 
-### Méthode 2:
+## Méthode 2:
 Le RSA a des propriétés **Homomorphique** , ce qui veut dire que:
  - $f^{-1}(a*b) = f^{-1}(a)*f^{-1}(b)$  
 
@@ -34,14 +34,14 @@ Ainsi , on peut demander le déchiffrement d'un produit de $c$
 $m_{original} = f^{-1}(2*c) * [({f^{-1}(2)})^{-1}\pmod n] \pmod n$
 
 
-### Méthode 3:
+## Méthode 3:
 On peut aussi envoyer :
 - $c+k*n$  
 *($k \in N$)*
 
 On utilise ici les propriétés du RSA , en appliquant le *modulo n* , le serveur va directement déchiffrer *c*
 
-### Méthode 4:
+## Méthode 4:
 On peut demander le déchiffrement de :
 - $-c$
 - $-1$
@@ -49,7 +49,7 @@ On peut demander le déchiffrement de :
 Puis :
 - $m_{original} = f^{-1}(-c) * f^{-1}(-1) \pmod n$
 
-### Méthode 5:
+## Méthode 5:
 On sait que :  
 $c \equiv m^e \pmod n$  
 
@@ -62,7 +62,7 @@ On doit envoyer : $c^{e+1}$
 - Finalement :  
   $m_{original} =  (c^{e+1})^d * c^{-1} \pmod n$
 
-### Méthode 6:
+## Méthode 6:
 
 On sait que :  
 $c \equiv m^e \pmod n$  
@@ -78,7 +78,7 @@ On peut donc envoyer : $\lambda^e \pmod n$ et diviser par $\lambda$
 Toutes les attaques précédentes requièrent de connaitre $n$.
 On peut le retrouver de la manière suivante :
 
-On demande le déchiffrement de :
+On demande le chiffrement de :
 - 2
 - 4
 - 3

@@ -7,10 +7,12 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ---
 [//]: <> (Created By Vozec 30/11/2021)
 ---
+
+
 # Introduction
 L'attaque Franklin-Reiter sur le chiffrement RSA requiert d'avoir deux messages chiffrés avec une relation linéaire connu entre les deux messages.
 
-## Contextualisation
+# Contextualisation
 Exemple :
 - $m_1 = 100000000000$
 - $m_2 = 100000000999$
@@ -20,12 +22,12 @@ Il est alors possible de retrouver le message à partir de :
 - $c_1 = m_1^e \pmod n$
 - $c_2 = m_2^e \pmod n$
 
-A l’origine, cet attaque était faisable pour $e=3$ puis elle a était généralisé pour n'importe quel $e$ .  
+A l’origine, cet attaque était faisable pour $e=3$ puis elle a était généralisée pour n'importe quel $e$ .  
 (*Plus e est grand, plus l'attaque est longue*)
 
 # Première approche :
 
-- #### $e = 3$
+## $e = 3$
 	-	$\begin{cases}
 	m_2 = \alpha*m_1+\beta \newline
 	c_1 = m_1^3 \pmod n \newline
@@ -35,7 +37,7 @@ A l’origine, cet attaque était faisable pour $e=3$ puis elle a était génér
 	$\implies \dfrac{\beta(c_2+2\alpha^3c_1+\beta^3)}{\alpha(c_2-\alpha^3c_1+2\beta^3)} = \dfrac{3\alpha^3\beta{m_1}^3+3\alpha^2\beta^2{m_1^2}+3\alpha\beta^3m_1}{3\alpha^3\beta{m_1}^2+3\alpha^2\beta^2m1+3\alpha\beta^3} = m_1 \pmod n$
 
 
-- #### $e = 5$
+## $e = 5$
 	-	$\begin{cases}
 	m_2 = \alpha*m_1+\beta~(avec~\alpha=\beta=1) \newline
 	c_1 = m_1^5 \pmod n \newline
@@ -49,12 +51,12 @@ A l’origine, cet attaque était faisable pour $e=3$ puis elle a était génér
 	\end{cases}$
 
 
-Cette méthode est longue mais fonctionnelle, elle permet pour tous $e$ de déterminer un polynôme $P$ pour retrouver les $m_i$
+Cette méthode est longue mais fonctionnelle, elle permet pour tout $e$ de déterminer un polynôme $P$ pour retrouver les $m_i$
 
 # Seconde approche :
 
 ## Théorème de Franklin-Reiter :
-Soit **(n,e)** une clé RSA publique , et $m_1 \neq  m_2$ tel que :  
+Soit **(n,e)** une clé RSA publique , et $m_1 ≈ m_2$ tel que :  
 - $\mathbf{m_1 = f(m_2) \pmod n}$  
 
 Si $f$ est une fonction affine $f:x \rightarrow a*x+b$  
@@ -93,7 +95,7 @@ Elle est donc possible contre des $e=65537$ par exemple.
 17
 ```
 
-# Implémentation en Python
+## Implémentation en Python
 
 - $m2 = a\*m1 + b$
 
@@ -119,9 +121,9 @@ def franklin_reiter(c1,c2,e,n,a,b):
         while b:
             a, b = b, a % b
         return a.monic()
-    P.<X> = PolynomialRing(Zmod(N))
-    g1 = (a*X + b)^e - C1
-    g2 = X^e - C2
+    P.<X> = PolynomialRing(Zmod(n))
+    g1 = (a*X + b)^e - c1
+    g2 = X^e - c2
     result = -gcd(g1, g2).coefficients()[0]
     return result
 ```

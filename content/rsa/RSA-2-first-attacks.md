@@ -7,20 +7,21 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ---
 [//]: <> (Created By Vozec 29/11/2021)
 ---
+
 # Introduction
-Nous avons vu précédemment *([ici](https://vozec.fr/crypto-rsa/rsa-1-basis/))* que le chiffrement RSA reposé sur ``2`` nombres premiers , notés $p$ et $q$.
-Grâce à ces deux nombres cryptographiquement grands, il était ainsi possible de générer une paires de clé $(publique/privée)$ et chiffré des messages grâce à celle-ci.
+Nous avons vu précédemment *([ici](https://vozec.fr/crypto-rsa/rsa-1-basis/))* que le chiffrement RSA reposait sur ``2`` nombres premiers , notés $p$ et $q$.
+Grâce à ces deux nombres cryptographiquement grands, il était ainsi possible de générer une paires de clé $(publique/privée)$ et chiffrer des messages grâce à celle-ci.
 
 Nous allons voir ici quelques premières vulnérabilités sur le chiffrement RSA.
 
 
-## 1) $P$ et $Q$ trop petit.
+# 1) $P$ et $Q$ trop petits.
 
-On rappèle que la clé privée est :  
+On rappelle que la clé privée est :  
 $d = e^{-1} \pmod {\Phi(n)}$  
 Avec $\Phi(n) = (p-1)(q-1)$
 
-Un utilisateur lambda à souvent accès à sa clé publique : $n = p*q$ lui permettant de chiffrer des messages.  
+Un utilisateur lambda a souvent accès à sa clé publique : $n = p*q$ lui permettant de chiffrer des messages.  
 
 Ainsi, si on suppose que $p$ et $q$ sont petits , il est alors possible de les retrouver à partir de $n$ : ``on factorise la clé n``
 
@@ -29,7 +30,7 @@ Si on suppose la clé publique :
 n = 546480898644192854289613211318283372083827462595494488488703390642299583863737949445782560754114114083715341900177523352513320308835896569559795948842696151215075935167387324762001504175864881745474931498272994380590436716963454423950174614869590249698373859676626313904736490404029457882552069971909822348178035620519
 ```
 
-Grâce à des outils comme [factordb](http://factordb.com/index.php) de retrouver les **facteurs premiers** .
+Grâce à des outils comme [factordb](http://factordb.com/index.php), il est possible de retrouver les **facteurs premiers** .
 
 Ici :
 ```python
@@ -37,16 +38,16 @@ p = 1453210117600005318774357239759476378972035839489065758071980352941847895068
 q = 3760508491
 ```
 
-J'ai personnellement écris un outils qui permet cette factorisation : [Factor4Ctf](https://github.com/Vozec/Facto4CTF) qui utilise plusieurs technique de factorisation que nous verrons dans de prochains articles .
+J'ai personnellement écris un outil qui permet cette factorisation : [Factor4Ctf](https://github.com/Vozec/Facto4CTF) qui utilise plusieurs technique de factorisation que nous verrons dans de prochains articles .
 
 ![alt text](https://raw.githubusercontent.com/Vozec/Facto4CTF/main/image/example.png)
 
-D'autre outils comme SageMath, PariGp ou encore [CadoNFS](https://cado-nfs.gitlabpages.inria.fr) permettent la factorisation de $n$ avec des facteurs allant jusque ``512bits``.
+D'autre outils comme SageMath, PariGp ou encore [CadoNFS](https://cado-nfs.gitlabpages.inria.fr) permettent la factorisation de $n$ avec des facteurs allant jusque ``256bits``.
 
 
 Avec les facteurs retrouvés, on peut **recalculer la clé D** et ainsi déchiffrer le message chiffré.
 
-## 2) Message trop petit.
+# 2) Message trop petit.
 
 On rappelle que le message chiffré est :  
  **$c = m^e\pmod n$**.
@@ -69,7 +70,7 @@ m = int(gmpy2.root(c,e))
 m_text = long_to_bytes(m).strip(b'\x00').decode()
 ```
 
-## 3) Leak Supplémentaires.
+# 3) Leak Supplémentaires.
 
 Dans certains cas *(souvent en ctf)* , il est possible de retrouver les facteurs $p$ et $q$ grâce à des indices données en plus des classiques $n$ et $e$ .  
 Par exemple , si $\Phi(n)$ est donné ; on peut retrouver les facteurs de la manière suivante :

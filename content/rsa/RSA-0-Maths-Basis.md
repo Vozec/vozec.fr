@@ -10,7 +10,7 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ## Introduction
 Voici les différents théorèmes et application pour comprendre le chiffrement RSA
 
-### Opération Modulaires
+## Opération Modulaires
 
 L'opérateur modulo et une opération qui retourne le reste de la division euclidienne d'un nombre A par B:
 
@@ -19,7 +19,7 @@ $\Rightarrow~\exists~k \in N~|~a = b*k + r$
 
 Si r = 0 , on dit que ``n divise a``
 
-### Pgcd
+## Pgcd
 
 Le ``PGCD`` *(ou gcd)* de 2 nombres est le plus grand diviseur commun de ces deux nombres :
 
@@ -39,7 +39,7 @@ def gcd(a,b):
 ```
 
 
-### Nombre premiers
+## Nombre premiers
 
 - On dit qu'un nombre est premier s’il n'est divisible que par 1 ou lui-même :  
 ```
@@ -48,18 +48,18 @@ def gcd(a,b):
 
 - On dit que deux nombres sont premiers entre eux si leur unique diviseur commun est 1 i.e. si $PGDC(a,b)=1$   
 
-### Inverse modulaire
+## Inverse modulaire
 Soit $x$ un entier, on appèle **l'inverse modulaire** de $x$ modulo $n$ , l'entier $u$ tel que :
 
-$a*u \equiv 1 \pmod n$
+$x*u \equiv 1 \pmod n$
 
 ```python
-u = pow(a, -1, n)
+u = pow(x, -1, n)
 ```
 
-### Théorème de Bezout
+## Théorème de Bezout
 
-Soient A et B deux nombres premiers, alors il existe u et v tq: ``A*U+B*v=1``
+Soient A et B deux nombres premiers, alors il existe u et v tq: ``A*u+B*v=1``
 
 $\forall (a,b) \in {\Bbb R}~|~GCD(a,b)=1~ \Rightarrow~\exists~(u,v)~\in{\Bbb N}~,~au+bv=1$
 
@@ -82,7 +82,7 @@ def extended_gcd(a, b):
 (1, -9, 47)
 ```
 
-### Théorème des restes chinois
+## Théorème des restes chinois
 
 Ce théorème permet de résoudre des équations modulaires du type :
 
@@ -144,18 +144,18 @@ $x = \begin{cases}
    c &\text{if } d
 \end{cases}$
 
-### Indicatrice D’Euler $\Phi$
+## Indicatrice D’Euler $\Phi$
 
 
 On appelé $\Phi$  , l'indicatrice d’Euler , la fonction qui à un entier ``n`` lui associe le nombre de nombres premiers à ``n``
 
-$\Phi~:x~\rightarrow~Card(\{m \in {\Bbb N^{*}~|~m <= n~et~gcd(m,n)=1}\})$
+$\Phi~:n~\rightarrow~Card(\{m \in {\Bbb N^{*}~|~m <= n~et~gcd(m,n)=1}\})$
 
 Si on pose $p$ un nombre premier, alors il y a $p-1$ nombres premiers a $x$ , d'où :
 
 $\Phi(p) = p-1$
 
-### Indicatrice de Carmichael $\lambda$
-On appele $\lambda$ , l'indicatrice de Carmichael , la fonction qui à un entier ``n`` lui associe le plus petit entier $m$ tel que :  
+## Indicatrice de Carmichael $\lambda$
+On appele $\lambda$ , l'indicatrice de Carmichael , la fonction qui à un entier ``n`` lui associe le plus petit entier $n$ tel que :  
 
 $a^m \equiv 1 \pmod n$

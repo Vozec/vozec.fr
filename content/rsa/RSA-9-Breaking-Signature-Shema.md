@@ -7,6 +7,7 @@ keywords: ["tuto", "rsa", "RSA", "crypto","maths","euclide","cryptographie","cry
 ---
 [//]: <> (Created By Vozec 30/11/2021)
 ---
+
 # Introduction :  
 
 Le chiffrement RSA permet l'utilisation d'un système de signature des messages lors de la transmission de ceux-ci.  
@@ -14,8 +15,7 @@ Ainsi, un message chiffré peut être accompagné de sa signature qui atteste de
 Voici un message chiffré & signé :
 - **$<s,c>$**
 
-## Fonctionnement global.
-
+## Fonctionnement global.  
 Le chiffrement RSA se compose :
 - un exposant de chiffrement
 - une clé publique
@@ -34,7 +34,7 @@ Soit $m$ un message clair et $hash$ une fonction de hash classique *(sha256,md5)
 - On déchiffre $h' = s^e \pmod n$
 - On compare $h$ et $h'$.
 
-#### Relation mathématique :
+### Relation mathématique :
 $h' = s^e \pmod n = (h^d)^e \pmod n = h$
 
 
@@ -43,18 +43,18 @@ $h' = s^e \pmod n = (h^d)^e \pmod n = h$
 On va supposer avoir a disposition un **Oracle de signature** qui nous permet de signer n'importe quel message .
 
 On souhaite obtenir la signature :  
-- $s = m^d \pmod n$
+- $s = h^d \pmod n$
 
 Alors, grâce à **deux autres** signatures, on peut obtenir $s$.
 
 ##### Etapes :
-- On signe un message connu $m_1$:  
-	$s_1 = m_1^d \mod n$
+- On signe un message connu $h_1$:  
+	$s_1 = h_1^d \mod n$
 
-- On signe un second message $m_2$ tel que :  
+- On signe un second message $h_2$ tel que :  
 	$\begin{cases}
-	m_2 = m * m_1^{-1} \pmod n \newline
-	s_2 = m_2^d \mod n
+	h_2 = h * h_1^{-1} \pmod n \newline
+	s_2 = h_2^d \mod n
 	\end{cases}$
 
 - Alors on peut récupérer la signature de $m$ , noté $s$:  
@@ -82,25 +82,25 @@ On calcul :
 En utilisant le théorème, on obtient $s$ grâce à $S_p$ et $S_q$
 
 #### Injection de Faute:
-Si on arrive a injecter une faute (en faisant baisser la tension du processeur par exemple), on peut rendre un des calculs de $S_p$ ou $S_q$ faux.
+Si on arrive à injecter une faute (en faisant baisser la tension du processeur par exemple), on peut rendre un des calculs de $S_p$ ou $S_q$ faux.
 
 On a donc :
 
 $\begin{cases}
 	S_p = m^{d_p} \pmod p \newline
-	S_q \neq m^{d_q} \pmod q
+	S_q ≠ m^{d_q} \pmod q
 \end{cases}$  
 
 $\implies S = crt([S_p,S_q],n)$
 
 $\implies \begin{cases}
 	S^e = m \pmod p \newline
-	S^e \neq m \pmod q
+	S^e ≠ m \pmod q
 \end{cases}$  
 
 $\implies \begin{cases}
 	S^e - m = 0 \pmod p \newline
-	S^e -m \neq 0 \pmod q
+	S^e -m ≠ 0 \pmod q
 \end{cases}$  
 
 $\implies \begin{cases}
@@ -155,9 +155,9 @@ p = n//q
 
 ## Troisième Attaque : *Signature Forgery*
 
-#### Le Standart *PKCS#1 v1.5*
-*PKCS* est un standart de formatage du chiffrement RSA.  
-Il permet de formatter un message avec de le signer.
+#### Le Standard *PKCS#1 v1.5*
+*PKCS* est un standard de formatage du chiffrement RSA.  
+Il permet de formater un message avec de le signer.
 
 Il fonctionne de la manière suivante :  
 	- ``0x00 0x01 || pad() || 0x00 || ASN.1 || hash(M) ``
@@ -179,8 +179,7 @@ Or , certain serveur ne regarde pas le contenue du padding. Ainsi , dans le cas 
 Le module $n$ n'est pas appliqué car le message est inférieur à n.  
 Alors , si il n'y a pas de vérification du contenue du padding de ``0xFF`` , alors il est possible de placer des bytes voulu entre ``0x00 0x01`` et ``0x00``
 
-On peut brute-forcer et permette la création d'une signature tel que celle ci mise à la puissance $e=3$ , elle soit valide et commence par ``0x00 || ASN.1 || hash(M)``
-- $(254 = \dfrac{2048}{2} - 2)$ *( "-2" pour les 0x00 0x11)*
+On peut brute-forcer et permettre la création d'une signature tel que celle-ci mise à la puissance $e=3$ , elle soit valide et commence par ``0x00 || ASN.1 || hash(M)``
 
 ```python
 import hashlib
