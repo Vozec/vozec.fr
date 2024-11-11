@@ -274,79 +274,120 @@ On peut coder cette partie de cette manière :
 (*On utilise SageMaths*)
 ```python
 from sage.all import *
+from aes import myAES
 
 class aes_linear:
-   def __init__(self,plaintext,ciphertext):
-      # AES(P) = A*P+B
-      self.P = self.plain2vect(plaintext)
-      self.AES_P = self.plain2vect(ciphertext)
-      self.A = self.recover_A()
-      self.B = self.recover_B()
+	def __init__(self,plaintext,ciphertext):
+		# AES(P) = A*P+B
+		self.P = self.plain2vect(plaintext)
+		self.AES_P = self.plain2vect(ciphertext)
+		self.recover_A()
+		self.recover_B()
 
-   def plain2vect(self,data):
-      return vector([int(x) for x in "{:08b}".format(int(data.hex(),16)).zfill(128)])
+	def plain2vect(self,data):
+		return vector([int(x) for x in "{:08b}".format(int(data.hex(),16)).zfill(128)])
 
-   def vect2plain(self,data):
-      k = int(''.join([str(x) for x in data]),2)
-      return k.to_bytes((k.bit_length() +7) // 8, "big")
+	def vect2plain(self,data):
+		k = int(''.join([str(x) for x in data]),2)
+		return k.to_bytes((k.bit_length() +7) // 8, "big")
 
-   def recover_A(self):
-      I = matrix.identity(GF(2),8)
+	def recover_A(self):
+		I = matrix.identity(GF(2),8)
+		Z = matrix(GF(2),8)
+		X = matrix(GF(2),8,[
+			[0,1,0,0,0,0,0,0],
+			[0,0,1,0,0,0,0,0],
+			[0,0,0,1,0,0,0,0],
+			[1,0,0,0,1,0,0,0],
+			[1,0,0,0,0,1,0,0],
+			[0,0,0,0,0,0,1,0],
+			[1,0,0,0,0,0,0,1],
+			[1,0,0,0,0,0,0,0]
+		])
 
-      X = matrix(GF(2),8,[
-         [0,1,0,0,0,0,0,0],
-         [0,0,1,0,0,0,0,0],
-         [0,0,0,1,0,0,0,0],
-         [1,0,0,0,1,0,0,0],
-         [1,0,0,0,0,1,0,0],
-         [0,0,0,0,0,0,1,0],
-         [1,0,0,0,0,0,0,1],
-         [1,0,0,0,0,0,0,0]
-      ])
+		C = block_matrix([
+			[X,X+I,I,I],
+			[I,X,X+I,I],
+			[I,I,X,X+I],
+			[X+I,I,I,X],
+		])
 
-      C = block_matrix([
-         [X,X+I,I,I],
-         [I,X,X+I,I],
-         [I,I,X,X+I],
-         [X+I,I,I,X],
-      ])
+		sig0 = block_matrix([[I,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z]])
+		sig1 = block_matrix([[Z,Z,Z,Z],[Z,I,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z]])
+		sig2 = block_matrix([[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,I,Z],[Z,Z,Z,Z]])
+		sig3 = block_matrix([[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,I]])
 
-      Z = matrix(GF(2),8)
+		S = block_matrix([
+			[sig0,sig1,sig2,sig3],
+			[sig3,sig0,sig1,sig2],
+			[sig2,sig3,sig0,sig1],
+			[sig1,sig2,sig3,sig0],
+		])
 
-      sig0 = block_matrix([[I,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z]])
-      sig1 = block_matrix([[Z,Z,Z,Z],[Z,I,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z]])
-      sig2 = block_matrix([[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,I,Z],[Z,Z,Z,Z]])
-      sig3 = block_matrix([[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,I]])
+		Z2 = matrix(GF(2),32)
+		M = block_matrix([
+			[C,Z2,Z2,Z2],
+			[Z2,C,Z2,Z2],
+			[Z2,Z2,C,Z2],
+			[Z2,Z2,Z2,C],
+		])
 
-      S = block_matrix([
-         [sig0,sig1,sig2,sig3],
-         [sig3,sig0,sig1,sig2],
-         [sig2,sig3,sig0,sig1],
-         [sig1,sig2,sig3,sig0],
-      ])
+		R = M*S
+		A = S*R**9
 
-      Z2 = matrix(GF(2),32)
-      M = block_matrix([
-         [C,Z2,Z2,Z2],
-         [Z2,C,Z2,Z2],
-         [Z2,Z2,C,Z2],
-         [Z2,Z2,Z2,C],
-      ])
+		self.R = R
+		self.S = S
+		self.A = A
 
-      R = M*S
-      A = S*R**9
+	def recover_B(self):
+		self.B = self.AES_P - self.A*self.P
 
-      # Save Values
-      self.Z = Z
-      self.I = I
-      self.Z2 = Z2
-      self.R = R
-      self.S = S
+	def break_key(self):
+		I  = matrix.identity(GF(2),8)
+		I2 = matrix.identity(GF(2),8*4)
+		Z  = matrix(GF(2),8)
+		Z2 = matrix(GF(2),8*4)
 
-      return A    
+		T = block_matrix([
+		    [Z,I,Z,Z],
+		    [Z,Z,I,Z],
+		    [Z,Z,Z,I],
+		    [I,Z,Z,Z]
+		])
 
-   def recover_B(self):
-      return self.AES_P - self.A*self.P
+		U = block_matrix([
+			[I2,Z2,Z2,T],
+			[I2,I2,Z2,T],
+			[I2,I2,I2,T],
+			[I2,I2,I2,T+I2],
+		])
+
+		V = U**10
+		for i in range(10):
+			V += self.S * (self.R**i) * (U**(9-i))
+		V_inv = V.inverse()
+
+
+		
+		cipher = myAES()
+		cipher.key = [0]*16
+		cipher.subKeys = cipher.expandKey(cipher.key)
+		K = cipher.encrypt(self.P)
+		
+		K = self.plain2vect(bytes(K))
+		r = self.AES_P
+
+		k = V_inv * (K + r).change_ring(GF(2))
+		return self.vect2plain(k)
+
+dec = b'\x00'*16
+enc = encrypt_oracle(dec)
+exp = aes_linear(
+	plaintext  = dec,
+	ciphertext = enc
+)
+key = exp.break_key()
+print(key.hex())
 ```
 
 ### Seconde Partie.
