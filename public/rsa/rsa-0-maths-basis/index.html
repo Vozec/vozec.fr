@@ -1085,12 +1085,12 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
   <hr>
 <h2 id="introduction">Introduction</h2>
 <p>Voici les différents théorèmes et application pour comprendre le chiffrement RSA</p>
-<h3 id="opération-modulaires">Opération Modulaires</h3>
+<h2 id="opération-modulaires">Opération Modulaires</h2>
 <p>L&rsquo;opérateur modulo et une opération qui retourne le reste de la division euclidienne d&rsquo;un nombre A par B:</p>
 <p>$a \equiv r \pmod b$<br>
 $\Rightarrow~\exists<del>k \in N</del>|~a = b*k + r$</p>
 <p>Si r = 0 , on dit que <code>n divise a</code></p>
-<h3 id="pgcd">Pgcd</h3>
+<h2 id="pgcd">Pgcd</h2>
 <p>Le <code>PGCD</code> <em>(ou gcd)</em> de 2 nombres est le plus grand diviseur commun de ces deux nombres :</p>
 <p>Exemple:</p>
 <ul>
@@ -1102,7 +1102,7 @@ $\Rightarrow~\exists<del>k \in N</del>|~a = b*k + r$</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> a <span style="color:#66d9ef">if</span> b<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> gcd(b,a<span style="color:#f92672">%</span>b)
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> gcd(<span style="color:#ae81ff">96</span>,<span style="color:#ae81ff">36</span>)
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
-</span></span></code></pre></div><h3 id="nombre-premiers">Nombre premiers</h3>
+</span></span></code></pre></div><h2 id="nombre-premiers">Nombre premiers</h2>
 <ul>
 <li>On dit qu&rsquo;un nombre est premier s’il n&rsquo;est divisible que par 1 ou lui-même :</li>
 </ul>
@@ -1110,12 +1110,12 @@ $\Rightarrow~\exists<del>k \in N</del>|~a = b*k + r$</p>
 </code></pre><ul>
 <li>On dit que deux nombres sont premiers entre eux si leur unique diviseur commun est 1 i.e. si $PGDC(a,b)=1$</li>
 </ul>
-<h3 id="inverse-modulaire">Inverse modulaire</h3>
+<h2 id="inverse-modulaire">Inverse modulaire</h2>
 <p>Soit $x$ un entier, on appèle <strong>l&rsquo;inverse modulaire</strong> de $x$ modulo $n$ , l&rsquo;entier $u$ tel que :</p>
-<p>$a*u \equiv 1 \pmod n$</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>u <span style="color:#f92672">=</span> pow(a, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, n)
-</span></span></code></pre></div><h3 id="théorème-de-bezout">Théorème de Bezout</h3>
-<p>Soient A et B deux nombres premiers, alors il existe u et v tq: <code>A*U+B*v=1</code></p>
+<p>$x*u \equiv 1 \pmod n$</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>u <span style="color:#f92672">=</span> pow(x, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, n)
+</span></span></code></pre></div><h2 id="théorème-de-bezout">Théorème de Bezout</h2>
+<p>Soient A et B deux nombres premiers, alors il existe u et v tq: <code>A*u+B*v=1</code></p>
 <p>$\forall (a,b) \in {\Bbb R}<del>|<del>GCD(a,b)=1</del> \Rightarrow</del>\exists~(u,v)<del>\in{\Bbb N}</del>,~au+bv=1$</p>
 <p>Pour trouver ces deux réels <code>u</code> et <code>v</code> , on peut utiliser l&rsquo;<a href="https://fr.wikipedia.org/wiki/Algorithme_d%27Euclide_%c3%a9tendu" target="_blank">Algorithme </a>étendu d’Euclide</p>
 <ul>
@@ -1131,7 +1131,7 @@ Alors , <strong>-9×120 + 47×23 = 1</strong> ; (u,v)=(-9,47)</li>
 </span></span></code></pre></div><p><em>Output :</em></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> extended_gcd(<span style="color:#ae81ff">120</span>,<span style="color:#ae81ff">23</span>)
 </span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">47</span>)
-</span></span></code></pre></div><h3 id="théorème-des-restes-chinois">Théorème des restes chinois</h3>
+</span></span></code></pre></div><h2 id="théorème-des-restes-chinois">Théorème des restes chinois</h2>
 <p>Ce théorème permet de résoudre des équations modulaires du type :</p>
 <p>$\begin{cases}
 x \equiv r  \pmod {b} \newline
@@ -1174,13 +1174,13 @@ $\implies x = 139$</p>
 a &amp;\text{if } b \newline
 c &amp;\text{if } d
 \end{cases}$</p>
-<h3 id="indicatrice-deuler-phi">Indicatrice D’Euler $\Phi$</h3>
+<h2 id="indicatrice-deuler-phi">Indicatrice D’Euler $\Phi$</h2>
 <p>On appelé $\Phi$  , l&rsquo;indicatrice d’Euler , la fonction qui à un entier <code>n</code> lui associe le nombre de nombres premiers à <code>n</code></p>
-<p>$\Phi~:x~\rightarrow<del>Card({m \in {\Bbb N^{*}</del>|<del>m &lt;= n</del>et~gcd(m,n)=1}})$</p>
+<p>$\Phi~:n~\rightarrow<del>Card({m \in {\Bbb N^{*}</del>|<del>m &lt;= n</del>et~gcd(m,n)=1}})$</p>
 <p>Si on pose $p$ un nombre premier, alors il y a $p-1$ nombres premiers a $x$ , d&rsquo;où :</p>
 <p>$\Phi(p) = p-1$</p>
-<h3 id="indicatrice-de-carmichael-lambda">Indicatrice de Carmichael $\lambda$</h3>
-<p>On appele $\lambda$ , l&rsquo;indicatrice de Carmichael , la fonction qui à un entier <code>n</code> lui associe le plus petit entier $m$ tel que :</p>
+<h2 id="indicatrice-de-carmichael-lambda">Indicatrice de Carmichael $\lambda$</h2>
+<p>On appele $\lambda$ , l&rsquo;indicatrice de Carmichael , la fonction qui à un entier <code>n</code> lui associe le plus petit entier $n$ tel que :</p>
 <p>$a^m \equiv 1 \pmod n$</p>
 
   
@@ -1190,7 +1190,7 @@ c &amp;\text{if } d
 	    
 	    
             <div class="next-post">
-                <a href="//localhost:1313/rsa/rsa-1-basis/?ref=footer"><span style="font-weight:bold;">Next »</span><br>RSA n°1 | Principes Fondamentals</a>
+                <a href="//localhost:1313/rsa/rsa-1-basis/?ref=footer"><span style="font-weight:bold;">Next »</span><br>RSA n°1 | Principes Fondamentaux</a>
             </div>
         
     
@@ -1206,18 +1206,15 @@ c &amp;\text{if } d
       <h4 id="contents"></h4>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#introduction">Introduction</a>
-      <ul>
-        <li><a href="#opération-modulaires">Opération Modulaires</a></li>
-        <li><a href="#pgcd">Pgcd</a></li>
-        <li><a href="#nombre-premiers">Nombre premiers</a></li>
-        <li><a href="#inverse-modulaire">Inverse modulaire</a></li>
-        <li><a href="#théorème-de-bezout">Théorème de Bezout</a></li>
-        <li><a href="#théorème-des-restes-chinois">Théorème des restes chinois</a></li>
-        <li><a href="#indicatrice-deuler-phi">Indicatrice D’Euler $\Phi$</a></li>
-        <li><a href="#indicatrice-de-carmichael-lambda">Indicatrice de Carmichael $\lambda$</a></li>
-      </ul>
-    </li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#opération-modulaires">Opération Modulaires</a></li>
+    <li><a href="#pgcd">Pgcd</a></li>
+    <li><a href="#nombre-premiers">Nombre premiers</a></li>
+    <li><a href="#inverse-modulaire">Inverse modulaire</a></li>
+    <li><a href="#théorème-de-bezout">Théorème de Bezout</a></li>
+    <li><a href="#théorème-des-restes-chinois">Théorème des restes chinois</a></li>
+    <li><a href="#indicatrice-deuler-phi">Indicatrice D’Euler $\Phi$</a></li>
+    <li><a href="#indicatrice-de-carmichael-lambda">Indicatrice de Carmichael $\lambda$</a></li>
   </ul>
 </nav>
     </div>

@@ -1086,7 +1086,7 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
 <h1 id="introduction">Introduction</h1>
 <p>Il est courant d&rsquo;envoyer le même message à plusieurs personnes et cela pose un gros problème de sécurité pour l&rsquo;intégrité du message si une personne arrive à intercepter plusieurs communications.<br>
 Nous allons ici parler de l&rsquo;<code>attaque Hastads-Broadcast</code>.</p>
-<h2 id="contextualisation">Contextualisation</h2>
+<h1 id="contextualisation">Contextualisation</h1>
 <p>On sait qu&rsquo;un message chiffré par <strong>RSA</strong> est de la forme :</p>
 <ul>
 <li>$c = m^e \pmod n$</li>
@@ -1101,7 +1101,7 @@ c_2 = m^e \pmod {n_2} \newline
 c_e = m^e \pmod {n_e} \newline
 \end{cases}$</p>
 <h2 id="attaque-hastads-broadcast">Attaque Hastads-Broadcast</h2>
-<p>Le théorème des <a href="https://vozec.fr/crypto-rsa/rsa-0-maths-basis/" target="_blank">restes chinois</a> nous indique qu&rsquo;il existe une solution a ce système modulo le produit des $n_i$:</p>
+<p>Le théorème des <a href="https://vozec.fr/crypto-rsa/rsa-0-maths-basis/" target="_blank">restes chinois</a> nous indique qu&rsquo;il existe une solution à ce système modulo le produit des $n_i$:</p>
 <p>$N = {\prod\limits_{k=1}^{e}{n_i}}$<br>
 $\exists<del>M</del>tel<del>que</del>M~\pmod N$ vérifie le système précédent.</p>
 <p>Pour résoudre le système , <em>Hastads-Broadcast</em> posent :</p>
@@ -1116,7 +1116,7 @@ $\exists<del>M</del>tel<del>que</del>M~\pmod N$ vérifie le système précédent
 <ul>
 <li>$\forall i \in [[1,..,e]]~;~x_i*N_i \equiv 1 \pmod {n_i}$</li>
 </ul>
-<h4 id="on-peut-donc-déchiffrer-le-message-dorigine-">On peut donc déchiffrer le message d&rsquo;origine :</h4>
+<p>On peut donc déchiffrer le message d&rsquo;origine :</p>
 <p>$\mathbf{m = {({\prod\limits_{k=1}^{e}{c_i*x_i*N_i}})}^{\dfrac{1}{e}}}$</p>
 <h2 id="implémentation-en-python">Implémentation en Python</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
@@ -1162,7 +1162,7 @@ $\exists<del>M</del>tel<del>que</del>M~\pmod N$ vérifie le système précédent
 <div class="footer">
     
 	    
-            <a class="previous-post" href="//localhost:1313/rsa/rsa-5-e-take-confidence/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>RSA n°5 | E takes confidence</a>
+            <a class="previous-post" href="//localhost:1313/rsa/rsa-5-e-takes-confidence/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>RSA n°5 | E takes confidence</a>
         
 	    
             <div class="next-post">
@@ -1182,12 +1182,7 @@ $\exists<del>M</del>tel<del>que</del>M~\pmod N$ vérifie le système précédent
       <h4 id="contents"></h4>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#contextualisation">Contextualisation</a></li>
-    <li><a href="#attaque-hastads-broadcast">Attaque Hastads-Broadcast</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
+    <li><a href="#attaque-hastads-broadcast">Attaque Hastads-Broadcast</a></li>
     <li><a href="#implémentation-en-python">Implémentation en Python</a></li>
   </ul>
 </nav>

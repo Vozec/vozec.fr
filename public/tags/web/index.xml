@@ -6,8 +6,15 @@
     <description>Recent content in Web on </description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 28 Jan 2024 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Dec 2024 12:00:00 +0000</lastBuildDate>
     <atom:link href="//localhost:1313/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EncoDecept [EN] | HTB University CTF 2024</title>
+      <link>//localhost:1313/writeups/encodecept-htb-university-2024/</link>
+      <pubDate>Sun, 15 Dec 2024 12:00:00 +0000</pubDate>
+      <guid>//localhost:1313/writeups/encodecept-htb-university-2024/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;This challenge is one of the 4 challenges in the WEB category published at the University CTF 2024.&#xA;It is rated medium despite having the lowest resolution in the category. It is therefore considered the toughest web challenge of this edition.&lt;/p&gt;&#xA;&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;&#xA;&lt;p&gt;The Frontier Board’s iron grip on the galaxy rests on one secret: the location of the legendary Starry Spur, hidden deep within their Intergalactic Contract System (ICMS. With rebellion brewing, Jack Colt is humanity’s last hope. Tasked by the resistance, he must breach the impenetrable system, outwit its defenses, and retrieve the contract that could ignite a revolution. The galaxy’s freedom hangs by a thread—can Jack rise to the challenge?&lt;/p&gt;</description>
+    </item>
     <item>
       <title>ChatterBox | RealWorld CTF 6th</title>
       <link>//localhost:1313/writeups/chatterbox-realworld-ctf-2024/</link>

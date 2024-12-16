@@ -1111,26 +1111,26 @@ Voici un message chiffré &amp; signé :</p>
 <li>On déchiffre $h&rsquo; = s^e \pmod n$</li>
 <li>On compare $h$ et $h&rsquo;$.</li>
 </ul>
-<h4 id="relation-mathématique-">Relation mathématique :</h4>
+<h3 id="relation-mathématique-">Relation mathématique :</h3>
 <p>$h&rsquo; = s^e \pmod n = (h^d)^e \pmod n = h$</p>
 <h2 id="première-attaque--choosen-message">Première attaque : <em>Choosen Message</em></h2>
 <p>On va supposer avoir a disposition un <strong>Oracle de signature</strong> qui nous permet de signer n&rsquo;importe quel message .</p>
 <p>On souhaite obtenir la signature :</p>
 <ul>
-<li>$s = m^d \pmod n$</li>
+<li>$s = h^d \pmod n$</li>
 </ul>
 <p>Alors, grâce à <strong>deux autres</strong> signatures, on peut obtenir $s$.</p>
 <h5 id="etapes-">Etapes :</h5>
 <ul>
 <li>
-<p>On signe un message connu $m_1$:<br>
-$s_1 = m_1^d \mod n$</p>
+<p>On signe un message connu $h_1$:<br>
+$s_1 = h_1^d \mod n$</p>
 </li>
 <li>
-<p>On signe un second message $m_2$ tel que :<br>
+<p>On signe un second message $h_2$ tel que :<br>
 $\begin{cases}
-m_2 = m * m_1^{-1} \pmod n \newline
-s_2 = m_2^d \mod n
+h_2 = h * h_1^{-1} \pmod n \newline
+s_2 = h_2^d \mod n
 \end{cases}$</p>
 </li>
 <li>
@@ -1155,20 +1155,20 @@ S_q = m^{d_q} \pmod q
 </ul>
 <p>En utilisant le théorème, on obtient $s$ grâce à $S_p$ et $S_q$</p>
 <h4 id="injection-de-faute">Injection de Faute:</h4>
-<p>Si on arrive a injecter une faute (en faisant baisser la tension du processeur par exemple), on peut rendre un des calculs de $S_p$ ou $S_q$ faux.</p>
+<p>Si on arrive à injecter une faute (en faisant baisser la tension du processeur par exemple), on peut rendre un des calculs de $S_p$ ou $S_q$ faux.</p>
 <p>On a donc :</p>
 <p>$\begin{cases}
 S_p = m^{d_p} \pmod p \newline
-S_q \neq m^{d_q} \pmod q
+S_q ≠ m^{d_q} \pmod q
 \end{cases}$</p>
 <p>$\implies S = crt([S_p,S_q],n)$</p>
 <p>$\implies \begin{cases}
 S^e = m \pmod p \newline
-S^e \neq m \pmod q
+S^e ≠ m \pmod q
 \end{cases}$</p>
 <p>$\implies \begin{cases}
 S^e - m = 0 \pmod p \newline
-S^e -m \neq 0 \pmod q
+S^e -m ≠ 0 \pmod q
 \end{cases}$</p>
 <p>$\implies \begin{cases}
 p~\mid<del>S^e - m \newline
@@ -1213,9 +1213,9 @@ q</del>\nmid~S^e - m \pmod q
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#...</span>
 </span></span></code></pre></div><p><em>Source:<a href="https://eprint.iacr.org/2009/309.pdf" target="_blank">Fault Attacks on RSA Signatures with Partially Unknown Messages⋆</a></em></p>
 <h2 id="troisième-attaque--signature-forgery">Troisième Attaque : <em>Signature Forgery</em></h2>
-<h4 id="le-standart-pkcs1-v15">Le Standart <em>PKCS#1 v1.5</em></h4>
-<p><em>PKCS</em> est un standart de formatage du chiffrement RSA.<br>
-Il permet de formatter un message avec de le signer.</p>
+<h4 id="le-standard-pkcs1-v15">Le Standard <em>PKCS#1 v1.5</em></h4>
+<p><em>PKCS</em> est un standard de formatage du chiffrement RSA.<br>
+Il permet de formater un message avec de le signer.</p>
 <p>Il fonctionne de la manière suivante :<br>
 - <code>0x00 0x01 || pad() || 0x00 || ASN.1 || hash(M) </code></p>
 <p>Avec :<br>
@@ -1232,10 +1232,7 @@ Il permet de formatter un message avec de le signer.</p>
 </ul>
 <p>Le module $n$ n&rsquo;est pas appliqué car le message est inférieur à n.<br>
 Alors , si il n&rsquo;y a pas de vérification du contenue du padding de <code>0xFF</code> , alors il est possible de placer des bytes voulu entre <code>0x00 0x01</code> et <code>0x00</code></p>
-<p>On peut brute-forcer et permette la création d&rsquo;une signature tel que celle ci mise à la puissance $e=3$ , elle soit valide et commence par <code>0x00 || ASN.1 || hash(M)</code></p>
-<ul>
-<li>$(254 = \dfrac{2048}{2} - 2)$ <em>( &ldquo;-2&rdquo; pour les 0x00 0x11)</em></li>
-</ul>
+<p>On peut brute-forcer et permettre la création d&rsquo;une signature tel que celle-ci mise à la puissance $e=3$ , elle soit valide et commence par <code>0x00 || ASN.1 || hash(M)</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib
 </span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> os <span style="color:#f92672">import</span> urandom
 </span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> gmpy2 <span style="color:#f92672">import</span> mpz, iroot
@@ -1308,6 +1305,7 @@ Alors , si il n&rsquo;y a pas de vérification du contenue du padding de <code>0
       <ul>
         <li><a href="#création-de-la-signature-">Création de la signature :</a></li>
         <li><a href="#vérification-de-la-signature-">Vérification de la signature :</a></li>
+        <li><a href="#relation-mathématique-">Relation mathématique :</a></li>
       </ul>
     </li>
     <li><a href="#première-attaque--choosen-message">Première attaque : <em>Choosen Message</em></a>

@@ -1084,14 +1084,14 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
 
   <hr>
 <h1 id="introduction">Introduction</h1>
-<p>Nous allons ici voir <code>2</code> vulnérabilités sur RSA liés à une mauvaise génération de clé publique.</p>
-<h2 id="vulnérabilité-">Vulnérabilité :</h2>
-<p>On rappelle que $n$ et généré avec $p$ et $q$ très grand :</p>
+<p>Nous allons ici voir une vulnérabilité sur RSA liée à une mauvaise génération de clé publique.</p>
+<h1 id="vulnérabilité-">Vulnérabilité :</h1>
+<p>On rappelle que $n$ et généré avec $p$ et $q$ très grands:</p>
 <ul>
 <li>$n = p*q$ .</li>
 </ul>
 <p>On se place dans un cas idéal ou $p$ et $q$ sont cryptographiques et que donc $n$ n&rsquo;est pas cassable par force brute .</p>
-<p>La vulnérabilités réside dans le fait que $p$ et $q$ <code>sont très proche</code>.</p>
+<p>La vulnérabilités réside dans le fait que $p$ et $q$ <code>sont très proches</code>.</p>
 <p>On peut imaginer une génération de clé vulnérable comme celle-ci :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> getPrime
 </span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> sympy <span style="color:#f92672">import</span> nextprime
@@ -1102,22 +1102,22 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p<span style="color:#f92672">*</span>q
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> get_public()
-</span></span></code></pre></div><p>En effet, le faite que $p$ et $q$ soient proches implique que la racine de la clé publique $n$ soit une bonne approximation d&rsquo;un des 2 facteurs $p$ ou $q$</p>
+</span></span></code></pre></div><p>En effet, le fait que $p$ et $q$ soient proches implique que la racine de la clé publique $n$ soit une bonne approximation d&rsquo;un des 2 facteurs $p$ ou $q$</p>
 <p>La condition pour que l&rsquo;algorithme fonctionne est que $p-q &lt; n^{1/4}$ .<br>
 Si elle est vérifiée ; alors la factorisation se fera sans problèmes.</p>
 <h2 id="algorithme-">Algorithme :</h2>
 <p>Pierre de Fermat se base sur la représentation d&rsquo;un nombre pair comme la différence de <code>2</code> aires de carrés de côté <code>a</code> et <code>b</code>  .</p>
 <p>Il pose :<br>
 $n = p*q$<br>
-$\implies n = \dfrac{(q-p)}{2}*\dfrac{(p+q)}{2}$<br>
+$\implies n = (\dfrac{(q-p)}{2})^{2} * (\dfrac{(p+q)}{2})^{2} $<br>
 $\implies n = x^2 - y^2$</p>
 <p>Avec :</p>
 <p>$\begin{cases}
 x =  \dfrac{(q-p)}{2} \newline
-y =  \dfrac{(q-p)}{2}
+y =  \dfrac{(q+p)}{2}
 \end{cases}$</p>
 <p>$\implies n = (x-y)(x+y)$</p>
-<h3 id="pseudo-code">Pseudo-Code</h3>
+<h2 id="pseudo-code">Pseudo-Code</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>fermat(n):
 </span></span><span style="display:flex;"><span>  a <span style="color:#f92672">=</span> Racine(n)
 </span></span><span style="display:flex;"><span>  b <span style="color:#f92672">=</span> a<span style="color:#f92672">*</span>a <span style="color:#f92672">-</span> n
@@ -1125,7 +1125,8 @@ y =  \dfrac{(q-p)}{2}
 </span></span><span style="display:flex;"><span>      a <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>      b <span style="color:#f92672">=</span> a<span style="color:#f92672">*</span>a <span style="color:#f92672">-</span>n
 </span></span><span style="display:flex;"><span>  p <span style="color:#f92672">=</span> a<span style="color:#f92672">-</span>Racine(b)
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (p,n<span style="color:#f92672">/</span>q)
+</span></span><span style="display:flex;"><span>  q <span style="color:#f92672">=</span> a<span style="color:#f92672">+</span>Racine(b)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (p,q)
 </span></span></code></pre></div><p>Ce qui donne en python :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> gmpy2 <span style="color:#f92672">import</span> mpz,sqrt,ceil,get_context
 </span></span><span style="display:flex;"><span>
@@ -1159,7 +1160,7 @@ y =  \dfrac{(q-p)}{2}
 <p><em>reference : <a href="https://hsbp.org/tiki-download_wiki_attachment.php?attId=174" target="_blank">The Fermat factorization method revisited</a></em></p>
 <p>L&rsquo;efficacité de l&rsquo;algorithme de Fermat peut être écrite :</p>
 <p>$\Theta (\dfrac{\Delta}{4*n^{1/2}})$ avec $\Delta = p-q$</p>
-<h3 id="idée-de-coppersmith-1996">Idée de CopperSmith <em>(1996)</em>:</h3>
+<h1 id="idée-de-coppersmith-1996">Idée de CopperSmith <em>(1996)</em>:</h1>
 <p>CopperSmith propose une méthode pour trouver les racines d&rsquo;un &lsquo;polynôme modulaire invariant&rsquo; <em>(univariate polynomial modular equation)</em> et une autre méthode pour trouver les racines d&rsquo;une équation polynomiale bivariante <em>(bivariate polynomial integer equation)</em></p>
 <p>Grâce à cela , CopperSmith est capable de factoriser $n$ si :</p>
 <ul>
@@ -1195,17 +1196,9 @@ puis quelques mois après , si :</li>
       <h4 id="contents"></h4>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#vulnérabilité-">Vulnérabilité :</a></li>
-    <li><a href="#algorithme-">Algorithme :</a>
-      <ul>
-        <li><a href="#pseudo-code">Pseudo-Code</a></li>
-      </ul>
-    </li>
-    <li><a href="#amélioration-de-lalgorithme-">Amélioration de l&rsquo;algorithme :</a>
-      <ul>
-        <li><a href="#idée-de-coppersmith-1996">Idée de CopperSmith <em>(1996)</em>:</a></li>
-      </ul>
-    </li>
+    <li><a href="#algorithme-">Algorithme :</a></li>
+    <li><a href="#pseudo-code">Pseudo-Code</a></li>
+    <li><a href="#amélioration-de-lalgorithme-">Amélioration de l&rsquo;algorithme :</a></li>
   </ul>
 </nav>
     </div>

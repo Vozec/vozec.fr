@@ -1085,12 +1085,12 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
   <hr>
 <h1 id="introduction-">Introduction :</h1>
 <p>Don Coppersmith est un mathématicien et cryptologue américain né en 1950.
-Il a contribué dans de nombreux domaines de la <code>Cryptographie</code> et en particulier le chiffrement RSA.</p>
-<p>Il s&rsquo;intéresse particulièrement aux liens possibles entre des <strong>notions d&rsquo;algèbres</strong> et les mathématiques arithmétiques du chiffrement RSA</p>
+Il a contribué dans de nombreux domaines de la <code>Cryptographie</code> et en particulier le chiffrement RSA.<br>
+Il s&rsquo;intéresse particulièrement aux liens possibles entre des <strong>notions d&rsquo;algèbres</strong> et les mathématiques arithmétiques du chiffrement RSA</p>
 <h1 id="papier-de-recherche">Papier de recherche:</h1>
 <p>CopperSmith présente un papier de recherche mathématique nommé : <a href="https://cr.yp.to/bib/2001/coppersmith.pdf" target="_blank"><em>Finding Small Solutions to Small Degree Polynomials</em></a><br>
 Il y explique comment trouver les racines de polynômes à <code>1</code> et <code>2</code> variables , modulo un entier <strong>n</strong>  grâce à la réduction de base via des matrices et l&rsquo;algorithme <code>Lenstra–Lenstra–Lovász</code> <em>(LLL)</em>.
-C&rsquo;est racines sont appelés <em>Small Roots</em> et la technique de Coppersmith a était optimisé par <code>Howgrave-Graham</code>.</p>
+C&rsquo;est racines sont appelées <em>Small Roots</em> et la technique de Coppersmith a été optimisée par <code>Howgrave-Graham</code>.</p>
 <h1 id="application-au-rsa">Application au RSA:</h1>
 <h2 id="premier-cas--clair-connu">Premier cas : <em>Clair connu</em></h2>
 <p>On suppose qu&rsquo;on soit en présence d&rsquo;un message chiffré classiquement ainsi qu&rsquo;une partie de texte déchiffré.</p>
@@ -1099,7 +1099,7 @@ C&rsquo;est racines sont appelés <em>Small Roots</em> et la technique de Copper
 c = <em>Bonjours , voici votre clé privée : XXXXXX&quot;</em><br>
 Ici <em>&ldquo;Bonjours , voici votre clé privée :&rdquo;</em> est une clair connu et on peut l&rsquo;exploiter pour retrouver le message d&rsquo;origine , complet.</li>
 </ul>
-<h4 id="condition--mise-en-équation-">Condition &amp; Mise en équation :</h4>
+<h3 id="condition--mise-en-équation-">Condition &amp; Mise en équation :</h3>
 <p>On a d&rsquo;habitude :</p>
 <ul>
 <li>$\begin{cases}
@@ -1114,8 +1114,8 @@ n = p*q \newline
 c = (M+m)^e \pmod n
 \end{cases}$</li>
 </ul>
-<h6 id="condition">Condition:</h6>
-<p><em>(Cas e=3)</em> CopperSmith à montré que cette attaque était efficace si :</p>
+<h3 id="condition">Condition:</h3>
+<p><em>(Cas e=3)</em> CopperSmith a montré que cette attaque était efficace si :</p>
 <ul>
 <li>$x &lt; \dfrac{1}{2} N^{\dfrac{1}{δ}-e}$<br>
 $\implies x &lt; 0.167$</li>
@@ -1161,18 +1161,18 @@ Cela est possible grâce à l&rsquo;algorithme LLL de réduction de base.</p>
 </ul>
 <p><a href="https://github.com/hgarrereyn/Th3g3ntl3man-CTF-Writeups/tree/master/2017/UIUCTF/problems/Cryptography/papaRSA" target="_blank">Exemple du UIUCTF</a></p>
 <h2 id="deuxième-cas--shortpad-attack">Deuxième cas : <em>ShortPad Attack</em></h2>
-<p>Dans cette nouvelle attaque, on possède <em>2</em> fois le même message chiffré mais paddé de deux manière différentes .</p>
+<p>Dans cette nouvelle attaque, on possède <em>2</em> fois le même message chiffré mais paddé de deux manières différentes .</p>
 <p><strong>CopperSmith</strong> nous indique qu&rsquo;il est possible , à condition que la padding ne soit pas trop grand , de trouver le contenu du message.</p>
-<p>Il utilise ses précédentes recherches sur la résolution polynomial dans <strong>$Z/nZ$</strong> ainsi que les recherches sur la récupération de messages par lien affines. <em>(<a href="https://vozec.fr/crypto-rsa/rsa-7-hey-this-is-franklin/" target="_blank">voir franklin reiter ici</a>)</em>.</p>
-<h4 id="démonstration">Démonstration</h4>
+<p>Il utilise ses précédentes recherches sur la résolution polynomiale dans <strong>$Z/nZ$</strong> ainsi que les recherches sur la récupération de messages par lien affines. <em>(<a href="https://vozec.fr/crypto-rsa/rsa-7-hey-this-is-franklin/" target="_blank">voir franklin reiter ici</a>)</em>.</p>
+<h3 id="démonstration">Démonstration</h3>
 <ul>
 <li>$\begin{cases}
 g_1(x,y) = x^e - C_1 \newline
 g_2(x,y) = (x+y)^e - C_2 \pmod n
 \end{cases}$</li>
 </ul>
-<p>Alors quand $y = r_2 - r_1$ , alors $g_1$ et $g_2$ on pour racine commune : $x=m_1$
-On pose <em>res</em> la <a href="https://en.wikipedia.org/wiki/Resultant" target="_blank">résultante</a> de 2 polynomes
+<p>Alors quand $y = r_2 - r_1$ , alors $g_1$ et $g_2$ ont pour racine commune : $x=m_1$
+On pose <em>res</em> la <a href="https://en.wikipedia.org/wiki/Resultant" target="_blank">résultante</a> de 2 polynômes
 $\implies \begin{cases}
 \Delta = r_2-r_1 \newline
 h(y) = res_x(g1,g2) \in Z_n[y]\pmod n \newline
@@ -1212,9 +1212,9 @@ Quand $\Delta$ est connu, <strong>Franklin–Reiter</strong> permet de retrouver
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> b:
 </span></span><span style="display:flex;"><span>            a, b <span style="color:#f92672">=</span> b, a <span style="color:#f92672">%</span> b
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a<span style="color:#f92672">.</span>monic()
-</span></span><span style="display:flex;"><span>    P<span style="color:#f92672">.&lt;</span>x<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> PolynomialRing(Zmod(N))
-</span></span><span style="display:flex;"><span>    g1 <span style="color:#f92672">=</span> x<span style="color:#f92672">^</span>e <span style="color:#f92672">-</span> C1
-</span></span><span style="display:flex;"><span>    g2 <span style="color:#f92672">=</span> (x<span style="color:#f92672">+</span>delta)<span style="color:#f92672">^</span>e <span style="color:#f92672">-</span> C2
+</span></span><span style="display:flex;"><span>    P<span style="color:#f92672">.&lt;</span>x<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> PolynomialRing(Zmod(n))
+</span></span><span style="display:flex;"><span>    g1 <span style="color:#f92672">=</span> x<span style="color:#f92672">^</span>e <span style="color:#f92672">-</span> c1
+</span></span><span style="display:flex;"><span>    g2 <span style="color:#f92672">=</span> (x<span style="color:#f92672">+</span>delta)<span style="color:#f92672">^</span>e <span style="color:#f92672">-</span> c2
 </span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>gcd(g1, g2)<span style="color:#f92672">.</span>coefficients()[<span style="color:#ae81ff">0</span>]
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
 </span></span></code></pre></div>
@@ -1245,13 +1245,14 @@ Quand $\Delta$ est connu, <strong>Franklin–Reiter</strong> permet de retrouver
   <ul>
     <li><a href="#premier-cas--clair-connu">Premier cas : <em>Clair connu</em></a>
       <ul>
-        <li></li>
+        <li><a href="#condition--mise-en-équation-">Condition &amp; Mise en équation :</a></li>
+        <li><a href="#condition">Condition:</a></li>
         <li><a href="#résolution-">Résolution :</a></li>
       </ul>
     </li>
     <li><a href="#deuxième-cas--shortpad-attack">Deuxième cas : <em>ShortPad Attack</em></a>
       <ul>
-        <li></li>
+        <li><a href="#démonstration">Démonstration</a></li>
         <li><a href="#implémentation-en-python-">Implémentation en python :</a></li>
       </ul>
     </li>

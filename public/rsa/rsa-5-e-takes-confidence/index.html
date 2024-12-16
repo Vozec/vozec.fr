@@ -1084,14 +1084,14 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
 
   <hr>
 <h1 id="introduction">Introduction</h1>
-<p>Nous allons ici voir <code>3</code> vulnérabilités sur RSA liés à un mauvais choix de l&rsquo;exposant $e$.</p>
-<h2 id="contextualisation">Contextualisation</h2>
+<p>Nous allons ici voir <code>3</code> vulnérabilités sur RSA liées à un mauvais choix de l&rsquo;exposant $e$.</p>
+<h1 id="contextualisation">Contextualisation</h1>
 <p>On sait que $d$ , clé privée du chiffrement <strong>RSA</strong> est généré de la sorte:</p>
 <ul>
 <li>$d = e^{-1} \pmod \Phi(n)$</li>
 </ul>
 <p>Par convention, on utilise souvent $e=3$ ou $e=65537$ .</p>
-<h4 id="mais-pourquoi-">Mais pourquoi ?</h4>
+<h2 id="pourquoi-">Pourquoi ?</h2>
 <p>Ces nombres présentes plusieurs propriétés intéressante, d&rsquo;abord :</p>
 <ul>
 <li>ils sont <code>premiers</code></li>
@@ -1114,12 +1114,12 @@ $\begin{cases}
 d &lt; \dfrac{1}{3}*N^{\dfrac{1}{4}} \newline
 q &lt; p &lt; 2*q \newline
 \end{cases}$</p>
-<h5 id="théorème-de-wiener-">Théorème de Wiener :</h5>
+<h3 id="théorème-de-wiener-">Théorème de Wiener :</h3>
 <p>Si $\begin{cases}
 d &lt; \dfrac{1}{3}*N^{\dfrac{1}{4}} \newline
 q &lt; p &lt; 2*q \newline
 \end{cases}$</p>
-<p>Alors <strong>d</strong> peut être retrouver en cherchant la bonne fraction $\dfrac{k}{d}$ parmi les convergentes de $\dfrac{e}{n}$</p>
+<p>Alors <strong>d</strong> peut être retrouvé en cherchant la bonne fraction $\dfrac{k}{d}$ parmi les convergentes de $\dfrac{e}{n}$</p>
 <h3 id="démonstration">Démonstration:</h3>
 <p><em>On sait que</em> :</p>
 <p>$d=e^{-1} \pmod \Phi$<br>
@@ -1134,7 +1134,9 @@ $\implies |n - \Phi(n)| = p+q-1 &lt; 3 \sqrt n$  <em>(car q&lt;p&lt;2q)</em></p>
 <p><em>Finalement</em> :<br>
 $\exists k <del>tel</del>que : |\dfrac{e}{n} - \dfrac{k}{d} = | \dfrac{e*d - k*n}{n*d}| $<br>
 $ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{e*d - k*n -k*\Phi(n) +k*\Phi(n)}{n*d}| $<br>
-$ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{1-k*(n-\Phi(n))}{n*d}| $<br>
+$ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{1-k*(n-\Phi(n))}{n*d}| $
+$ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{k*(n-\Phi(n))-1}{n*d}| $
+$ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~= | \dfrac{k*(p+q-1)-1}{n*d}| $
 $ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&lt; | \dfrac{3*k*\sqrt n}{n*d}| $</p>
 <p><em>Or</em> :
 $k*e &lt; k*\Phi(n) = d*e-1 &lt; d*e$<br>
@@ -1145,11 +1147,11 @@ $ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&lt; | \dfrac{1}{d*n^{\dfrac{1}{4}}*\sqrt n}
 $ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&lt; | \dfrac{1}{d*n^{\dfrac{1}{4}}}| $<br>
 $ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&lt; | \dfrac{1}{3*d^3}| $</p>
 <p><em>(<a href="https://sagi.io/crypto-classics-wieners-rsa-attack/" target="_blank">Reference: Sage.io</a>)</em></p>
-<h3 id="polynôme-phinn">Polynôme $\Phi(n)/n$:</h3>
+<h3 id="polynôme-phin">Polynôme $\Phi(n)$:</h3>
 <p><em>On sait que</em> :<br>
 $\Phi(n) = (p-1)*(q-1)$
-$\implies \Phi(n) = N-q-p + 1$<br>
-$\implies \Phi(n) =  N - p - \dfrac{N}{p} + 1$<br>
+$\implies \Phi(n) = n-q-p + 1$<br>
+$\implies \Phi(n) =  n - p - \dfrac{n}{p} + 1$<br>
 <strong>$\implies p^2 + p*(\Phi(n)-n-1)-n = 0$</strong></p>
 <h3 id="algorithme-de-factorisation-">Algorithme de factorisation :</h3>
 <p>Voici les étapes à suivre :</p>
@@ -1207,7 +1209,7 @@ $\implies 1 = e*d + k&rsquo;*(x+y)$</p>
 <li>$\mathbf{2*k&rsquo;&rsquo;*(x+y)+1 \equiv 0 \pmod e}$</li>
 </ul>
 <p><a href="https://twitter.com/cryptodavidw" target="_blank">David Wong</a> explique <a href="https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/survey_final.pdf" target="_blank">ici</a> que cette équation peut être reformulée sous la forme :</p>
-<p>$\mathbf{f(x,y) = x*(A+y)}$<br>
+<p>$\mathbf{f(x,y) = x*(a+y)}$<br>
 et :</p>
 <ul>
 <li>$a=n+1$</li>
@@ -1275,14 +1277,14 @@ Pour les trouver , on peut utiliser la méthode de <code>Coppersmith's</code> po
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>find_square_roots(c, e)
 </span></span></code></pre></div><p>Sagemath est aussi capable de le faire automatiquement:</p>
-<pre tabindex="0"><code>n = ...
-c = ...
-e = 2**5
-
-X = GF(n, &#39;X&#39;).gen()
-for r, _ in (X^e - c).roots():
-    print(bytes.fromhex(hex(r)[2:]))
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">**</span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>X <span style="color:#f92672">=</span> GF(n, <span style="color:#e6db74">&#39;X&#39;</span>)<span style="color:#f92672">.</span>gen()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> r, _ <span style="color:#f92672">in</span> (X<span style="color:#f92672">^</span>e <span style="color:#f92672">-</span> c)<span style="color:#f92672">.</span>roots():
+</span></span><span style="display:flex;"><span>    print(bytes<span style="color:#f92672">.</span>fromhex(hex(r)[<span style="color:#ae81ff">2</span>:]))
+</span></span></code></pre></div>
   
   <hr>
 <div class="footer">
@@ -1292,7 +1294,7 @@ for r, _ in (X^e - c).roots():
         
 	    
             <div class="next-post">
-                <a href="//localhost:1313/rsa/rsa-5-e-take-confidence/?ref=footer"><span style="font-weight:bold;">Next »</span><br>RSA n°5 | E takes confidence</a>
+                <a href="//localhost:1313/rsa/rsa-6-message-for-all/?ref=footer"><span style="font-weight:bold;">Next »</span><br>RSA n°6 | Message for all</a>
             </div>
         
     
@@ -1308,17 +1310,14 @@ for r, _ in (X^e - c).roots():
       <h4 id="contents"></h4>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#contextualisation">Contextualisation</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
+    <li><a href="#pourquoi-">Pourquoi ?</a></li>
     <li><a href="#problème">Problème</a></li>
     <li><a href="#attaque-de-wiener">Attaque de Wiener</a>
       <ul>
         <li><a href="#conditions-">Conditions :</a></li>
+        <li><a href="#théorème-de-wiener-">Théorème de Wiener :</a></li>
         <li><a href="#démonstration">Démonstration:</a></li>
-        <li><a href="#polynôme-phinn">Polynôme $\Phi(n)/n$:</a></li>
+        <li><a href="#polynôme-phin">Polynôme $\Phi(n)$:</a></li>
         <li><a href="#algorithme-de-factorisation-">Algorithme de factorisation :</a></li>
         <li><a href="#implémentation-python">Implémentation Python:</a></li>
       </ul>

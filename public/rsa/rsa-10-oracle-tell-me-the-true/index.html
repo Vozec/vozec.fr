@@ -1090,13 +1090,13 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
 <li><strong>le flag chiffré</strong></li>
 </ul>
 <p>Voici donc plusieurs méthodes pour trouver le flag en clair :</p>
-<h3 id="méthode-1">Méthode 1:</h3>
+<h2 id="méthode-1">Méthode 1:</h2>
 <p>La première méthode est de Factoriser le message $c$ .
 On peut ainsi demander de déchiffrer les facteurs du flag puis re-multiplier les clairs entre eux pour récupérer le message original:</p>
 <p>$c_{original} =c_1 * c_2 * c_3$<br>
 $\implies m_{original} = [f^{-1}(c_1)* f^{-1}(c_2)* f^{-1}(c_3)] \pmod n$<br>
 <em>(Avec $f^{-1}$  la fonction de déchiffrement)</em></p>
-<h3 id="méthode-2">Méthode 2:</h3>
+<h2 id="méthode-2">Méthode 2:</h2>
 <p>Le RSA a des propriétés <strong>Homomorphique</strong> , ce qui veut dire que:</p>
 <ul>
 <li>$f^{-1}(a*b) = f^{-1}(a)*f^{-1}(b)$</li>
@@ -1104,14 +1104,14 @@ $\implies m_{original} = [f^{-1}(c_1)* f^{-1}(c_2)* f^{-1}(c_3)] \pmod n$<br>
 <p>C&rsquo;est la propriété utilisée dans la <em>méthode 1</em><br>
 Ainsi , on peut demander le déchiffrement d&rsquo;un produit de $c$</p>
 <p>$m_{original} = f^{-1}(2*c) * [({f^{-1}(2)})^{-1}\pmod n] \pmod n$</p>
-<h3 id="méthode-3">Méthode 3:</h3>
+<h2 id="méthode-3">Méthode 3:</h2>
 <p>On peut aussi envoyer :</p>
 <ul>
 <li>$c+k*n$<br>
 <em>($k \in N$)</em></li>
 </ul>
 <p>On utilise ici les propriétés du RSA , en appliquant le <em>modulo n</em> , le serveur va directement déchiffrer <em>c</em></p>
-<h3 id="méthode-4">Méthode 4:</h3>
+<h2 id="méthode-4">Méthode 4:</h2>
 <p>On peut demander le déchiffrement de :</p>
 <ul>
 <li>$-c$</li>
@@ -1121,7 +1121,7 @@ Ainsi , on peut demander le déchiffrement d&rsquo;un produit de $c$</p>
 <ul>
 <li>$m_{original} = f^{-1}(-c) * f^{-1}(-1) \pmod n$</li>
 </ul>
-<h3 id="méthode-5">Méthode 5:</h3>
+<h2 id="méthode-5">Méthode 5:</h2>
 <p>On sait que :<br>
 $c \equiv m^e \pmod n$</p>
 <p>On doit envoyer : $c^{e+1}$</p>
@@ -1137,7 +1137,7 @@ $\implies (c^{e+1})^d \equiv c * m \pmod n$</p>
 $m_{original} =  (c^{e+1})^d * c^{-1} \pmod n$</p>
 </li>
 </ul>
-<h3 id="méthode-6">Méthode 6:</h3>
+<h2 id="méthode-6">Méthode 6:</h2>
 <p>On sait que :<br>
 $c \equiv m^e \pmod n$</p>
 <ul>
@@ -1151,7 +1151,7 @@ $\implies \dfrac{(\lambda^ec)^d}{\lambda} \equiv m \pmod n$</li>
 <h2 id="retrouver-le-module-n">Retrouver le module $n$:</h2>
 <p>Toutes les attaques précédentes requièrent de connaitre $n$.
 On peut le retrouver de la manière suivante :</p>
-<p>On demande le déchiffrement de :</p>
+<p>On demande le chiffrement de :</p>
 <ul>
 <li>2</li>
 <li>4</li>
@@ -1202,16 +1202,12 @@ k_3 = {c_5} ^ 2 - c_{25} \newline
       <h4 id="contents"></h4>
       <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#méthode-1">Méthode 1:</a></li>
-        <li><a href="#méthode-2">Méthode 2:</a></li>
-        <li><a href="#méthode-3">Méthode 3:</a></li>
-        <li><a href="#méthode-4">Méthode 4:</a></li>
-        <li><a href="#méthode-5">Méthode 5:</a></li>
-        <li><a href="#méthode-6">Méthode 6:</a></li>
-      </ul>
-    </li>
+    <li><a href="#méthode-1">Méthode 1:</a></li>
+    <li><a href="#méthode-2">Méthode 2:</a></li>
+    <li><a href="#méthode-3">Méthode 3:</a></li>
+    <li><a href="#méthode-4">Méthode 4:</a></li>
+    <li><a href="#méthode-5">Méthode 5:</a></li>
+    <li><a href="#méthode-6">Méthode 6:</a></li>
     <li><a href="#retrouver-le-module-n">Retrouver le module $n$:</a></li>
   </ul>
 </nav>

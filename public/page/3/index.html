@@ -74,7 +74,7 @@
 <meta property="og:url" content="//localhost:1313/" />
 
 
-<meta property="og:updated_time" content="2024-09-04T00:00:00Z" />
+<meta property="og:updated_time" content="2024-12-15T12:00:00Z" />
 
 
 <link rel="sitemap" type="application/xml" title="Sitemap" href='//localhost:1313/sitemap.xml' />
@@ -1038,6 +1038,71 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
     <article class="post">
         <div class="info">
   <h1 class="post-title">
+    <a href="//localhost:1313/rsa/rsa-8-coppersmith-saves-you/">RSA n°8 | CopperSmith saves you</a>
+  </h1>
+
+  <div class="headline">
+    <div>
+      
+      <time datetime=" 2022-12-08T14:00:00Z" class="post-date">
+        December 8, 2022
+      </time>
+      
+      <span> - </span>
+      <span class="reading-time">
+        
+          
+        
+
+        <span>4 mins read</span>
+      </span>
+    </div>
+
+    
+    <ul class="tags">
+      
+      <li class="tag-rsa">
+        <a href="//localhost:1313/tags/rsa">rsa</a>
+      </li>
+      
+      <li class="tag-cryptographie">
+        <a href="//localhost:1313/tags/cryptographie">cryptographie</a>
+      </li>
+      
+      <li class="tag-crypto">
+        <a href="//localhost:1313/tags/crypto">crypto</a>
+      </li>
+      
+    </ul>
+    
+  </div>
+
+  
+  
+
+  
+</div>
+
+        
+        <hr>
+<h1 id="introduction-">Introduction :</h1>
+<p>Don Coppersmith est un mathématicien et cryptologue américain né en 1950.
+Il a contribué dans de nombreux domaines de la <code>Cryptographie</code> et en particulier le chiffrement RSA.<br>
+Il s&rsquo;intéresse particulièrement aux liens possibles entre des <strong>notions d&rsquo;algèbres</strong> et les mathématiques arithmétiques du chiffrement RSA</p>
+<h1 id="papier-de-recherche">Papier de recherche:</h1>
+<p>CopperSmith présente un papier de recherche mathématique nommé : <a href="https://cr.yp.to/bib/2001/coppersmith.pdf" target="_blank"><em>Finding Small Solutions to Small Degree Polynomials</em></a><br>
+Il y explique comment trouver les racines de polynômes à <code>1</code> et <code>2</code> variables , modulo un entier <strong>n</strong>  grâce à la réduction de base via des matrices et l&rsquo;algorithme <code>Lenstra–Lenstra–Lovász</code> <em>(LLL)</em>.
+C&rsquo;est racines sont appelées <em>Small Roots</em> et la technique de Coppersmith a été optimisée par <code>Howgrave-Graham</code>.</p>
+        
+        <div class="read-more-link">
+            <a href="/rsa/rsa-8-coppersmith-saves-you/">Read More…</a>
+        </div>
+        
+        
+    </article>
+    <article class="post">
+        <div class="info">
+  <h1 class="post-title">
     <a href="//localhost:1313/rsa/rsa-7-hey-this-is-franklin/">RSA n°7 | Hey this is Franklin (Reiter)</a>
   </h1>
 
@@ -1087,7 +1152,7 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
         <hr>
 <h1 id="introduction">Introduction</h1>
 <p>L&rsquo;attaque Franklin-Reiter sur le chiffrement RSA requiert d&rsquo;avoir deux messages chiffrés avec une relation linéaire connu entre les deux messages.</p>
-<h2 id="contextualisation">Contextualisation</h2>
+<h1 id="contextualisation">Contextualisation</h1>
 <p>Exemple :</p>
 <ul>
 <li>$m_1 = 100000000000$</li>
@@ -1099,7 +1164,7 @@ Il est alors possible de retrouver le message à partir de :</p>
 <li>$c_1 = m_1^e \pmod n$</li>
 <li>$c_2 = m_2^e \pmod n$</li>
 </ul>
-<p>A l’origine, cet attaque était faisable pour $e=3$ puis elle a était généralisé pour n&rsquo;importe quel $e$ .<br>
+<p>A l’origine, cet attaque était faisable pour $e=3$ puis elle a était généralisée pour n&rsquo;importe quel $e$ .<br>
 (<em>Plus e est grand, plus l&rsquo;attaque est longue</em>)</p>
         
         <div class="read-more-link">
@@ -1161,7 +1226,7 @@ Il est alors possible de retrouver le message à partir de :</p>
 <h1 id="introduction">Introduction</h1>
 <p>Il est courant d&rsquo;envoyer le même message à plusieurs personnes et cela pose un gros problème de sécurité pour l&rsquo;intégrité du message si une personne arrive à intercepter plusieurs communications.<br>
 Nous allons ici parler de l&rsquo;<code>attaque Hastads-Broadcast</code>.</p>
-<h2 id="contextualisation">Contextualisation</h2>
+<h1 id="contextualisation">Contextualisation</h1>
 <p>On sait qu&rsquo;un message chiffré par <strong>RSA</strong> est de la forme :</p>
 <ul>
 <li>$c = m^e \pmod n$</li>
@@ -1170,78 +1235,6 @@ Nous allons ici parler de l&rsquo;<code>attaque Hastads-Broadcast</code>.</p>
         
         <div class="read-more-link">
             <a href="/rsa/rsa-6-message-for-all/">Read More…</a>
-        </div>
-        
-        
-    </article>
-    <article class="post">
-        <div class="info">
-  <h1 class="post-title">
-    <a href="//localhost:1313/rsa/rsa-5-e-take-confidence/">RSA n°5 | E takes confidence</a>
-  </h1>
-
-  <div class="headline">
-    <div>
-      
-      <time datetime=" 2022-11-30T14:00:00Z" class="post-date">
-        November 30, 2022
-      </time>
-      
-      <span> - </span>
-      <span class="reading-time">
-        
-          
-        
-
-        <span>5 mins read</span>
-      </span>
-    </div>
-
-    
-    <ul class="tags">
-      
-      <li class="tag-rsa">
-        <a href="//localhost:1313/tags/rsa">rsa</a>
-      </li>
-      
-      <li class="tag-cryptographie">
-        <a href="//localhost:1313/tags/cryptographie">cryptographie</a>
-      </li>
-      
-      <li class="tag-crypto">
-        <a href="//localhost:1313/tags/crypto">crypto</a>
-      </li>
-      
-    </ul>
-    
-  </div>
-
-  
-  
-
-  
-</div>
-
-        
-        <hr>
-<h1 id="introduction">Introduction</h1>
-<p>Nous allons ici voir <code>3</code> vulnérabilités sur RSA liés à un mauvais choix de l&rsquo;exposant $e$.</p>
-<h2 id="contextualisation">Contextualisation</h2>
-<p>On sait que $d$ , clé privée du chiffrement <strong>RSA</strong> est généré de la sorte:</p>
-<ul>
-<li>$d = e^{-1} \pmod \Phi(n)$</li>
-</ul>
-<p>Par convention, on utilise souvent $e=3$ ou $e=65537$ .</p>
-<h4 id="mais-pourquoi-">Mais pourquoi ?</h4>
-<p>Ces nombres présentes plusieurs propriétés intéressante, d&rsquo;abord :</p>
-<ul>
-<li>ils sont <code>premiers</code></li>
-<li>ils sont <code>petits</code></li>
-</ul>
-<p>C&rsquo;est $2$ premières propriétés sont majeures , elles permettent un temps de calcul raisonnable pour le chiffrement/déchiffrement des messages .</p>
-        
-        <div class="read-more-link">
-            <a href="/rsa/rsa-5-e-take-confidence/">Read More…</a>
         </div>
         
         
@@ -1297,14 +1290,14 @@ Nous allons ici parler de l&rsquo;<code>attaque Hastads-Broadcast</code>.</p>
         
         <hr>
 <h1 id="introduction">Introduction</h1>
-<p>Nous allons ici voir <code>3</code> vulnérabilités sur RSA liés à un mauvais choix de l&rsquo;exposant $e$.</p>
-<h2 id="contextualisation">Contextualisation</h2>
+<p>Nous allons ici voir <code>3</code> vulnérabilités sur RSA liées à un mauvais choix de l&rsquo;exposant $e$.</p>
+<h1 id="contextualisation">Contextualisation</h1>
 <p>On sait que $d$ , clé privée du chiffrement <strong>RSA</strong> est généré de la sorte:</p>
 <ul>
 <li>$d = e^{-1} \pmod \Phi(n)$</li>
 </ul>
 <p>Par convention, on utilise souvent $e=3$ ou $e=65537$ .</p>
-<h4 id="mais-pourquoi-">Mais pourquoi ?</h4>
+<h2 id="pourquoi-">Pourquoi ?</h2>
 <p>Ces nombres présentes plusieurs propriétés intéressante, d&rsquo;abord :</p>
 <ul>
 <li>ils sont <code>premiers</code></li>
@@ -1369,14 +1362,14 @@ Nous allons ici parler de l&rsquo;<code>attaque Hastads-Broadcast</code>.</p>
         
         <hr>
 <h1 id="introduction">Introduction</h1>
-<p>Nous allons ici voir <code>2</code> vulnérabilités sur RSA liés à une mauvaise génération de clé publique.</p>
-<h2 id="vulnérabilité-">Vulnérabilité :</h2>
-<p>On rappelle que $n$ et généré avec $p$ et $q$ très grand :</p>
+<p>Nous allons ici voir une vulnérabilité sur RSA liée à une mauvaise génération de clé publique.</p>
+<h1 id="vulnérabilité-">Vulnérabilité :</h1>
+<p>On rappelle que $n$ et généré avec $p$ et $q$ très grands:</p>
 <ul>
 <li>$n = p*q$ .</li>
 </ul>
 <p>On se place dans un cas idéal ou $p$ et $q$ sont cryptographiques et que donc $n$ n&rsquo;est pas cassable par force brute .</p>
-<p>La vulnérabilités réside dans le fait que $p$ et $q$ <code>sont très proche</code>.</p>
+<p>La vulnérabilités réside dans le fait que $p$ et $q$ <code>sont très proches</code>.</p>
         
         <div class="read-more-link">
             <a href="/rsa/rsa-4-fermat-to-the-rescue/">Read More…</a>
@@ -1436,9 +1429,9 @@ Nous allons ici parler de l&rsquo;<code>attaque Hastads-Broadcast</code>.</p>
         <hr>
 <h1 id="introduction">Introduction</h1>
 <p>Nous allons ici voir <code>2</code> vulnérabilités sur RSA liés à une mauvaise gestion des clés publiques .</p>
-<h2 id="common-modulus-">Common Modulus .</h2>
+<h1 id="common-modulus-">Common Modulus .</h1>
 <p>On suppose le schéma suivant :</p>
-<p>On dispose de <code>2</code> chiffrés différent à partir d&rsquo;un même <code>message</code> et d&rsquo;une clé commune <em>(n)</em>:</p>
+<p>On dispose de <code>2</code> chiffrés différents à partir d&rsquo;un même <code>message</code> et d&rsquo;une clé commune <em>(n)</em>:</p>
 <ul>
 <li>$c_1 = e_1^{-1} \pmod {\Phi(n)}$</li>
 <li>$c_2 = e_2^{-1} \pmod {\Phi(n)}$</li>
@@ -1502,11 +1495,11 @@ Nous allons ici parler de l&rsquo;<code>attaque Hastads-Broadcast</code>.</p>
         
         <hr>
 <h1 id="introduction">Introduction</h1>
-<p>Nous avons vu précédemment <em>(<a href="https://vozec.fr/crypto-rsa/rsa-1-basis/" target="_blank">ici</a>)</em> que le chiffrement RSA reposé sur <code>2</code> nombres premiers , notés $p$ et $q$.
-Grâce à ces deux nombres cryptographiquement grands, il était ainsi possible de générer une paires de clé $(publique/privée)$ et chiffré des messages grâce à celle-ci.</p>
+<p>Nous avons vu précédemment <em>(<a href="https://vozec.fr/crypto-rsa/rsa-1-basis/" target="_blank">ici</a>)</em> que le chiffrement RSA reposait sur <code>2</code> nombres premiers , notés $p$ et $q$.
+Grâce à ces deux nombres cryptographiquement grands, il était ainsi possible de générer une paires de clé $(publique/privée)$ et chiffrer des messages grâce à celle-ci.</p>
 <p>Nous allons voir ici quelques premières vulnérabilités sur le chiffrement RSA.</p>
-<h2 id="1-p-et-q-trop-petit">1) $P$ et $Q$ trop petit.</h2>
-<p>On rappèle que la clé privée est :<br>
+<h1 id="1-p-et-q-trop-petits">1) $P$ et $Q$ trop petits.</h1>
+<p>On rappelle que la clé privée est :<br>
 $d = e^{-1} \pmod {\Phi(n)}$<br>
 Avec $\Phi(n) = (p-1)(q-1)$</p>
         
@@ -1519,7 +1512,7 @@ Avec $\Phi(n) = (p-1)(q-1)$</p>
     <article class="post">
         <div class="info">
   <h1 class="post-title">
-    <a href="//localhost:1313/rsa/rsa-1-basis/">RSA n°1 | Principes Fondamentals</a>
+    <a href="//localhost:1313/rsa/rsa-1-basis/">RSA n°1 | Principes Fondamentaux</a>
   </h1>
 
   <div class="headline">
@@ -1629,12 +1622,12 @@ Il est dit <code>asymétrique</code> car il fonctionne par paires de clés. Tout
         <hr>
 <h2 id="introduction">Introduction</h2>
 <p>Voici les différents théorèmes et application pour comprendre le chiffrement RSA</p>
-<h3 id="opération-modulaires">Opération Modulaires</h3>
+<h2 id="opération-modulaires">Opération Modulaires</h2>
 <p>L&rsquo;opérateur modulo et une opération qui retourne le reste de la division euclidienne d&rsquo;un nombre A par B:</p>
 <p>$a \equiv r \pmod b$<br>
 $\Rightarrow~\exists<del>k \in N</del>|~a = b*k + r$</p>
 <p>Si r = 0 , on dit que <code>n divise a</code></p>
-<h3 id="pgcd">Pgcd</h3>
+<h2 id="pgcd">Pgcd</h2>
 <p>Le <code>PGCD</code> <em>(ou gcd)</em> de 2 nombres est le plus grand diviseur commun de ces deux nombres :</p>
         
         <div class="read-more-link">

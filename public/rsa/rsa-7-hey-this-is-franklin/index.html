@@ -1085,7 +1085,7 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
   <hr>
 <h1 id="introduction">Introduction</h1>
 <p>L&rsquo;attaque Franklin-Reiter sur le chiffrement RSA requiert d&rsquo;avoir deux messages chiffrés avec une relation linéaire connu entre les deux messages.</p>
-<h2 id="contextualisation">Contextualisation</h2>
+<h1 id="contextualisation">Contextualisation</h1>
 <p>Exemple :</p>
 <ul>
 <li>$m_1 = 100000000000$</li>
@@ -1097,41 +1097,35 @@ Il est alors possible de retrouver le message à partir de :</p>
 <li>$c_1 = m_1^e \pmod n$</li>
 <li>$c_2 = m_2^e \pmod n$</li>
 </ul>
-<p>A l’origine, cet attaque était faisable pour $e=3$ puis elle a était généralisé pour n&rsquo;importe quel $e$ .<br>
+<p>A l’origine, cet attaque était faisable pour $e=3$ puis elle a était généralisée pour n&rsquo;importe quel $e$ .<br>
 (<em>Plus e est grand, plus l&rsquo;attaque est longue</em>)</p>
 <h1 id="première-approche-">Première approche :</h1>
-<ul>
-<li>
-<h4 id="e--3">$e = 3$</h4>
-<ul>
-<li>$\begin{cases}
+<h2 id="e--3">$e = 3$</h2>
+<pre><code>-	$\begin{cases}
 m_2 = \alpha*m_1+\beta \newline
 c_1 = m_1^3 \pmod n \newline
 c_2 = m_2^3 \pmod n
-\end{cases}$</li>
-</ul>
-<p>$\implies \dfrac{\beta(c_2+2\alpha^3c_1+\beta^3)}{\alpha(c_2-\alpha^3c_1+2\beta^3)} = \dfrac{3\alpha^3\beta{m_1}^3+3\alpha^2\beta^2{m_1^2}+3\alpha\beta^3m_1}{3\alpha^3\beta{m_1}^2+3\alpha^2\beta^2m1+3\alpha\beta^3} = m_1 \pmod n$</p>
-</li>
-<li>
-<h4 id="e--5">$e = 5$</h4>
-<ul>
-<li>$\begin{cases}
+\end{cases}$
+
+$\implies \dfrac{\beta(c_2+2\alpha^3c_1+\beta^3)}{\alpha(c_2-\alpha^3c_1+2\beta^3)} = \dfrac{3\alpha^3\beta{m_1}^3+3\alpha^2\beta^2{m_1^2}+3\alpha\beta^3m_1}{3\alpha^3\beta{m_1}^2+3\alpha^2\beta^2m1+3\alpha\beta^3} = m_1 \pmod n$
+</code></pre>
+<h2 id="e--5">$e = 5$</h2>
+<pre><code>-	$\begin{cases}
 m_2 = \alpha*m_1+\beta~(avec~\alpha=\beta=1) \newline
 c_1 = m_1^5 \pmod n \newline
 c_2 = m_2^5 \pmod n
-\end{cases}$</li>
-</ul>
-<p>$\implies\begin{cases}
+\end{cases}$
+
+$\implies\begin{cases}
 P(m)=c_2^3-3c_1c_2^2+3c_1^2c_2-c_1^3+37c_2^2+176c_1c_2+37c_1^2+73c_1^2+73c_2-73c_1+14 \newline
 mP(m)=2c_2^3-c_1c_2^2-4c_1^2c_2+3c_1^3+14c_2^2-88c_1c_2-51c_2-9c_2+64c_1-7 \newline
 m = \dfrac{mP(m)}{P(m)}
-\end{cases}$</p>
-</li>
-</ul>
-<p>Cette méthode est longue mais fonctionnelle, elle permet pour tous $e$ de déterminer un polynôme $P$ pour retrouver les $m_i$</p>
+\end{cases}$
+</code></pre>
+<p>Cette méthode est longue mais fonctionnelle, elle permet pour tout $e$ de déterminer un polynôme $P$ pour retrouver les $m_i$</p>
 <h1 id="seconde-approche-">Seconde approche :</h1>
 <h2 id="théorème-de-franklin-reiter-">Théorème de Franklin-Reiter :</h2>
-<p>Soit <strong>(n,e)</strong> une clé RSA publique , et $m_1 \neq  m_2$ tel que :</p>
+<p>Soit <strong>(n,e)</strong> une clé RSA publique , et $m_1 ≈ m_2$ tel que :</p>
 <ul>
 <li>$\mathbf{m_1 = f(m_2) \pmod n}$</li>
 </ul>
@@ -1160,7 +1154,7 @@ Elle est donc possible contre des $e=65537$ par exemple.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> e<span style="color:#f92672">.</span>bit_length()
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">17</span>
-</span></span></code></pre></div><h1 id="implémentation-en-python">Implémentation en Python</h1>
+</span></span></code></pre></div><h2 id="implémentation-en-python">Implémentation en Python</h2>
 <ul>
 <li>$m2 = a*m1 + b$</li>
 </ul>
@@ -1182,9 +1176,9 @@ Elle est donc possible contre des $e=65537$ par exemple.</p>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> b:
 </span></span><span style="display:flex;"><span>            a, b <span style="color:#f92672">=</span> b, a <span style="color:#f92672">%</span> b
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a<span style="color:#f92672">.</span>monic()
-</span></span><span style="display:flex;"><span>    P<span style="color:#f92672">.&lt;</span>X<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> PolynomialRing(Zmod(N))
-</span></span><span style="display:flex;"><span>    g1 <span style="color:#f92672">=</span> (a<span style="color:#f92672">*</span>X <span style="color:#f92672">+</span> b)<span style="color:#f92672">^</span>e <span style="color:#f92672">-</span> C1
-</span></span><span style="display:flex;"><span>    g2 <span style="color:#f92672">=</span> X<span style="color:#f92672">^</span>e <span style="color:#f92672">-</span> C2
+</span></span><span style="display:flex;"><span>    P<span style="color:#f92672">.&lt;</span>X<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> PolynomialRing(Zmod(n))
+</span></span><span style="display:flex;"><span>    g1 <span style="color:#f92672">=</span> (a<span style="color:#f92672">*</span>X <span style="color:#f92672">+</span> b)<span style="color:#f92672">^</span>e <span style="color:#f92672">-</span> c1
+</span></span><span style="display:flex;"><span>    g2 <span style="color:#f92672">=</span> X<span style="color:#f92672">^</span>e <span style="color:#f92672">-</span> c2
 </span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>gcd(g1, g2)<span style="color:#f92672">.</span>coefficients()[<span style="color:#ae81ff">0</span>]
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
 </span></span></code></pre></div><p><em>Reference : <a href="https://link.springer.com/content/pdf/10.1007/3-540-68339-9_1.pdf" target="_blank">Low-Exponent RSA with Related Message</a></em></p>
@@ -1214,24 +1208,14 @@ Elle est donc possible contre des $e=65537$ par exemple.</p>
       <h4 id="contents"></h4>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#contextualisation">Contextualisation</a></li>
-  </ul>
-
-  <ul>
-    <li>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
+    <li><a href="#e--3">$e = 3$</a></li>
+    <li><a href="#e--5">$e = 5$</a></li>
   </ul>
 
   <ul>
     <li><a href="#théorème-de-franklin-reiter-">Théorème de Franklin-Reiter :</a></li>
     <li><a href="#démonstration-">Démonstration :</a></li>
-  </ul>
-
-  <ul>
-    <li>
+    <li><a href="#implémentation-en-python">Implémentation en Python</a>
       <ul>
         <li><a href="#avec-sympy">Avec Sympy</a></li>
         <li><a href="#avec-sagemath">Avec SageMath</a></li>

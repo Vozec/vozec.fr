@@ -1323,79 +1323,120 @@ $B=AES(P)-A\oplus P$
 <p>On peut coder cette partie de cette manière :<br>
 (<em>On utilise SageMaths</em>)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> sage.all <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> aes <span style="color:#f92672">import</span> myAES
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">aes_linear</span>:
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">def</span> __init__(self,plaintext,ciphertext):
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># AES(P) = A*P+B</span>
-</span></span><span style="display:flex;"><span>      self<span style="color:#f92672">.</span>P <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>plain2vect(plaintext)
-</span></span><span style="display:flex;"><span>      self<span style="color:#f92672">.</span>AES_P <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>plain2vect(ciphertext)
-</span></span><span style="display:flex;"><span>      self<span style="color:#f92672">.</span>A <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>recover_A()
-</span></span><span style="display:flex;"><span>      self<span style="color:#f92672">.</span>B <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>recover_B()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> __init__(self,plaintext,ciphertext):
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e"># AES(P) = A*P+B</span>
+</span></span><span style="display:flex;"><span>		self<span style="color:#f92672">.</span>P <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>plain2vect(plaintext)
+</span></span><span style="display:flex;"><span>		self<span style="color:#f92672">.</span>AES_P <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>plain2vect(ciphertext)
+</span></span><span style="display:flex;"><span>		self<span style="color:#f92672">.</span>recover_A()
+</span></span><span style="display:flex;"><span>		self<span style="color:#f92672">.</span>recover_B()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plain2vect</span>(self,data):
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> vector([int(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{:08b}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(int(data<span style="color:#f92672">.</span>hex(),<span style="color:#ae81ff">16</span>))<span style="color:#f92672">.</span>zfill(<span style="color:#ae81ff">128</span>)])
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plain2vect</span>(self,data):
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> vector([int(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{:08b}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(int(data<span style="color:#f92672">.</span>hex(),<span style="color:#ae81ff">16</span>))<span style="color:#f92672">.</span>zfill(<span style="color:#ae81ff">128</span>)])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">vect2plain</span>(self,data):
-</span></span><span style="display:flex;"><span>      k <span style="color:#f92672">=</span> int(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join([str(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> data]),<span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> k<span style="color:#f92672">.</span>to_bytes((k<span style="color:#f92672">.</span>bit_length() <span style="color:#f92672">+</span><span style="color:#ae81ff">7</span>) <span style="color:#f92672">//</span> <span style="color:#ae81ff">8</span>, <span style="color:#e6db74">&#34;big&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">vect2plain</span>(self,data):
+</span></span><span style="display:flex;"><span>		k <span style="color:#f92672">=</span> int(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join([str(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> data]),<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> k<span style="color:#f92672">.</span>to_bytes((k<span style="color:#f92672">.</span>bit_length() <span style="color:#f92672">+</span><span style="color:#ae81ff">7</span>) <span style="color:#f92672">//</span> <span style="color:#ae81ff">8</span>, <span style="color:#e6db74">&#34;big&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">recover_A</span>(self):
-</span></span><span style="display:flex;"><span>      I <span style="color:#f92672">=</span> matrix<span style="color:#f92672">.</span>identity(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">recover_A</span>(self):
+</span></span><span style="display:flex;"><span>		I <span style="color:#f92672">=</span> matrix<span style="color:#f92672">.</span>identity(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>		Z <span style="color:#f92672">=</span> matrix(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>		X <span style="color:#f92672">=</span> matrix(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span>,[
+</span></span><span style="display:flex;"><span>			[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>			[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>			[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>			[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>			[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>			[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>],
+</span></span><span style="display:flex;"><span>			[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>],
+</span></span><span style="display:flex;"><span>			[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>		])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      X <span style="color:#f92672">=</span> matrix(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span>,[
-</span></span><span style="display:flex;"><span>         [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
-</span></span><span style="display:flex;"><span>         [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
-</span></span><span style="display:flex;"><span>         [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
-</span></span><span style="display:flex;"><span>         [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
-</span></span><span style="display:flex;"><span>         [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>],
-</span></span><span style="display:flex;"><span>         [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>],
-</span></span><span style="display:flex;"><span>         [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>],
-</span></span><span style="display:flex;"><span>         [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>      ])
+</span></span><span style="display:flex;"><span>		C <span style="color:#f92672">=</span> block_matrix([
+</span></span><span style="display:flex;"><span>			[X,X<span style="color:#f92672">+</span>I,I,I],
+</span></span><span style="display:flex;"><span>			[I,X,X<span style="color:#f92672">+</span>I,I],
+</span></span><span style="display:flex;"><span>			[I,I,X,X<span style="color:#f92672">+</span>I],
+</span></span><span style="display:flex;"><span>			[X<span style="color:#f92672">+</span>I,I,I,X],
+</span></span><span style="display:flex;"><span>		])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      C <span style="color:#f92672">=</span> block_matrix([
-</span></span><span style="display:flex;"><span>         [X,X<span style="color:#f92672">+</span>I,I,I],
-</span></span><span style="display:flex;"><span>         [I,X,X<span style="color:#f92672">+</span>I,I],
-</span></span><span style="display:flex;"><span>         [I,I,X,X<span style="color:#f92672">+</span>I],
-</span></span><span style="display:flex;"><span>         [X<span style="color:#f92672">+</span>I,I,I,X],
-</span></span><span style="display:flex;"><span>      ])
+</span></span><span style="display:flex;"><span>		sig0 <span style="color:#f92672">=</span> block_matrix([[I,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z]])
+</span></span><span style="display:flex;"><span>		sig1 <span style="color:#f92672">=</span> block_matrix([[Z,Z,Z,Z],[Z,I,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z]])
+</span></span><span style="display:flex;"><span>		sig2 <span style="color:#f92672">=</span> block_matrix([[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,I,Z],[Z,Z,Z,Z]])
+</span></span><span style="display:flex;"><span>		sig3 <span style="color:#f92672">=</span> block_matrix([[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,I]])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      Z <span style="color:#f92672">=</span> matrix(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>		S <span style="color:#f92672">=</span> block_matrix([
+</span></span><span style="display:flex;"><span>			[sig0,sig1,sig2,sig3],
+</span></span><span style="display:flex;"><span>			[sig3,sig0,sig1,sig2],
+</span></span><span style="display:flex;"><span>			[sig2,sig3,sig0,sig1],
+</span></span><span style="display:flex;"><span>			[sig1,sig2,sig3,sig0],
+</span></span><span style="display:flex;"><span>		])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      sig0 <span style="color:#f92672">=</span> block_matrix([[I,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z]])
-</span></span><span style="display:flex;"><span>      sig1 <span style="color:#f92672">=</span> block_matrix([[Z,Z,Z,Z],[Z,I,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z]])
-</span></span><span style="display:flex;"><span>      sig2 <span style="color:#f92672">=</span> block_matrix([[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,I,Z],[Z,Z,Z,Z]])
-</span></span><span style="display:flex;"><span>      sig3 <span style="color:#f92672">=</span> block_matrix([[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,Z],[Z,Z,Z,I]])
+</span></span><span style="display:flex;"><span>		Z2 <span style="color:#f92672">=</span> matrix(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">32</span>)
+</span></span><span style="display:flex;"><span>		M <span style="color:#f92672">=</span> block_matrix([
+</span></span><span style="display:flex;"><span>			[C,Z2,Z2,Z2],
+</span></span><span style="display:flex;"><span>			[Z2,C,Z2,Z2],
+</span></span><span style="display:flex;"><span>			[Z2,Z2,C,Z2],
+</span></span><span style="display:flex;"><span>			[Z2,Z2,Z2,C],
+</span></span><span style="display:flex;"><span>		])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      S <span style="color:#f92672">=</span> block_matrix([
-</span></span><span style="display:flex;"><span>         [sig0,sig1,sig2,sig3],
-</span></span><span style="display:flex;"><span>         [sig3,sig0,sig1,sig2],
-</span></span><span style="display:flex;"><span>         [sig2,sig3,sig0,sig1],
-</span></span><span style="display:flex;"><span>         [sig1,sig2,sig3,sig0],
-</span></span><span style="display:flex;"><span>      ])
+</span></span><span style="display:flex;"><span>		R <span style="color:#f92672">=</span> M<span style="color:#f92672">*</span>S
+</span></span><span style="display:flex;"><span>		A <span style="color:#f92672">=</span> S<span style="color:#f92672">*</span>R<span style="color:#f92672">**</span><span style="color:#ae81ff">9</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      Z2 <span style="color:#f92672">=</span> matrix(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">32</span>)
-</span></span><span style="display:flex;"><span>      M <span style="color:#f92672">=</span> block_matrix([
-</span></span><span style="display:flex;"><span>         [C,Z2,Z2,Z2],
-</span></span><span style="display:flex;"><span>         [Z2,C,Z2,Z2],
-</span></span><span style="display:flex;"><span>         [Z2,Z2,C,Z2],
-</span></span><span style="display:flex;"><span>         [Z2,Z2,Z2,C],
-</span></span><span style="display:flex;"><span>      ])
+</span></span><span style="display:flex;"><span>		self<span style="color:#f92672">.</span>R <span style="color:#f92672">=</span> R
+</span></span><span style="display:flex;"><span>		self<span style="color:#f92672">.</span>S <span style="color:#f92672">=</span> S
+</span></span><span style="display:flex;"><span>		self<span style="color:#f92672">.</span>A <span style="color:#f92672">=</span> A
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      R <span style="color:#f92672">=</span> M<span style="color:#f92672">*</span>S
-</span></span><span style="display:flex;"><span>      A <span style="color:#f92672">=</span> S<span style="color:#f92672">*</span>R<span style="color:#f92672">**</span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">recover_B</span>(self):
+</span></span><span style="display:flex;"><span>		self<span style="color:#f92672">.</span>B <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>AES_P <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>A<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>P
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Save Values</span>
-</span></span><span style="display:flex;"><span>      self<span style="color:#f92672">.</span>Z <span style="color:#f92672">=</span> Z
-</span></span><span style="display:flex;"><span>      self<span style="color:#f92672">.</span>I <span style="color:#f92672">=</span> I
-</span></span><span style="display:flex;"><span>      self<span style="color:#f92672">.</span>Z2 <span style="color:#f92672">=</span> Z2
-</span></span><span style="display:flex;"><span>      self<span style="color:#f92672">.</span>R <span style="color:#f92672">=</span> R
-</span></span><span style="display:flex;"><span>      self<span style="color:#f92672">.</span>S <span style="color:#f92672">=</span> S
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">break_key</span>(self):
+</span></span><span style="display:flex;"><span>		I  <span style="color:#f92672">=</span> matrix<span style="color:#f92672">.</span>identity(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>		I2 <span style="color:#f92672">=</span> matrix<span style="color:#f92672">.</span>identity(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>		Z  <span style="color:#f92672">=</span> matrix(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>		Z2 <span style="color:#f92672">=</span> matrix(GF(<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">8</span><span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> A    
+</span></span><span style="display:flex;"><span>		T <span style="color:#f92672">=</span> block_matrix([
+</span></span><span style="display:flex;"><span>		    [Z,I,Z,Z],
+</span></span><span style="display:flex;"><span>		    [Z,Z,I,Z],
+</span></span><span style="display:flex;"><span>		    [Z,Z,Z,I],
+</span></span><span style="display:flex;"><span>		    [I,Z,Z,Z]
+</span></span><span style="display:flex;"><span>		])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">recover_B</span>(self):
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>AES_P <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>A<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>P
+</span></span><span style="display:flex;"><span>		U <span style="color:#f92672">=</span> block_matrix([
+</span></span><span style="display:flex;"><span>			[I2,Z2,Z2,T],
+</span></span><span style="display:flex;"><span>			[I2,I2,Z2,T],
+</span></span><span style="display:flex;"><span>			[I2,I2,I2,T],
+</span></span><span style="display:flex;"><span>			[I2,I2,I2,T<span style="color:#f92672">+</span>I2],
+</span></span><span style="display:flex;"><span>		])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		V <span style="color:#f92672">=</span> U<span style="color:#f92672">**</span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>			V <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>S <span style="color:#f92672">*</span> (self<span style="color:#f92672">.</span>R<span style="color:#f92672">**</span>i) <span style="color:#f92672">*</span> (U<span style="color:#f92672">**</span>(<span style="color:#ae81ff">9</span><span style="color:#f92672">-</span>i))
+</span></span><span style="display:flex;"><span>		V_inv <span style="color:#f92672">=</span> V<span style="color:#f92672">.</span>inverse()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		cipher <span style="color:#f92672">=</span> myAES()
+</span></span><span style="display:flex;"><span>		cipher<span style="color:#f92672">.</span>key <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>		cipher<span style="color:#f92672">.</span>subKeys <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>expandKey(cipher<span style="color:#f92672">.</span>key)
+</span></span><span style="display:flex;"><span>		K <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>encrypt(self<span style="color:#f92672">.</span>P)
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		K <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>plain2vect(bytes(K))
+</span></span><span style="display:flex;"><span>		r <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>AES_P
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		k <span style="color:#f92672">=</span> V_inv <span style="color:#f92672">*</span> (K <span style="color:#f92672">+</span> r)<span style="color:#f92672">.</span>change_ring(GF(<span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>vect2plain(k)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dec <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>enc <span style="color:#f92672">=</span> encrypt_oracle(dec)
+</span></span><span style="display:flex;"><span>exp <span style="color:#f92672">=</span> aes_linear(
+</span></span><span style="display:flex;"><span>	plaintext  <span style="color:#f92672">=</span> dec,
+</span></span><span style="display:flex;"><span>	ciphertext <span style="color:#f92672">=</span> enc
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">=</span> exp<span style="color:#f92672">.</span>break_key()
+</span></span><span style="display:flex;"><span>print(key<span style="color:#f92672">.</span>hex())
 </span></span></code></pre></div><h3 id="seconde-partie">Seconde Partie.</h3>
 <p>Une fois que <em>B</em> est exprimé, nous souhaitons en déduire la clé utilisée par l&rsquo;AES.
 L&rsquo;absence de l&rsquo;opération <code>Sub-Bytes</code> implique que ce résidu est lui aussi linéaire.

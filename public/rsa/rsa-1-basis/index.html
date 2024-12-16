@@ -56,11 +56,11 @@
 
 <!-- Open Graph image and Twitter Card metadata -->
 
-<title itemprop="name">Vozec&#39;s Blog - RSA n°1 | Principes Fondamentals</title>
-<meta property="og:title" content=Vozec&#39;s&#32;Blog&#32;-&#32;RSA&#32;n°1&#32;|&#32;Principes&#32;Fondamentals />
-<meta name="twitter:title" content=Vozec&#39;s&#32;Blog&#32;-&#32;RSA&#32;n°1&#32;|&#32;Principes&#32;Fondamentals />
-<meta itemprop="name" content=Vozec&#39;s&#32;Blog&#32;-&#32;RSA&#32;n°1&#32;|&#32;Principes&#32;Fondamentals />
-<meta name="application-name" content=Vozec&#39;s&#32;Blog&#32;-&#32;RSA&#32;n°1&#32;|&#32;Principes&#32;Fondamentals />
+<title itemprop="name">Vozec&#39;s Blog - RSA n°1 | Principes Fondamentaux</title>
+<meta property="og:title" content=Vozec&#39;s&#32;Blog&#32;-&#32;RSA&#32;n°1&#32;|&#32;Principes&#32;Fondamentaux />
+<meta name="twitter:title" content=Vozec&#39;s&#32;Blog&#32;-&#32;RSA&#32;n°1&#32;|&#32;Principes&#32;Fondamentaux />
+<meta itemprop="name" content=Vozec&#39;s&#32;Blog&#32;-&#32;RSA&#32;n°1&#32;|&#32;Principes&#32;Fondamentaux />
+<meta name="application-name" content=Vozec&#39;s&#32;Blog&#32;-&#32;RSA&#32;n°1&#32;|&#32;Principes&#32;Fondamentaux />
 <meta property="og:site_name" content="" />
 
 
@@ -1037,7 +1037,7 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
                 <div class="post">
   <div class="info">
   <h1 class="post-title">
-    <a href="//localhost:1313/rsa/rsa-1-basis/">RSA n°1 | Principes Fondamentals</a>
+    <a href="//localhost:1313/rsa/rsa-1-basis/">RSA n°1 | Principes Fondamentaux</a>
   </h1>
 
   <div class="headline">
@@ -1093,13 +1093,13 @@ Il est dit <code>asymétrique</code> car il fonctionne par paires de clés. Tout
 <li><strong>2 nombres premiers</strong> qu&rsquo;on note $q$ et $p$</li>
 <li>Un exposant de chiffrement, souvent <code>3</code> ou <code>65537</code> par convention</li>
 </ul>
-<h3 id="clé-publique-">Clé Publique :</h3>
+<h2 id="clé-publique-">Clé Publique :</h2>
 <p>On définit la clé publique comme la paire :</p>
 <ul>
 <li><strong>e</strong></li>
 <li><strong>$n = p*q$</strong></li>
 </ul>
-<h3 id="clé-privée">Clé Privée</h3>
+<h2 id="clé-privée">Clé Privée</h2>
 <p>On note <code>phi</code> le produit des résultat de l&rsquo;indice d&rsquo;euler des 2 nombres premiers <code>p</code> et <code>q</code>:</p>
 <p>$ \Phi(n) = \Phi(p*q) = \Phi(p)*\Phi(q) = (p-1)*(q-1)$</p>
 <p>On définit la clé privée comme la paire :</p>
@@ -1175,7 +1175,7 @@ En réalité , seul <strong>d</strong> est réellement utile car <strong>n</stro
 </span></span><span style="display:flex;"><span>    13:0b:2e:22:50:f4:5b:78:39:93:d8:12:5e:b4:52:
 </span></span><span style="display:flex;"><span>    df:1c:40:6f:5c:35:c7:02:2e:bc:14:21:cb:5a:0d:
 </span></span><span style="display:flex;"><span>    31:75
-</span></span></code></pre></div><h2 id="chiffrement--déchiffrement">Chiffrement &amp; Déchiffrement:</h2>
+</span></span></code></pre></div><h1 id="chiffrement--déchiffrement">Chiffrement &amp; Déchiffrement:</h1>
 <ul>
 <li>
 <p>Chiffrement:<br>
@@ -1202,7 +1202,7 @@ On déchiffre <code>c</code> de la manière suivante :</p>
 <li>$e$ une constante $(= 3<del>ou</del>65537)$</li>
 <li>$n$ le produit de $p$ et $q$</li>
 <li>$\phi = (p-1)(q-1)$ <em>(<a href="https://vozec.fr/crypto-rsa/rsa-0-maths-basis/" target="_blank">voir ici</a>)</em></li>
-<li>$d = e^-1 \pmod \phi$</li>
+<li>$d = e^{-1} \pmod \phi$</li>
 </ul>
 <p>Finalement :</p>
 <p>$ed \equiv 1 \pmod {\phi}$<br>
@@ -1219,7 +1219,7 @@ m^{ed} \equiv m*(m^{p-1})^{k*(q-1)} \pmod q
 m^{ed} \equiv m \pmod p \newline
 m^{ed} \equiv m \pmod q
 \end{cases}$</p>
-<h2 id="implémentation-en-python-">Implémentation en python :</h2>
+<h1 id="implémentation-en-python-">Implémentation en python :</h1>
 <p><em>On utilise la bibliothèque <a href="https://pycryptodome.readthedocs.io/en/latest/index.html" target="_blank">pycryptodome</a></em></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> getPrime,long_to_bytes,bytes_to_long
 </span></span><span style="display:flex;"><span>
@@ -1288,20 +1288,17 @@ m^{ed} \equiv m \pmod q
       <h4 id="contents"></h4>
       <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#clé-publique-">Clé Publique :</a></li>
-        <li><a href="#clé-privée">Clé Privée</a></li>
-      </ul>
-    </li>
+    <li><a href="#clé-publique-">Clé Publique :</a></li>
+    <li><a href="#clé-privée">Clé Privée</a></li>
     <li><a href="#formats-des-clés-">Formats des clés :</a></li>
-    <li><a href="#chiffrement--déchiffrement">Chiffrement &amp; Déchiffrement:</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#explications-mathématiques-">Explications Mathématiques :</a>
       <ul>
         <li><a href="#petit-théorème-de-fermat">Petit théorème de Fermat:</a></li>
       </ul>
     </li>
-    <li><a href="#implémentation-en-python-">Implémentation en python :</a></li>
   </ul>
 </nav>
     </div>

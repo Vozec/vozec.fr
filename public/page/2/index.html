@@ -74,7 +74,7 @@
 <meta property="og:url" content="//localhost:1313/" />
 
 
-<meta property="og:updated_time" content="2024-09-04T00:00:00Z" />
+<meta property="og:updated_time" content="2024-12-15T12:00:00Z" />
 
 
 <link rel="sitemap" type="application/xml" title="Sitemap" href='//localhost:1313/sitemap.xml' />
@@ -1038,6 +1038,70 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
     <article class="post">
         <div class="info">
   <h1 class="post-title">
+    <a href="//localhost:1313/writeups/qrdoor_code-pwnme-2023/">QRDoor Code | PWNME CTF 2023</a>
+  </h1>
+
+  <div class="headline">
+    <div>
+      
+      <time datetime=" 2023-05-06T12:00:00Z" class="post-date">
+        May 6, 2023
+      </time>
+      
+      <span> - </span>
+      <span class="reading-time">
+        
+          
+        
+
+        <span>3 mins read</span>
+      </span>
+    </div>
+
+    
+    <ul class="tags">
+      
+      <li class="tag-rce">
+        <a href="//localhost:1313/tags/rce">rce</a>
+      </li>
+      
+      <li class="tag-php">
+        <a href="//localhost:1313/tags/php">php</a>
+      </li>
+      
+      <li class="tag-injection">
+        <a href="//localhost:1313/tags/injection">injection</a>
+      </li>
+      
+    </ul>
+    
+  </div>
+
+  
+  
+
+  
+</div>
+
+        
+        <hr>
+<h1 id="introduction-du-challenge">Introduction du challenge:</h1>
+<pre tabindex="0"><code>A company needed a website, to generate QR Code. They asked for a freelance to do this job
+Since the website is up, they&#39;ve noticed weird behaviour on their server
+They need you to audit their code and help them to resolve their problem
+Flag is situed in /app/flag.txt
+</code></pre><h1 id="tree-viewer">Tree Viewer</h1>
+<p>Les sources de ce challenge sont fournies :</p>
+        
+        <div class="read-more-link">
+            <a href="/writeups/qrdoor_code-pwnme-2023/">Read More…</a>
+        </div>
+        
+        
+    </article>
+    <article class="post">
+        <div class="info">
+  <h1 class="post-title">
     <a href="//localhost:1313/writeups/tree_viewer-pwnme-2023/">Tree Viewer | PWNME CTF 2023</a>
   </h1>
 
@@ -1576,7 +1640,7 @@ L&rsquo;idée principal de son chiffrement est de partagé la clé de déchiffre
 <li><strong>le flag chiffré</strong></li>
 </ul>
 <p>Voici donc plusieurs méthodes pour trouver le flag en clair :</p>
-<h3 id="méthode-1">Méthode 1:</h3>
+<h2 id="méthode-1">Méthode 1:</h2>
 <p>La première méthode est de Factoriser le message $c$ .
 On peut ainsi demander de déchiffrer les facteurs du flag puis re-multiplier les clairs entre eux pour récupérer le message original:</p>
         
@@ -1654,71 +1718,6 @@ Voici un message chiffré &amp; signé :</p>
         
         <div class="read-more-link">
             <a href="/rsa/rsa-9-breaking-signature-shema/">Read More…</a>
-        </div>
-        
-        
-    </article>
-    <article class="post">
-        <div class="info">
-  <h1 class="post-title">
-    <a href="//localhost:1313/rsa/rsa-8-coppersmith-saves-you/">RSA n°8 | CopperSmith saves you</a>
-  </h1>
-
-  <div class="headline">
-    <div>
-      
-      <time datetime=" 2022-12-08T14:00:00Z" class="post-date">
-        December 8, 2022
-      </time>
-      
-      <span> - </span>
-      <span class="reading-time">
-        
-          
-        
-
-        <span>4 mins read</span>
-      </span>
-    </div>
-
-    
-    <ul class="tags">
-      
-      <li class="tag-rsa">
-        <a href="//localhost:1313/tags/rsa">rsa</a>
-      </li>
-      
-      <li class="tag-cryptographie">
-        <a href="//localhost:1313/tags/cryptographie">cryptographie</a>
-      </li>
-      
-      <li class="tag-crypto">
-        <a href="//localhost:1313/tags/crypto">crypto</a>
-      </li>
-      
-    </ul>
-    
-  </div>
-
-  
-  
-
-  
-</div>
-
-        
-        <hr>
-<h1 id="introduction-">Introduction :</h1>
-<p>Don Coppersmith est un mathématicien et cryptologue américain né en 1950.
-Il a contribué dans de nombreux domaines de la <code>Cryptographie</code> et en particulier le chiffrement RSA.</p>
-<p>Il s&rsquo;intéresse particulièrement aux liens possibles entre des <strong>notions d&rsquo;algèbres</strong> et les mathématiques arithmétiques du chiffrement RSA</p>
-<h1 id="papier-de-recherche">Papier de recherche:</h1>
-<p>CopperSmith présente un papier de recherche mathématique nommé : <a href="https://cr.yp.to/bib/2001/coppersmith.pdf" target="_blank"><em>Finding Small Solutions to Small Degree Polynomials</em></a><br>
-Il y explique comment trouver les racines de polynômes à <code>1</code> et <code>2</code> variables , modulo un entier <strong>n</strong>  grâce à la réduction de base via des matrices et l&rsquo;algorithme <code>Lenstra–Lenstra–Lovász</code> <em>(LLL)</em>.
-C&rsquo;est racines sont appelés <em>Small Roots</em> et la technique de Coppersmith a était optimisé par <code>Howgrave-Graham</code>.</p>
-        
-        <div class="read-more-link">
-            <a href="/rsa/rsa-8-coppersmith-saves-you/">Read More…</a>
         </div>
         
         

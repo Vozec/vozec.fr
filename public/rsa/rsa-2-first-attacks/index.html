@@ -1084,26 +1084,26 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
 
   <hr>
 <h1 id="introduction">Introduction</h1>
-<p>Nous avons vu précédemment <em>(<a href="https://vozec.fr/crypto-rsa/rsa-1-basis/" target="_blank">ici</a>)</em> que le chiffrement RSA reposé sur <code>2</code> nombres premiers , notés $p$ et $q$.
-Grâce à ces deux nombres cryptographiquement grands, il était ainsi possible de générer une paires de clé $(publique/privée)$ et chiffré des messages grâce à celle-ci.</p>
+<p>Nous avons vu précédemment <em>(<a href="https://vozec.fr/crypto-rsa/rsa-1-basis/" target="_blank">ici</a>)</em> que le chiffrement RSA reposait sur <code>2</code> nombres premiers , notés $p$ et $q$.
+Grâce à ces deux nombres cryptographiquement grands, il était ainsi possible de générer une paires de clé $(publique/privée)$ et chiffrer des messages grâce à celle-ci.</p>
 <p>Nous allons voir ici quelques premières vulnérabilités sur le chiffrement RSA.</p>
-<h2 id="1-p-et-q-trop-petit">1) $P$ et $Q$ trop petit.</h2>
-<p>On rappèle que la clé privée est :<br>
+<h1 id="1-p-et-q-trop-petits">1) $P$ et $Q$ trop petits.</h1>
+<p>On rappelle que la clé privée est :<br>
 $d = e^{-1} \pmod {\Phi(n)}$<br>
 Avec $\Phi(n) = (p-1)(q-1)$</p>
-<p>Un utilisateur lambda à souvent accès à sa clé publique : $n = p*q$ lui permettant de chiffrer des messages.</p>
+<p>Un utilisateur lambda a souvent accès à sa clé publique : $n = p*q$ lui permettant de chiffrer des messages.</p>
 <p>Ainsi, si on suppose que $p$ et $q$ sont petits , il est alors possible de les retrouver à partir de $n$ : <code>on factorise la clé n</code></p>
 <p>Si on suppose la clé publique :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">546480898644192854289613211318283372083827462595494488488703390642299583863737949445782560754114114083715341900177523352513320308835896569559795948842696151215075935167387324762001504175864881745474931498272994380590436716963454423950174614869590249698373859676626313904736490404029457882552069971909822348178035620519</span>
-</span></span></code></pre></div><p>Grâce à des outils comme <a href="http://factordb.com/index.php" target="_blank">factordb</a> de retrouver les <strong>facteurs premiers</strong> .</p>
+</span></span></code></pre></div><p>Grâce à des outils comme <a href="http://factordb.com/index.php" target="_blank">factordb</a>, il est possible de retrouver les <strong>facteurs premiers</strong> .</p>
 <p>Ici :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">145321011760000531877435723975947637897203583948906575807198035294184789506898084396795093090540801037567805321617481052647707027564293450643293853645681384319755797399524426379496640305781690028758116557134771373287250667442637194127844508799858005612032497781860829178150761527965250346924976527571899145109</span>
 </span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> <span style="color:#ae81ff">3760508491</span>
-</span></span></code></pre></div><p>J&rsquo;ai personnellement écris un outils qui permet cette factorisation : <a href="https://github.com/Vozec/Facto4CTF" target="_blank">Factor4Ctf</a> qui utilise plusieurs technique de factorisation que nous verrons dans de prochains articles .</p>
+</span></span></code></pre></div><p>J&rsquo;ai personnellement écris un outil qui permet cette factorisation : <a href="https://github.com/Vozec/Facto4CTF" target="_blank">Factor4Ctf</a> qui utilise plusieurs technique de factorisation que nous verrons dans de prochains articles .</p>
 <p><img src="https://raw.githubusercontent.com/Vozec/Facto4CTF/main/image/example.png" alt="alt text"></p>
-<p>D&rsquo;autre outils comme SageMath, PariGp ou encore <a href="https://cado-nfs.gitlabpages.inria.fr" target="_blank">CadoNFS</a> permettent la factorisation de $n$ avec des facteurs allant jusque <code>512bits</code>.</p>
+<p>D&rsquo;autre outils comme SageMath, PariGp ou encore <a href="https://cado-nfs.gitlabpages.inria.fr" target="_blank">CadoNFS</a> permettent la factorisation de $n$ avec des facteurs allant jusque <code>256bits</code>.</p>
 <p>Avec les facteurs retrouvés, on peut <strong>recalculer la clé D</strong> et ainsi déchiffrer le message chiffré.</p>
-<h2 id="2-message-trop-petit">2) Message trop petit.</h2>
+<h1 id="2-message-trop-petit">2) Message trop petit.</h1>
 <p>On rappelle que le message chiffré est :<br>
 <strong>$c = m^e\pmod n$</strong>.</p>
 <p>Si on suppose que :</p>
@@ -1121,7 +1121,7 @@ $m = c^{1/3}$</p>
 </span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
 </span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> int(gmpy2<span style="color:#f92672">.</span>root(c,e))
 </span></span><span style="display:flex;"><span>m_text <span style="color:#f92672">=</span> long_to_bytes(m)<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#39;</span>)<span style="color:#f92672">.</span>decode()
-</span></span></code></pre></div><h2 id="3-leak-supplémentaires">3) Leak Supplémentaires.</h2>
+</span></span></code></pre></div><h1 id="3-leak-supplémentaires">3) Leak Supplémentaires.</h1>
 <p>Dans certains cas <em>(souvent en ctf)</em> , il est possible de retrouver les facteurs $p$ et $q$ grâce à des indices données en plus des classiques $n$ et $e$ .<br>
 Par exemple , si $\Phi(n)$ est donné ; on peut retrouver les facteurs de la manière suivante :</p>
 <p>On a :</p>
@@ -1147,7 +1147,7 @@ $\qquad= x^2 - (n+1-phi(n))*x + n$</p>
 <div class="footer">
     
 	    
-            <a class="previous-post" href="//localhost:1313/rsa/rsa-1-basis/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>RSA n°1 | Principes Fondamentals</a>
+            <a class="previous-post" href="//localhost:1313/rsa/rsa-1-basis/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>RSA n°1 | Principes Fondamentaux</a>
         
 	    
             <div class="next-post">
@@ -1165,13 +1165,7 @@ $\qquad= x^2 - (n+1-phi(n))*x + n$</p>
     <div class="article-toc ">
     <div class="toc-wrapper">
       <h4 id="contents"></h4>
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#1-p-et-q-trop-petit">1) $P$ et $Q$ trop petit.</a></li>
-    <li><a href="#2-message-trop-petit">2) Message trop petit.</a></li>
-    <li><a href="#3-leak-supplémentaires">3) Leak Supplémentaires.</a></li>
-  </ul>
-</nav>
+      <nav id="TableOfContents"></nav>
     </div>
 </div>
 

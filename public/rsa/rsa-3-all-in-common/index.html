@@ -1085,9 +1085,9 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
   <hr>
 <h1 id="introduction">Introduction</h1>
 <p>Nous allons ici voir <code>2</code> vulnérabilités sur RSA liés à une mauvaise gestion des clés publiques .</p>
-<h2 id="common-modulus-">Common Modulus .</h2>
+<h1 id="common-modulus-">Common Modulus .</h1>
 <p>On suppose le schéma suivant :</p>
-<p>On dispose de <code>2</code> chiffrés différent à partir d&rsquo;un même <code>message</code> et d&rsquo;une clé commune <em>(n)</em>:</p>
+<p>On dispose de <code>2</code> chiffrés différents à partir d&rsquo;un même <code>message</code> et d&rsquo;une clé commune <em>(n)</em>:</p>
 <ul>
 <li>$c_1 = e_1^{-1} \pmod {\Phi(n)}$</li>
 <li>$c_2 = e_2^{-1} \pmod {\Phi(n)}$</li>
@@ -1106,14 +1106,14 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
 $\implies {c_1}^a * {c_1}^b = M^{e_1*a}*{M^{e_2*b}}$<br>
 $\implies {c_1}^a * {c_1}^b = M^{e_1*a+e_2*b}$<br>
 $\implies {c_1}^a * {c_1}^b = M$</p>
-<p>Une petite subtilité évoqué <a href="https://infosecwriteups.com/rsa-attacks-common-modulus-7bdb34f331a5" target="_blank">ici</a> et que $b$ peut-être négatif.</p>
+<p>Une petite subtilité évoqué <a href="https://infosecwriteups.com/rsa-attacks-common-modulus-7bdb34f331a5" target="_blank">ici</a> est que $b$ peut-être négatif.</p>
 <p>Si on pose : $x = -b$ ; alors $c_2^{-a} = {c_2^{-1}}^a = = {1/c_2}^a$ .<br>
 Or $c_2$ doit rester inversible modulo $n$ .<br>
 C&rsquo;est pour cela que :</p>
 <ul>
 <li>$gcd(c_2,n) = 1$ est une des conditions de l&rsquo;attaque .</li>
 </ul>
-<h3 id="implémentation-python-">Implémentation Python :</h3>
+<h2 id="implémentation-python-">Implémentation Python :</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">egcd</span>(a, b):
@@ -1145,7 +1145,7 @@ et</li>
 <li>n_1 = $p*q$</li>
 <li>n_2 = $p*q'$</li>
 </ul>
-<p>Alors, il est facile de retrouver les facteurs $p$ , $q$ et $z$ !<br>
+<p>Alors, il est facile de retrouver les facteurs $p$ , $q$ et $q&rsquo;$ !<br>
 Il suffit de prendre le <code>PGCD</code> des <code>2</code> clés pour retrouver le facteur commun. De là, une simple division permet de retrouver les 2 facteurs suivant .</p>
 <p>$p = gcd(n_1,n_2)$</p>
 <h2 id="implémentation-python">Implémentation Python:</h2>
@@ -1156,8 +1156,8 @@ Il suffit de prendre le <code>PGCD</code> des <code>2</code> clés pour retrouve
 </span></span><span style="display:flex;"><span>    q1 <span style="color:#f92672">=</span> n1<span style="color:#f92672">//</span>p
 </span></span><span style="display:flex;"><span>    q2 <span style="color:#f92672">=</span> n2<span style="color:#f92672">//</span>p
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    m1 <span style="color:#f92672">=</span> pow(ct1, pow(e,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (q1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)), p<span style="color:#f92672">*</span>q1)
-</span></span><span style="display:flex;"><span>    m2 <span style="color:#f92672">=</span> pow(ct2, pow(e,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (q2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)), p<span style="color:#f92672">*</span>q2)
+</span></span><span style="display:flex;"><span>    m1 <span style="color:#f92672">=</span> pow(c1, pow(e,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (q1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)), p<span style="color:#f92672">*</span>q1)
+</span></span><span style="display:flex;"><span>    m2 <span style="color:#f92672">=</span> pow(c2, pow(e,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (q2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)), p<span style="color:#f92672">*</span>q2)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (m1,m2)
 </span></span></code></pre></div><p>On peut généraliser pour supporter une liste de <strong>clés publiques</strong>:</p>
@@ -1212,11 +1212,7 @@ Il suffit de prendre le <code>PGCD</code> des <code>2</code> clés pour retrouve
       <h4 id="contents"></h4>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#common-modulus-">Common Modulus .</a>
-      <ul>
-        <li><a href="#implémentation-python-">Implémentation Python :</a></li>
-      </ul>
-    </li>
+    <li><a href="#implémentation-python-">Implémentation Python :</a></li>
   </ul>
 
   <ul>
