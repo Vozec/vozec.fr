@@ -16,7 +16,7 @@ It is rated medium despite having the lowest resolution in the category. It is t
 The Frontier Board’s iron grip on the galaxy rests on one secret: the location of the legendary Starry Spur, hidden deep within their Intergalactic Contract System (ICMS. With rebellion brewing, Jack Colt is humanity’s last hope. Tasked by the resistance, he must breach the impenetrable system, outwit its defenses, and retrieve the contract that could ignite a revolution. The galaxy’s freedom hangs by a thread—can Jack rise to the challenge?
 
 ## Files & Setup
-A docker with all the files is supplied and available here: [download]() 
+A docker with all the files is supplied and available here: [download](./files/web_encodecept.zip) 
 The challenge is easily deployed with the ``build-docker.sh`` file.
 Note that we've added the option ``-v $(pwd):/home/poc`` in the second command for the end of the challenge.
 
