@@ -1,4 +1,4 @@
-baseURL = "https://vozec.github.io/"
+baseURL = "/"
 languageCode = "en-us"
 theme = "poison"
 paginate = 10
