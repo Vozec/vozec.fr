@@ -2,350 +2,299 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:1313/</loc>
+    <loc>https://vozec.github.io/vozec.fr/</loc>
     <lastmod>2024-12-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/articles/</loc>
+    <loc>https://vozec.github.io/vozec.fr/categories/articles/</loc>
     <lastmod>2024-12-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/</loc>
+    <loc>https://vozec.github.io/vozec.fr/categories/</loc>
     <lastmod>2024-12-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/encodecept-htb-university-2024/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/encodecept-htb-university-2024/</loc>
     <lastmod>2024-12-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/</loc>
     <lastmod>2024-12-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/web/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/web/</loc>
     <lastmod>2024-12-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/</loc>
     <lastmod>2024-12-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/researchs/</loc>
+    <loc>https://vozec.github.io/vozec.fr/researchs/</loc>
     <lastmod>2024-09-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/researchs/spip-preauth-rce-2024-big-upload/</loc>
+    <loc>https://vozec.github.io/vozec.fr/researchs/spip-preauth-rce-2024-big-upload/</loc>
     <lastmod>2024-09-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/curl/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/curl/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/cve/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/cve/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/desync/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/desync/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/gopher/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/gopher/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/php/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/php/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/pong-fcsc2024-en/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/pong-fcsc2024-en/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/python/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/python/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/smuggling/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/smuggling/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/ssrf/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/ssrf/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/tornado/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/tornado/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/twisty-python-fcsc2024-en/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/twisty-python-fcsc2024-en/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/werkzeug/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/werkzeug/</loc>
     <lastmod>2024-04-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/chatterbox-realworld-ctf-2024/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/chatterbox-realworld-ctf-2024/</loc>
     <lastmod>2024-01-28T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/tuto/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/tuto/</loc>
     <lastmod>2024-01-28T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/writeup/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/writeup/</loc>
     <lastmod>2024-01-28T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/writeup/</loc>
+    <loc>https://vozec.github.io/vozec.fr/categories/writeup/</loc>
     <lastmod>2024-01-28T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/crypto/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/crypto/</loc>
     <lastmod>2023-07-30T09:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/other/lattice-introduction/</loc>
+    <loc>https://vozec.github.io/vozec.fr/other/lattice-introduction/</loc>
     <lastmod>2023-07-30T09:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/other/</loc>
+    <loc>https://vozec.github.io/vozec.fr/other/</loc>
     <lastmod>2023-07-30T09:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/yeswehack_dojo_23/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/yeswehack_dojo_23/</loc>
     <lastmod>2023-05-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/xss/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/xss/</loc>
     <lastmod>2023-05-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/aes/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/aes/</loc>
     <lastmod>2023-05-07T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/lcg/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/lcg/</loc>
     <lastmod>2023-05-07T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/like_a_whispering_entropy-pwnme-2023/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/like_a_whispering_entropy-pwnme-2023/</loc>
     <lastmod>2023-05-07T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/lwe/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/lwe/</loc>
     <lastmod>2023-05-07T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/prng/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/prng/</loc>
     <lastmod>2023-05-07T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/another_blog-pwnme-2023/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/another_blog-pwnme-2023/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/beat_me-pwnme-2023/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/beat_me-pwnme-2023/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/escape/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/escape/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/eval/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/eval/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/flask/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/flask/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/injection/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/injection/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/js/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/js/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/nestapp-pwnme-2023/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/nestapp-pwnme-2023/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/qrdoor_code-pwnme-2023/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/qrdoor_code-pwnme-2023/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/rce/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/rce/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/sandbox/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/sandbox/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/sqli/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/sqli/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/ssti/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/ssti/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/tree_viewer-pwnme-2023/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/tree_viewer-pwnme-2023/</loc>
     <lastmod>2023-05-06T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/ejs/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/ejs/</loc>
     <lastmod>2023-04-28T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/nodejs/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/nodejs/</loc>
     <lastmod>2023-04-28T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/peculiar-caterpillar/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/peculiar-caterpillar/</loc>
     <lastmod>2023-04-28T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/rendering/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/rendering/</loc>
     <lastmod>2023-04-28T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/format-string/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/format-string/</loc>
     <lastmod>2023-04-27T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/tweedle-dum-dee/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/tweedle-dum-dee/</loc>
     <lastmod>2023-04-27T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/other/ecc-diffie-hellman/</loc>
+    <loc>https://vozec.github.io/vozec.fr/other/ecc-diffie-hellman/</loc>
     <lastmod>2023-04-14T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/aes/</loc>
+    <loc>https://vozec.github.io/vozec.fr/aes/</loc>
     <lastmod>2023-02-24T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/aes/analyse-lineaire-aes/</loc>
+    <loc>https://vozec.github.io/vozec.fr/aes/analyse-lineaire-aes/</loc>
     <lastmod>2023-02-24T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/cryptographie/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/cryptographie/</loc>
     <lastmod>2022-12-20T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/other/feal-cipher/</loc>
+    <loc>https://vozec.github.io/vozec.fr/other/feal-cipher/</loc>
     <lastmod>2022-12-20T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/other/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/other/</loc>
     <lastmod>2022-12-20T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/other/explanation--attack-on-shamirs-shared-secret/</loc>
+    <loc>https://vozec.github.io/vozec.fr/other/explanation--attack-on-shamirs-shared-secret/</loc>
     <lastmod>2022-12-20T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/rsa/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/rsa/</loc>
     <lastmod>2022-12-10T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/</loc>
     <lastmod>2022-12-10T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-10-oracle-tell-me-the-true/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-10-oracle-tell-me-the-true/</loc>
     <lastmod>2022-12-10T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-9-breaking-signature-shema/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-9-breaking-signature-shema/</loc>
     <lastmod>2022-12-09T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-8-coppersmith-saves-you/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-8-coppersmith-saves-you/</loc>
     <lastmod>2022-12-08T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-7-hey-this-is-franklin/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-7-hey-this-is-franklin/</loc>
     <lastmod>2022-12-04T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-6-message-for-all/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-6-message-for-all/</loc>
     <lastmod>2022-12-03T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-5-e-takes-confidence/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-5-e-takes-confidence/</loc>
     <lastmod>2022-11-30T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-4-fermat-to-the-rescue/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-4-fermat-to-the-rescue/</loc>
     <lastmod>2022-11-29T14:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-3-all-in-common/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-3-all-in-common/</loc>
     <lastmod>2022-11-29T13:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-2-first-attacks/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-2-first-attacks/</loc>
     <lastmod>2022-11-29T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-1-basis/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-1-basis/</loc>
     <lastmod>2022-11-26T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/rsa/rsa-0-maths-basis/</loc>
+    <loc>https://vozec.github.io/vozec.fr/rsa/rsa-0-maths-basis/</loc>
     <lastmod>2022-11-25T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/oracle-rsa-hackademint/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/oracle-rsa-hackademint/</loc>
     <lastmod>2022-09-19T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/aes/attaque-oracle-padding-aes_ecb/</loc>
+    <loc>https://vozec.github.io/vozec.fr/aes/attaque-oracle-padding-aes_ecb/</loc>
     <lastmod>2022-09-19T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/pwn/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/pwn/</loc>
     <lastmod>2022-09-19T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/anti-cheat-ctf/</loc>
-    <lastmod>2022-08-23T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/</loc>
-    <lastmod>2022-08-23T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/tags/network/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/network/</loc>
     <lastmod>2022-07-04T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/reverse-challenge-ctf-pwnme2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/reverse-challenge-ctf-pwnme2022/</loc>
     <lastmod>2022-07-04T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/intrinsec-ctf-lehack2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/intrinsec-ctf-lehack2022/</loc>
     <lastmod>2022-06-30T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/reverse/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/reverse/</loc>
     <lastmod>2022-06-26T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/rustytheclown-lehack2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/rustytheclown-lehack2022/</loc>
     <lastmod>2022-06-26T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/mod_ctfauth-bsidessf-2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/mod_ctfauth-bsidessf-2022/</loc>
     <lastmod>2022-06-10T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/aes/attaque-bit-flipping-aes_cbc/</loc>
+    <loc>https://vozec.github.io/vozec.fr/aes/attaque-bit-flipping-aes_cbc/</loc>
     <lastmod>2022-05-25T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/eyes_closed-hackarmour-2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/eyes_closed-hackarmour-2022/</loc>
     <lastmod>2022-05-22T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/factormaster-tjctf-2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/factormaster-tjctf-2022/</loc>
     <lastmod>2022-05-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/vacation2-tjctf-2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/vacation2-tjctf-2022/</loc>
     <lastmod>2022-05-15T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/lucky-tamuctf-2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/lucky-tamuctf-2022/</loc>
     <lastmod>2022-04-19T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/algorithm-defcamp-2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/algorithm-defcamp-2022/</loc>
     <lastmod>2022-02-12T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/herald-insomnihack-ctf-2022/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/herald-insomnihack-ctf-2022/</loc>
     <lastmod>2022-01-30T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/android/</loc>
+    <loc>https://vozec.github.io/vozec.fr/tags/android/</loc>
     <lastmod>2022-01-11T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/android-crackme-native_cyberspacectf/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/android-crackme-native_cyberspacectf/</loc>
     <lastmod>2022-01-11T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/.net/</loc>
-    <lastmod>2022-01-08T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/analyse-telegram-stealer/</loc>
-    <lastmod>2022-01-08T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/categories/malware-analysis/</loc>
-    <lastmod>2022-01-08T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/tags/virus/</loc>
-    <lastmod>2022-01-08T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/pourquoi-vous-devez-securiser-vos-dll-2/</loc>
-    <lastmod>2021-12-05T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/writeups/crackity-tfc-ctf-2021/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/crackity-tfc-ctf-2021/</loc>
     <lastmod>2021-12-03T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/analyse-fake-cheat-valorant/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/tweetybirb-killerqueenctf-2021/</loc>
     <lastmod>2021-11-25T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/writeups/tweetybirb-killerqueenctf-2021/</loc>
-    <lastmod>2021-11-25T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/contourner-le-ssl-pinning-sur-android/</loc>
-    <lastmod>2021-11-04T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/tags/hacking/</loc>
-    <lastmod>2021-11-04T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/writeups/python-jail-killerqueenctf-2021/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/python-jail-killerqueenctf-2021/</loc>
     <lastmod>2021-11-01T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/bypass/</loc>
-    <lastmod>2021-10-29T08:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/les-captchas-sont-inutiles-part3/</loc>
-    <lastmod>2021-10-29T08:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/les-captchas-sont-inutiles-part2/</loc>
-    <lastmod>2021-10-28T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/les-captchas-sont-inutiles-part1/</loc>
-    <lastmod>2021-10-27T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/pourquoi-votre-wifi-est-vuln%C3%A9rable/</loc>
-    <lastmod>2021-10-26T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/pourquoi-vous-devez-securiser-vos-dll/</loc>
-    <lastmod>2021-10-25T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/posts/comment-reverse-du-.net-facilement/</loc>
-    <lastmod>2021-10-24T12:00:00+00:00</lastmod>
-  </url><url>
-    <loc>//localhost:1313/writeups/unknown2-grabcon-ctf-2021/</loc>
+    <loc>https://vozec.github.io/vozec.fr/writeups/unknown2-grabcon-ctf-2021/</loc>
     <lastmod>2021-10-17T12:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/about/</loc>
+    <loc>https://vozec.github.io/vozec.fr/about/</loc>
   </url><url>
-    <loc>//localhost:1313/about/about/</loc>
+    <loc>https://vozec.github.io/vozec.fr/about/about/</loc>
   </url>
 </urlset>

