@@ -4,6 +4,7 @@ theme = "poison"
 paginate = 10
 pluralizelisttitles = false
 
+
 [params]
     brand = "Vozec's Blog"
     remote_brand_image = 'https://avatars.githubusercontent.com/u/61807609?v=4'
