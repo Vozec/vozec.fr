@@ -6,8 +6,8 @@ on:
   pull_request:
 
 jobs:
-  build:
-    deploy: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
